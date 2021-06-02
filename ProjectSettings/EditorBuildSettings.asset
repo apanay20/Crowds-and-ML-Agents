@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/ZARA.unity
+    guid: 792dc2b1f2ce6ab4f9aafdd72f58083d
   m_configObjects: {}
