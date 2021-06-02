@@ -22,10 +22,13 @@ public class WalkAgent : MonoBehaviour
         if(trigger.checkStartMoving() == true)
         {
             currentIndex++;
-            if (currentIndex < positions.Count) {
-                float step = speed * Time.deltaTime;
+            if (currentIndex < positions.Count)
+            {
+                float step = speed;
                 transform.position = Vector3.MoveTowards(transform.position, positions[currentIndex], step);
             }
+            else
+                Destroy(this.gameObject);
         }
     }
 

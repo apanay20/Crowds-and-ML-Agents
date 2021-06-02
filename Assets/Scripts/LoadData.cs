@@ -24,7 +24,9 @@ public class LoadData : MonoBehaviour
         startBtn = GameObject.FindGameObjectWithTag("StartButton").GetComponent<Button>();
         startBtn.interactable = false;
         readData();
-        instantiateAgents();
+        this.GetComponent<Button>().interactable = false;
+        this.GetComponentInChildren<Text>().text = "Data Loaded!";
+        startBtn.interactable = true;
     }
 
     public bool checkStartMoving()
@@ -46,7 +48,7 @@ public class LoadData : MonoBehaviour
                 {
                     var line = reader.ReadLine();
                     var values = line.Split(';');
-                    agentTemp.positions.Add(new Vector3(float.Parse(values[0]), float.Parse(values[1]), float.Parse(values[2])));
+                    agentTemp.positions.Add(new Vector3(float.Parse(values[0]), 0f, float.Parse(values[2])));
                 }
             }
             data.Add(agentTemp);
@@ -59,7 +61,7 @@ public class LoadData : MonoBehaviour
         return name.Remove(name.Length - 4);
     }
 
-    private void instantiateAgents()
+    public void instantiateAgents()
     {
         foreach (var agentTemp in data)
         {
