@@ -5,17 +5,18 @@ using UnityEngine.UI;
 
 public class TimeSlider : MonoBehaviour
 {
-    public float value;
+    public int value;
     public Slider mainSlider;
 
     // Start is called before the first frame update
     void Start()
     {
+        Time.fixedDeltaTime = 0.1f;
         mainSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        this.value = 0.1f;
+        this.value = 1;
         mainSlider.value = this.value;
-        Time.fixedDeltaTime = this.value;
-        GameObject.Find("TimeTextValue").GetComponent<Text>().text = this.value + "";
+        Time.timeScale = this.value;
+        GameObject.Find("TimeTextValue").GetComponent<Text>().text = this.value + "x";
     }
 
     // Update is called once per frame
@@ -23,12 +24,11 @@ public class TimeSlider : MonoBehaviour
     {
         
     }
+
     public void ValueChangeCheck()
     {
-        this.value = mainSlider.value;
-        if (this.value == 0f)
-            this.value = 0.001f;
-        Time.fixedDeltaTime = this.value;
-        GameObject.Find("TimeTextValue").GetComponent<Text>().text = this.value+"";
+        this.value = (int) mainSlider.value;
+        Time.timeScale = this.value;
+        GameObject.Find("TimeTextValue").GetComponent<Text>().text = this.value + "x";
     }
 }
