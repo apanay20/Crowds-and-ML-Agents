@@ -31,6 +31,7 @@ public class LoadData : MonoBehaviour
 
     public bool checkStartMoving()
     {
+        //enable moving
         return this.startMoving;
     }
 
