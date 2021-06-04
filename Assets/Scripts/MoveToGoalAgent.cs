@@ -12,7 +12,8 @@ public class MoveToGoalAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = new Vector3(Random.Range(-10f, +10f), 0, Random.Range(-3f, +3f));
+        targetTransform.localPosition = new Vector3(Random.Range(-10f, +10f), 0, Random.Range(-3f, +3f));
     }
 
 
