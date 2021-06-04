@@ -11,7 +11,7 @@ public class TimeSlider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Time.fixedDeltaTime = 0.1f;
+        Time.fixedDeltaTime = 0.05f;
         mainSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
         this.value = 1;
         mainSlider.value = this.value;

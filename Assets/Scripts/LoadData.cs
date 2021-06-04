@@ -14,12 +14,14 @@ public class LoadData : MonoBehaviour
     public float timePassed;
     private float maxX;
     private float maxZ;
+    private float minX;
+    private float minZ;
     private float maxTime;
+    private bool simulationStop = false;
 
     private class AgentData
     {
         public string name;
-        public int startTime;
         public List<Vector3> positions;
         public List<float> timeSteps;
     } 
@@ -31,8 +33,8 @@ public class LoadData : MonoBehaviour
         startBtn.interactable = false;
         readData();
         findMaxPositionAndTime();
-        Debug.Log("Max X Coordinate is: "+this.maxX);
-        Debug.Log("Max Z Coordinate is: "+this.maxZ);
+        Debug.Log("Min/Max X Coordinate are: "+this.minX+" / "+this.maxX);
+        Debug.Log("Min/Max Z Coordinate are: " + this.minZ + " / " + this.maxZ);
         Debug.Log(this.maxTime);
         this.GetComponent<Button>().interactable = false;
         this.GetComponentInChildren<Text>().text = "Data Loaded!";
@@ -70,17 +72,23 @@ public class LoadData : MonoBehaviour
 
     private void findMaxPositionAndTime()
     {
-        float maxXtemp = -1;
-        float maxZtemp = -1;
+        float maxXtemp = -1000000;
+        float maxZtemp = -1000000;
+        float minXtemp = 1000000;
+        float minZtemp = 1000000;
         float maxTimeTemp = 0;
         foreach (var agent in data)
         {
             foreach (var pos in agent.positions)
             {
-                if (Mathf.Abs(pos.x) > maxXtemp)
-                    maxXtemp = Mathf.Abs(pos.x);
-                if (Mathf.Abs(pos.z) > maxZtemp)
-                    maxZtemp = Mathf.Abs(pos.z);
+                if (pos.x > maxXtemp)
+                    maxXtemp = pos.x;
+                if (pos.z > maxZtemp)
+                    maxZtemp = pos.z;
+                if (pos.x < minXtemp)
+                    minXtemp = pos.x;
+                if (pos.z < minZtemp)
+                    minZtemp = pos.z;
             }
             int len = agent.timeSteps.Count;
             if (agent.timeSteps[len - 1] > maxTimeTemp)
@@ -88,6 +96,8 @@ public class LoadData : MonoBehaviour
         }
         this.maxX = maxXtemp;
         this.maxZ = maxZtemp;
+        this.minX = minXtemp;
+        this.minZ = minZtemp;
         this.maxTime = maxTimeTemp*10;
     }
 
@@ -95,9 +105,10 @@ public class LoadData : MonoBehaviour
     {
         foreach (var agentTemp in data)
         {
-            GameObject tempAgent = Instantiate(agentPrefab, agentTemp.positions[0], Quaternion.identity);
-            tempAgent.GetComponent<WalkAgent>().setPositions(agentTemp.positions);
-            tempAgent.GetComponent<WalkAgent>().setTimeSteps(agentTemp.timeSteps);
+            GameObject newAgent = Instantiate(agentPrefab, agentTemp.positions[0], Quaternion.identity);
+            newAgent.GetComponent<WalkAgent>().setName(agentTemp.name);
+            newAgent.GetComponent<WalkAgent>().setPositions(agentTemp.positions);
+            newAgent.GetComponent<WalkAgent>().setTimeSteps(agentTemp.timeSteps);
         }
         this.timePassed = Time.time; 
         this.startMoving = true;
@@ -107,4 +118,20 @@ public class LoadData : MonoBehaviour
     {
         return this.startMoving;
     }
+
+    private void Update()
+    {
+        if (this.startMoving == true && this.simulationStop == false)
+        {
+            GameObject.Find("RemainText").GetComponent<Text>().enabled = true;
+            float percentage = ((Time.time - this.timePassed) / this.maxTime * 1000);
+            if(percentage >= 100)
+            {
+                this.simulationStop = true;
+                GameObject.Find("RemainTextValue").GetComponent<Text>().text = "100.00%";
+            }else
+                GameObject.Find("RemainTextValue").GetComponent<Text>().text = percentage.ToString("F2") + "%";
+        }
+    }
 }
+
