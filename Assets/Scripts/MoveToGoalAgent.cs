@@ -4,18 +4,14 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-
 public class MoveToGoalAgent : Agent
 {
     public float moveSpeed;
-
-
     public override void OnEpisodeBegin()
     {
-        transform.localPosition = new Vector3(Random.Range(-10f, +10f), 0, Random.Range(-3f, +3f));
-        targetTransform.localPosition = new Vector3(Random.Range(-10f, +10f), 0, Random.Range(-3f, +3f));
+        transform.localPosition = new Vector3(Random.Range(-10f, +10f), 0f, Random.Range(-3f, +3f));
+        targetTransform.localPosition = new Vector3(Random.Range(-10f, +10f), 0f, Random.Range(-3f, +3f));
     }
-
 
     [SerializeField] private Transform targetTransform;
     public override void CollectObservations(VectorSensor sensor)
@@ -28,7 +24,6 @@ public class MoveToGoalAgent : Agent
     {
         float moveX = actions.ContinuousActions[0];
         float moveZ = actions.ContinuousActions[1];
-        Debug.Log(moveX);
         transform.localPosition += new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed;
     }
 
@@ -54,6 +49,5 @@ public class MoveToGoalAgent : Agent
             SetReward(-1f);
             EndEpisode();
         }
-
     }
 }
