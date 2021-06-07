@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class WalkAgent : MonoBehaviour
 {
     public string name;
-    public float speed = 50f;
+    public float speed = 300f;
     private int startTime;
     private List<Vector3> positions;
     private List<float> timeSteps;
@@ -18,6 +18,18 @@ public class WalkAgent : MonoBehaviour
     {
         trigger = GameObject.Find("LoadButton").GetComponent<LoadData>();
         this.transform.GetChild(0).gameObject.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = this.name.Split('_')[1];
+        setAgentColor();
+    }
+
+    private void setAgentColor()
+    {
+        Color tailColor = new Color(
+            Random.Range(0.1f, 1f),
+            Random.Range(0.2f, 1f),
+            Random.Range(0.1f, 1f)
+        );
+        this.transform.GetChild(1).gameObject.GetComponentInChildren<TrailRenderer>().endColor = tailColor;
+        this.GetComponent<Renderer>().material.SetColor("_Color", tailColor);
     }
 
     // Update is called once per frame
