@@ -6,7 +6,7 @@ using System.IO;
 
 public class LoadData : MonoBehaviour
 {
-    public string path = "./Datasets/Zara";
+    public string path;
     public GameObject agentPrefab;
     private Button startBtn;
     private List<AgentData> data;
@@ -29,6 +29,7 @@ public class LoadData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.path = PlayerPrefs.GetString("path");
         startBtn = GameObject.FindGameObjectWithTag("StartButton").GetComponent<Button>();
         startBtn.interactable = false;
         readData();
