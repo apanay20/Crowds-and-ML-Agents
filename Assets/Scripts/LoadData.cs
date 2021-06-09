@@ -16,8 +16,10 @@ public class LoadData : MonoBehaviour
     private float maxZ;
     private float minX;
     private float minZ;
-    private float maxTime;
+    public float maxTime;
     private bool simulationStop = false;
+    public int timestep = 0;
+    public bool pause = false;
 
     private class AgentData
     {
@@ -57,7 +59,7 @@ public class LoadData : MonoBehaviour
                 {
                     var line = reader.ReadLine();
                     var values = line.Split(';');
-                    agentTemp.timeSteps.Add((float.Parse(values[0])*10) );
+                    agentTemp.timeSteps.Add((float.Parse(values[0])*100) );
                     agentTemp.positions.Add(new Vector3(float.Parse(values[1]), 0f, float.Parse(values[2])));
                 }
             }
@@ -115,6 +117,12 @@ public class LoadData : MonoBehaviour
         this.startMoving = true;
     }
 
+    void FixedUpdate()
+    {
+        if(this.startMoving && this.pause == false)
+            this.timestep++;
+    }
+
     public bool checkStartMoving()
     {
         return this.startMoving;
@@ -125,7 +133,7 @@ public class LoadData : MonoBehaviour
         if (this.startMoving == true && this.simulationStop == false)
         {
             GameObject.Find("RemainText").GetComponent<Text>().enabled = true;
-            float percentage = ((Time.time - this.timePassed) / this.maxTime * 1000);
+            float percentage = (this.timestep / this.maxTime * 1000);
             if(percentage >= 100)
             {
                 this.simulationStop = true;

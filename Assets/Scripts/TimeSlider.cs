@@ -19,12 +19,6 @@ public class TimeSlider : MonoBehaviour
         GameObject.Find("TimeTextValue").GetComponent<Text>().text = this.value + "x";
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ValueChangeCheck()
     {
         this.value = (int) mainSlider.value;
