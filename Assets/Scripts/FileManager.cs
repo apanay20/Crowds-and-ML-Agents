@@ -21,23 +21,29 @@ public class FileManager : MonoBehaviour
     }
     public void OpenExplorer()
     {
-        path = EditorUtility.OpenFolderPanel("Select", "", "");
-        int allFileCount = Directory.GetFiles(@path).Length;
-        int csvFileCount = Directory.GetFiles(path, "*.csv").Length;
-
-        if (allFileCount != csvFileCount)
-            pathText.text = "Selected folder has to contains only .csv files!";
-        else if (allFileCount == 0)
-            pathText.text = "Selected folder is empty!";
-        else if (path != null)
+        try
         {
-            pathText.text = path;
-            numOfAgentsText.text = "Number of Agents: " + csvFileCount;
-            startButton.interactable = true;
-        }
-        else
-            pathText.text = "Please select a valid path!";
+            path = EditorUtility.OpenFolderPanel("Select", "", "");
 
+            int allFileCount = Directory.GetFiles(@path).Length;
+            int csvFileCount = Directory.GetFiles(path, "*.csv").Length;
+            if (allFileCount != csvFileCount)
+                pathText.text = "Selected folder has to contains only .csv files!";
+            else if (allFileCount == 0)
+                pathText.text = "Selected folder is empty!";
+            else if (path != null)
+            {
+                pathText.text = path;
+                numOfAgentsText.text = "Number of Agents: " + csvFileCount;
+                startButton.interactable = true;
+            }
+            else
+                pathText.text = "Please select a valid path!";
+        }
+        catch
+        {
+            pathText.text = "Please select a non-empty path!";
+        }
     }
 
     public void loadScene()

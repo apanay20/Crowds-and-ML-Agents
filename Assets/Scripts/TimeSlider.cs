@@ -11,9 +11,10 @@ public class TimeSlider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Time.fixedDeltaTime = 0.05f;
+        mainSlider.maxValue = 100;
+        Time.fixedDeltaTime = 0.1f;
         mainSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        this.value = 1;
+        this.value = 10;
         mainSlider.value = this.value;
         Time.timeScale = this.value;
         GameObject.Find("TimeTextValue").GetComponent<Text>().text = this.value + "x";

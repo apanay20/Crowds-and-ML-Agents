@@ -7,17 +7,32 @@ public class Pause : MonoBehaviour
 {
     public Button pauseBtn;
     private LoadData dataObj;
+    public Slider runningSlider;
+    private bool paused = false;
 
     void Start()
     {
         Button btn = pauseBtn.GetComponent<Button>();
         dataObj = GameObject.Find("LoadButton").GetComponent<LoadData>();
         btn.onClick.AddListener(TaskOnClick);
+        runningSlider.interactable = false;
     }
 
     void TaskOnClick()
     {
-        dataObj.pause = true;
-        this.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Continue";
+        if (this.paused == false)
+        {
+            this.paused = true;
+            dataObj.pause = true;
+            runningSlider.interactable = true;
+            this.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Continue";
+        }
+        else
+        {
+            this.paused = false;
+            dataObj.pause = false;
+            runningSlider.interactable = false;
+            this.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Pause";
+        }
     }
 }

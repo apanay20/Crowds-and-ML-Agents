@@ -12,10 +12,10 @@ public class LoadData : MonoBehaviour
     private List<AgentData> data;
     private bool startMoving = false;
     public float timePassed;
-    private float maxX;
-    private float maxZ;
-    private float minX;
-    private float minZ;
+    public float maxX;
+    public float maxZ;
+    public float minX;
+    public float minZ;
     public float maxTime;
     private bool simulationStop = false;
     public int timestep = 0;

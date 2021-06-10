@@ -20,11 +20,14 @@ public class RunningSlider : MonoBehaviour
     void Update()
     {
         mainSlider.maxValue = Math.Abs(dataObj.maxTime / 10);
-        mainSlider.value = dataObj.timestep;
+        //if (dataObj.pause == false)
+            mainSlider.value = dataObj.timestep;
     }
 
     public void ValueChangeCheck()
     {
-        GameObject.Find("RemainTextValue").GetComponent<Text>().text = mainSlider.value + "%";
+        if (dataObj.pause == true)
+            GameObject.Find("RemainTextValue").GetComponent<Text>().text = ((dataObj.timestep/dataObj.maxTime) * 1000).ToString("F2") + "%";
+        dataObj.timestep = (int)mainSlider.value;
     }
 }

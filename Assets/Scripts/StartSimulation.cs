@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StartSimulation : MonoBehaviour
 {
 	public Button startBtn;
+	public GameObject parentPanel;
 
 	void Start()
 	{
@@ -15,6 +16,7 @@ public class StartSimulation : MonoBehaviour
 
 	void TaskOnClick()
 	{
+		parentPanel.SetActive(true);
 		GameObject.Find("LoadButton").GetComponent<LoadData>().instantiateAgents();
 		startBtn.interactable = false;
 	}

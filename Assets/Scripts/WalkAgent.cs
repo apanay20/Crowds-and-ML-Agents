@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class WalkAgent : MonoBehaviour
 {
-    public string name;
-    public float speed = 30f;
+    public string AgentName;
+    public float speed = 300f;
     private int startTime;
     private List<Vector3> positions;
     private List<float> timeSteps;
     private LoadData trigger;
-    private int currentIndex = 0;
     private int lastTimestep = 0;
 
     // Start is called before the first frame update
@@ -56,24 +55,18 @@ public class WalkAgent : MonoBehaviour
         }
     }*/
 
-    void Update()
+    void FixedUpdate()
     {
         if (trigger.checkStartMoving() == true && this.trigger.timestep >= this.timeSteps[0])
         {
             this.transform.GetChild(1).gameObject.SetActive(false);
             if (this.trigger.timestep > this.timeSteps[this.timeSteps.Count - 1])
             {
-                this.transform.GetChild(0).gameObject.SetActive(false);
-                this.GetComponent<Renderer>().enabled = false;
-                this.GetComponent<Collider>().enabled = false;
-                this.transform.GetChild(1).gameObject.SetActive(false);
+                setAppearance(false);
             }
             else
             {
-                this.transform.GetChild(0).gameObject.SetActive(true);
-                this.GetComponent<Renderer>().enabled = true;
-                this.GetComponent<Collider>().enabled = true;
-                //this.transform.GetChild(1).gameObject.SetActive(true);
+                setAppearance(true);
                 for (int i = 0; i < this.timeSteps.Count; i++)
                 {
                     if (this.timeSteps[i] == this.trigger.timestep)
@@ -89,11 +82,16 @@ public class WalkAgent : MonoBehaviour
         }
         else
         {
-            this.transform.GetChild(0).gameObject.SetActive(false);
-            this.GetComponent<Renderer>().enabled = false;
-            this.GetComponent<Collider>().enabled = false;
-            this.transform.GetChild(1).gameObject.SetActive(false);
+            setAppearance(false);
         }
+    }
+
+    private void setAppearance(bool val)
+    {
+        this.transform.GetChild(0).gameObject.SetActive(val);
+        this.GetComponent<Renderer>().enabled = val;
+        this.GetComponent<Collider>().enabled = val;
+        //this.transform.GetChild(1).gameObject.SetActive(val);
     }
 
     public void setName(string nm)
