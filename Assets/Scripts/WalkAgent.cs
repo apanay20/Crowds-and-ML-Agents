@@ -17,8 +17,13 @@ public class WalkAgent : MonoBehaviour
     void Start()
     {
         trigger = GameObject.Find("LoadButton").GetComponent<LoadData>();
-        this.transform.GetChild(0).gameObject.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = this.name.Split('_')[1];
+        this.transform.GetChild(0).gameObject.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = this.AgentName.Split('_')[1];
         setAgentColor();
+        if(trigger.IsTrain == true)
+        {
+
+            this.GetComponent<WalkGoal>().goalName = "Goal_" + this.AgentName.Split('_')[1];
+        }
     }
 
     private void setAgentColor()
@@ -50,8 +55,7 @@ public class WalkAgent : MonoBehaviour
                 this.GetComponent<Renderer>().enabled = false;
                 this.GetComponent<Collider>().enabled = false;
                 this.transform.GetChild(1).gameObject.SetActive(false);
-            }
-                
+            }                
         }
     }*/
 
@@ -96,7 +100,8 @@ public class WalkAgent : MonoBehaviour
 
     public void setName(string nm)
     {
-        this.name = nm;
+        this.AgentName = nm;
+        this.name = "Agent_" + this.AgentName.Split('_')[1];
     }
 
     public void setPositions(List<Vector3> pos)

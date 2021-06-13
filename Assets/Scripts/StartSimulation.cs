@@ -16,6 +16,11 @@ public class StartSimulation : MonoBehaviour
 
 	void TaskOnClick()
 	{
+		startSimulation();
+	}
+
+	public void startSimulation()
+    {
 		parentPanel.SetActive(true);
 		GameObject.Find("LoadButton").GetComponent<LoadData>().instantiateAgents();
 		startBtn.interactable = false;

@@ -6,8 +6,10 @@ using System.IO;
 
 public class LoadData : MonoBehaviour
 {
+    public bool IsTrain = false;
     public string path;
     public GameObject agentPrefab;
+    public GameObject goalPrefab;
     private Button startBtn;
     private List<AgentData> data;
     private bool startMoving = false;
@@ -31,7 +33,8 @@ public class LoadData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.path = PlayerPrefs.GetString("path");
+        if(this.IsTrain == false)
+            this.path = PlayerPrefs.GetString("path");
         startBtn = GameObject.FindGameObjectWithTag("StartButton").GetComponent<Button>();
         startBtn.interactable = false;
         readData();
@@ -41,7 +44,11 @@ public class LoadData : MonoBehaviour
         Debug.Log(this.maxTime);
         this.GetComponent<Button>().interactable = false;
         this.GetComponentInChildren<Text>().text = "Data Loaded!";
-        startBtn.interactable = true;
+        if (this.IsTrain == false)
+            startBtn.interactable = true;
+        else
+            GameObject.FindGameObjectWithTag("StartButton").GetComponent<StartSimulation>().startSimulation();
+
     }
 
     private void readData()
@@ -112,6 +119,12 @@ public class LoadData : MonoBehaviour
             newAgent.GetComponent<WalkAgent>().setName(agentTemp.name);
             newAgent.GetComponent<WalkAgent>().setPositions(agentTemp.positions);
             newAgent.GetComponent<WalkAgent>().setTimeSteps(agentTemp.timeSteps);
+            if(this.IsTrain == true)
+            {
+                GameObject newGoal = Instantiate(goalPrefab, agentTemp.positions[agentTemp.positions.Count-1], Quaternion.identity);
+                newGoal.name = "Goal_" + agentTemp.name.Split('_')[1];
+                newAgent.GetComponent<WalkGoal>().targetTransform = newGoal.transform;
+            }
         }
         this.timePassed = Time.time; 
         this.startMoving = true;
