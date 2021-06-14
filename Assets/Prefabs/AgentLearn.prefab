@@ -273,6 +273,71 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &8138857388074375466
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5455861285179080342}
+  - component: {fileID: 6134023684837921421}
+  m_Layer: 0
+  m_Name: GridSensorComp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5455861285179080342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8138857388074375466}
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3153057060677181089}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!114 &6134023684837921421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8138857388074375466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a501962d056745d1a30e99146ee39fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: GridSensor
+  m_CellScale: {x: 1, y: 0.01, z: 1}
+  m_GridSize: {x: 15, y: 1, z: 15}
+  m_RotateWithAgent: 1
+  m_AgentGameObject: {fileID: 8436882737375918538}
+  m_DetectableTags:
+  - Obstacle
+  - Agent
+  - Goal
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_MaxColliderBufferSize: 500
+  m_InitialColliderBufferSize: 4
+  m_DebugColors:
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0.105446815, b: 1, a: 0}
+  - {r: 0.0010037422, g: 1, b: 0, a: 0}
+  m_GizmoYOffset: 0
+  m_ShowGizmos: 1
+  m_CompressionType: 1
+  m_ObservationStacks: 1
 --- !u!1 &8436882737375918538
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +354,6 @@ GameObject:
   - component: {fileID: 7640683002149910531}
   - component: {fileID: 5983455360399413778}
   - component: {fileID: 2331391909005545074}
-  - component: {fileID: 4451443301203834957}
   - component: {fileID: 5818646612199890081}
   - component: {fileID: 2638881924012009740}
   m_Layer: 0
@@ -308,10 +372,11 @@ Transform:
   m_GameObject: {fileID: 8436882737375918538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 198.77643, y: 1060.2871, z: 0}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.5, y: 2, z: 0.5}
   m_Children:
   - {fileID: 3383441175002697298}
   - {fileID: 712936469666311996}
+  - {fileID: 5455861285179080342}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -440,7 +505,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8436882737375918538}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
   m_Name: 
@@ -449,40 +514,6 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: ImitationZARA
   DemonstrationDirectory: Demos/ZARAdemos
---- !u!114 &4451443301203834957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8436882737375918538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a501962d056745d1a30e99146ee39fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: GridSensor
-  m_CellScale: {x: 1, y: 0.01, z: 1}
-  m_GridSize: {x: 15, y: 1, z: 15}
-  m_RotateWithAgent: 1
-  m_AgentGameObject: {fileID: 8436882737375918538}
-  m_DetectableTags:
-  - Obstacle
-  - Agent
-  - Goal
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_MaxColliderBufferSize: 500
-  m_InitialColliderBufferSize: 4
-  m_DebugColors:
-  - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0.105446815, b: 1, a: 0}
-  - {r: 0.0010037422, g: 1, b: 0, a: 0}
-  m_GizmoYOffset: 0
-  m_ShowGizmos: 0
-  m_CompressionType: 1
-  m_ObservationStacks: 1
 --- !u!114 &5818646612199890081
 MonoBehaviour:
   m_ObjectHideFlags: 0

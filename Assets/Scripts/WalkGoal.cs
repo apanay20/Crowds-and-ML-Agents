@@ -40,23 +40,17 @@ public class WalkGoal : Agent
         continuousActions[1] = transform.position.z;
     }
 
-    private void Update()
-    {
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == goalName)
         {
-            Debug.Log("HIT" + goalName);
+            Debug.Log("Goal achieved by agent: " + goalName);
             AddReward(+2f);
-            //EndEpisode();
         }
         if (other.gameObject.CompareTag("Agent"))
         {
+            Debug.Log("Agent " + this.gameObject.name + " hit " + other.gameObject. name);
             AddReward(-1f);
-            //EndEpisode();
         }
     }
 }

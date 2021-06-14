@@ -1000,7 +1000,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -379.19995, y: -35.19925}
+  m_AnchoredPosition: {x: -379.19998, y: -35.19925}
   m_SizeDelta: {x: -758.09033, y: 76.35632}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &508043784
@@ -1117,7 +1117,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &512940808
 RectTransform:
@@ -1401,7 +1401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsTrain: 1
-  path: ./Datasets/Zara2
+  path: ./Datasets/Zara5
   agentPrefab: {fileID: 8436882737375918538, guid: 315d144eb28976049bb6f1a8415b2466,
     type: 3}
   goalPrefab: {fileID: 7358778568331656644, guid: 758fb43fe22d9b34087e3b192597b8d8,
@@ -1657,7 +1657,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1714,7 +1714,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991308593}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 11.5, z: -0.54}
+  m_LocalPosition: {x: 0, y: 11.5, z: -17.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

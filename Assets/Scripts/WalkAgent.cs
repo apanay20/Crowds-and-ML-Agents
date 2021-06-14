@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,9 +30,9 @@ public class WalkAgent : MonoBehaviour
     private void setAgentColor()
     {
         Color tailColor = new Color(
-            Random.Range(0.1f, 1f),
-            Random.Range(0.2f, 1f),
-            Random.Range(0.1f, 1f)
+            UnityEngine.Random.Range(0.1f, 1f),
+            UnityEngine.Random.Range(0.2f, 1f),
+            UnityEngine.Random.Range(0.1f, 1f)
         );
         this.transform.GetChild(1).gameObject.GetComponentInChildren<TrailRenderer>().endColor = tailColor;
         this.GetComponent<Renderer>().material.SetColor("_Color", tailColor);
@@ -71,16 +72,15 @@ public class WalkAgent : MonoBehaviour
             else
             {
                 setAppearance(true);
-                for (int i = 0; i < this.timeSteps.Count; i++)
+                int tempPosIndex = this.timeSteps.BinarySearch((int)this.trigger.timestep);
+                if (tempPosIndex >= 0)
                 {
-                    if (this.timeSteps[i] == this.trigger.timestep)
-                    {
-                        if (this.trigger.timestep <= this.lastTimestep)
-                            transform.position = positions[i];
-                        else
-                            transform.position = Vector3.MoveTowards(transform.position, positions[i], this.speed);
-                        this.lastTimestep = this.trigger.timestep;
-                    }
+                    transform.rotation = Quaternion.LookRotation(this.positions[tempPosIndex] - transform.position);
+                    if (this.trigger.timestep <= this.lastTimestep)
+                        transform.position = this.positions[tempPosIndex];
+                    else
+                        transform.position = Vector3.MoveTowards(transform.position, this.positions[tempPosIndex], this.speed);
+                    this.lastTimestep = this.trigger.timestep;
                 }
             }
         }
