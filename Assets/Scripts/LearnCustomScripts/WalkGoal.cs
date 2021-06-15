@@ -7,12 +7,9 @@ using Unity.MLAgents.Sensors;
 
 public class WalkGoal : Agent
 {   
-    public string goalName;
-    private float lastDistance;
 
     public override void OnEpisodeBegin()
     {
-        this.lastDistance = Vector3.Distance(transform.localPosition, targetTransform.localPosition);
     }
 
     [SerializeField] public Transform targetTransform;
@@ -26,10 +23,6 @@ public class WalkGoal : Agent
     {
         float moveX = actions.ContinuousActions[0];
         float moveZ = actions.ContinuousActions[1];
-        Vector3.MoveTowards(transform.position, new Vector3(moveX, 0, moveZ), this.GetComponent<WalkAgent>().speed * Time.deltaTime);
-        if (Vector3.Distance(transform.localPosition, targetTransform.localPosition) > this.lastDistance)
-            AddReward(-0.5f);
-        this.lastDistance = Vector3.Distance(transform.localPosition, targetTransform.localPosition);
     }
 
     //just for testing
@@ -42,15 +35,5 @@ public class WalkGoal : Agent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == goalName)
-        {
-            Debug.Log("Goal achieved by agent: " + goalName);
-            AddReward(+2f);
-        }
-        if (other.gameObject.CompareTag("Agent"))
-        {
-            Debug.Log("Agent " + this.gameObject.name + " hit " + other.gameObject. name);
-            AddReward(-1f);
-        }
     }
 }

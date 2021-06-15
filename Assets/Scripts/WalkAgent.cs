@@ -22,10 +22,10 @@ public class WalkAgent : MonoBehaviour
         setAgentColor();
         if(trigger.IsTrain == true)
         {
-
-            this.GetComponent<WalkGoal>().goalName = "Goal_" + this.AgentName.Split('_')[1];
+            //this.GetComponent<WalkGoal>().goalName = "Goal_" + this.AgentName.Split('_')[1];
         }
     }
+
 
     private void setAgentColor()
     {

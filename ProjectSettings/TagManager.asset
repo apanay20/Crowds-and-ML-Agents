@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - Agent
   - StartButton
+  - Road
   layers:
   - Default
   - TransparentFX

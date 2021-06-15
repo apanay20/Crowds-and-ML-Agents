@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.8988769, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -77,7 +77,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!1 &6138360889010429298
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3383441175002697298
 RectTransform:
   m_ObjectHideFlags: 0
@@ -298,7 +298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8138857388074375466}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalPosition: {x: 0, y: -0.2, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3153057060677181089}
@@ -325,6 +325,7 @@ MonoBehaviour:
   - Obstacle
   - Agent
   - Goal
+  - Road
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 1
@@ -332,8 +333,9 @@ MonoBehaviour:
   m_InitialColliderBufferSize: 4
   m_DebugColors:
   - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0.105446815, b: 1, a: 0}
-  - {r: 0.0010037422, g: 1, b: 0, a: 0}
+  - {r: 0, g: 0.162251, b: 1, a: 0}
+  - {r: 0.07539308, g: 1, b: 0, a: 0}
+  - {r: 1, g: 0.63624465, b: 0, a: 0}
   m_GizmoYOffset: 0
   m_ShowGizmos: 1
   m_CompressionType: 1
@@ -350,12 +352,12 @@ GameObject:
   - component: {fileID: 5023226727901051964}
   - component: {fileID: 1585510063531339910}
   - component: {fileID: 2093741615311191319}
-  - component: {fileID: 1441525670941441474}
   - component: {fileID: 7640683002149910531}
   - component: {fileID: 5983455360399413778}
   - component: {fileID: 2331391909005545074}
   - component: {fileID: 5818646612199890081}
   - component: {fileID: 2638881924012009740}
+  - component: {fileID: 2106400479330676283}
   m_Layer: 0
   m_Name: AgentLearn
   m_TagString: Agent
@@ -372,7 +374,7 @@ Transform:
   m_GameObject: {fileID: 8436882737375918538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 198.77643, y: 1060.2871, z: 0}
-  m_LocalScale: {x: 0.5, y: 2, z: 0.5}
+  m_LocalScale: {x: 0.8, y: 2, z: 0.8}
   m_Children:
   - {fileID: 3383441175002697298}
   - {fileID: 712936469666311996}
@@ -395,7 +397,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8436882737375918538}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -436,24 +438,10 @@ BoxCollider:
   m_GameObject: {fileID: 8436882737375918538}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1441525670941441474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8436882737375918538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 040c362d2811ee64a9f466d0fe49364e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AgentName: 
-  speed: 50
 --- !u!114 &7640683002149910531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,7 +518,6 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 1000
-  goalName: 
   targetTransform: {fileID: 0}
 --- !u!54 &2638881924012009740
 Rigidbody:
@@ -548,6 +535,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2106400479330676283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8436882737375918538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4361715d5e100204d9246cb2a819062b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1753060667207110022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -568,7 +567,7 @@ PrefabInstance:
     - target: {fileID: 1274734828565521082, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2010498
+      value: -0.229
       objectReference: {fileID: 0}
     - target: {fileID: 1274734828565521082, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
@@ -620,10 +619,40 @@ PrefabInstance:
       propertyPath: m_MinVertexDistance
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 2172235557014008630, guid: 056b50ab4acae4c4ab03c3e3b765824c,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172235557014008630, guid: 056b50ab4acae4c4ab03c3e3b765824c,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.044198897
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172235557014008630, guid: 056b50ab4acae4c4ab03c3e3b765824c,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].time
+      value: 0.25414366
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172235557014008630, guid: 056b50ab4acae4c4ab03c3e3b765824c,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.124223605
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172235557014008630, guid: 056b50ab4acae4c4ab03c3e3b765824c,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].value
+      value: 0.037267074
+      objectReference: {fileID: 0}
     - target: {fileID: 4340749793049214352, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
       propertyPath: m_Name
       value: Trail
+      objectReference: {fileID: 0}
+    - target: {fileID: 4340749793049214352, guid: 056b50ab4acae4c4ab03c3e3b765824c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 056b50ab4acae4c4ab03c3e3b765824c, type: 3}
