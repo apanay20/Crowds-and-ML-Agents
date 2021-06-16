@@ -27,7 +27,7 @@ public class LoadDataLearn : MonoBehaviour
     {
         readData();
         this.counter = this.minStartTime;
-        Time.timeScale = 5f;
+        Time.timeScale = 1f;
     }
 
     private void readData()

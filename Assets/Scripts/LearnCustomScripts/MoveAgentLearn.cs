@@ -9,7 +9,10 @@ public class MoveAgentLearn : MonoBehaviour
 
     private int localCounter = 1;
     private LoadDataLearn.AgentData agentData;
-    private float speed = 20f;
+    public float speed;
+    public Vector3 forward;
+    public Vector3 goalVector;
+    public float angle;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +27,13 @@ public class MoveAgentLearn : MonoBehaviour
     {
         try
         {
-            transform.rotation = Quaternion.LookRotation(this.agentData.positions[localCounter] - transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, this.agentData.positions[localCounter], this.speed);
+            Vector3 nextTargetPos = this.agentData.positions[localCounter];
+            this.speed = Vector3.Distance(nextTargetPos, transform.position) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter-1])/100);
+            if(this.speed > 0.1f)
+                transform.rotation = Quaternion.LookRotation(nextTargetPos - transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, nextTargetPos, this.speed);
+            visualizeLines();
+            calculateAngle();
             this.localCounter++;
         }
         catch
@@ -37,6 +45,20 @@ public class MoveAgentLearn : MonoBehaviour
     public void setAgentData(LoadDataLearn.AgentData data)
     {
         this.agentData = data;
+    }
+
+    private void visualizeLines()
+    {
+        this.forward = transform.TransformDirection(Vector3.forward) * 3;
+        Debug.DrawRay(transform.position, this.forward, Color.white);
+        this.goalVector = this.agentData.goalPos - transform.position;
+        float m = this.forward.magnitude / this.goalVector.magnitude;
+        Debug.DrawRay(transform.position, this.goalVector * m, Color.green);
+    }
+
+    private void calculateAngle()
+    {
+        this.angle = Vector3.Angle(this.forward, this.goalVector);
     }
 
     private void setAgentColor()
