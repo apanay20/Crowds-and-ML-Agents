@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class RadiusGizmo : MonoBehaviour
 {
+    public bool isSpeed;
+    public float completeAngle = 360f;
+    public float height = 0f;
     public int segments = 50;
     public float xradius = 2;
     public float yradius = 2;
@@ -15,14 +18,25 @@ public class RadiusGizmo : MonoBehaviour
     {
         this.agent = this.transform.parent.gameObject.GetComponent<MoveAgentLearn>();
         line = gameObject.GetComponent<LineRenderer>();
-        line.positionCount = segments + 1;
         line.useWorldSpace = false;
-        CreatePoints();
-        InvokeRepeating("blink", 0, 0.25f);
+        if(this.isSpeed == false)
+            CreatePoints();
+        //InvokeRepeating("blink", 0, 0.25f);
 
+    }
+
+    void FixedUpdate()
+    {
+        if(this.isSpeed == true)
+        {
+            this.completeAngle = this.transform.parent.gameObject.GetComponent<MoveAgentLearn>().speed * 360f;
+            CreatePoints();
+        }
     }
     private void CreatePoints()
     {
+        line.positionCount = 0;
+        line.positionCount = segments + 1;
         float x;
         float z;
         float angle = 20f;
@@ -32,9 +46,9 @@ public class RadiusGizmo : MonoBehaviour
             x = Mathf.Sin(Mathf.Deg2Rad * angle) * xradius;
             z = Mathf.Cos(Mathf.Deg2Rad * angle) * yradius;
 
-            line.SetPosition(i, new Vector3(x, 0, z));
+            line.SetPosition(i, new Vector3(x, height, z));
 
-            angle += (360f / segments);
+            angle += (completeAngle / segments);
         }
     }
 
