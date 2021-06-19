@@ -123,7 +123,6 @@ public class LoadData : MonoBehaviour
             {
                 GameObject newGoal = Instantiate(goalPrefab, agentTemp.positions[agentTemp.positions.Count-1], Quaternion.identity);
                 newGoal.name = "Goal_" + agentTemp.name.Split('_')[1];
-                newAgent.GetComponent<WalkGoal>().targetTransform = newGoal.transform;
             }
         }
         this.timePassed = Time.time; 

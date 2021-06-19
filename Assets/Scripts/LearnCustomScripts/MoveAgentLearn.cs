@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.MLAgents;
 
 public class MoveAgentLearn : MonoBehaviour
 {
-    //this.GetComponent<Unity.MLAgents.Demonstrations.DemonstrationRecorder>().enabled = true;
-
     private LoadDataLearn controller;
     private int localCounter = 1;
     public LoadDataLearn.AgentData agentData;
     public Color color;
     public float speed;
+    public float speed2;
     public Vector3 forward;
     public Vector3 goalVector;
     public float angle;
@@ -32,7 +32,9 @@ public class MoveAgentLearn : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        
         Vector3 nextTargetPos = this.agentData.positions[localCounter];
+        this.speed2 = this.transform.forward.magnitude / Time.deltaTime;
         float currentSpeed = Vector3.Distance(nextTargetPos, transform.position) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter-1])/100);
         this.speed = this.controller.normalizedSpeed(currentSpeed);
         if(this.speed > 0.1f)
@@ -40,13 +42,15 @@ public class MoveAgentLearn : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, nextTargetPos, this.speed);
         visualizeLines();
         calculateAngle();
-        if(this.localCounter + 1 < this.agentData.timeSteps.Count)
+        if (this.localCounter + 1 < this.agentData.timeSteps.Count)
             this.localCounter++;
         else
+        {
             this.gameObject.SetActive(false);
+        }
     }
 
-    private void OnTriggerStay(Collider collision)
+    /*private void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.tag == "Agent")
         {
@@ -81,7 +85,7 @@ public class MoveAgentLearn : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     public void setAgentData(LoadDataLearn.AgentData data)
     {

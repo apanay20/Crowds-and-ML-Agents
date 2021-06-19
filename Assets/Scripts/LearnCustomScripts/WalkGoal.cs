@@ -12,17 +12,18 @@ public class WalkGoal : Agent
     {
     }
 
-    [SerializeField] public Transform targetTransform;
-    /*public override void CollectObservations(VectorSensor sensor)
+    [SerializeField] public List<Transform> targetTransform;
+    public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetTransform.localPosition);
-    }*/
+        sensor.AddObservation(this.transform.localPosition);
+    }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
         float moveX = actions.ContinuousActions[0];
         float moveZ = actions.ContinuousActions[1];
+        float speed = actions.ContinuousActions[2];
+        transform.position += new Vector3(moveX, 0f, moveZ);
     }
 
     //just for testing
