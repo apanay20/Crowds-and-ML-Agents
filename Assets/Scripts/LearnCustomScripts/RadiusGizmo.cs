@@ -22,7 +22,6 @@ public class RadiusGizmo : MonoBehaviour
         if(this.isSpeed == false)
             CreatePoints();
         //InvokeRepeating("blink", 0, 0.25f);
-
     }
 
     void FixedUpdate()

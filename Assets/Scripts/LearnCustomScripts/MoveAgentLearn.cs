@@ -11,7 +11,6 @@ public class MoveAgentLearn : MonoBehaviour
     public LoadDataLearn.AgentData agentData;
     public Color color;
     public float speed;
-    public float speed2;
     public Vector3 forward;
     public Vector3 goalVector;
     public float angle;
@@ -31,15 +30,15 @@ public class MoveAgentLearn : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        
+    {        
         Vector3 nextTargetPos = this.agentData.positions[localCounter];
-        this.speed2 = this.transform.forward.magnitude / Time.deltaTime;
-        float currentSpeed = Vector3.Distance(nextTargetPos, transform.position) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter-1])/100);
+        float currentSpeed = Vector3.Distance(nextTargetPos, this.agentData.positions[localCounter-1]) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter - 1]) / 100);
         this.speed = this.controller.normalizedSpeed(currentSpeed);
-        if(this.speed > 0.1f)
-            transform.rotation = Quaternion.LookRotation(nextTargetPos - transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, nextTargetPos, this.speed);
+
+        this.GetComponent<Rigidbody>().velocity = (nextTargetPos - transform.position) * this.speed;
+        if (this.speed > 0.1f)
+            this.GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(nextTargetPos - transform.position));
+
         visualizeLines();
         calculateAngle();
         if (this.localCounter + 1 < this.agentData.timeSteps.Count)
@@ -119,12 +118,18 @@ public class MoveAgentLearn : MonoBehaviour
             UnityEngine.Random.Range(0.1f, 1f)
         );
         this.color = randomColor;
-        this.transform.GetChild(1).gameObject.GetComponentInChildren<TrailRenderer>().endColor = this.color;
-        this.transform.GetChild(2).gameObject.GetComponentInChildren<LineRenderer>().startColor = this.color;
-        this.transform.GetChild(2).gameObject.GetComponentInChildren<LineRenderer>().endColor = this.color;
-        this.transform.GetChild(3).gameObject.GetComponentInChildren<LineRenderer>().startColor = this.color;
-        this.transform.GetChild(3).gameObject.GetComponentInChildren<LineRenderer>().endColor = this.color;
-        this.GetComponent<Renderer>().material.SetColor("_Color", this.color);
+        try
+        {
+            this.transform.GetChild(1).gameObject.GetComponentInChildren<TrailRenderer>().endColor = this.color;
+            this.transform.GetChild(2).gameObject.GetComponentInChildren<LineRenderer>().startColor = this.color;
+            this.transform.GetChild(2).gameObject.GetComponentInChildren<LineRenderer>().endColor = this.color;
+            this.transform.GetChild(3).gameObject.GetComponentInChildren<LineRenderer>().startColor = this.color;
+            this.transform.GetChild(3).gameObject.GetComponentInChildren<LineRenderer>().endColor = this.color;
+            this.GetComponent<Renderer>().material.SetColor("_Color", this.color);
+        }
+        catch
+        {
 
+        }
     }
 }
