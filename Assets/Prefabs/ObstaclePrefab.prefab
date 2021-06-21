@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 7808775390902322549}
   - component: {fileID: 7808775390902322548}
   - component: {fileID: 9202334740011097986}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ObstaclePrefab
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

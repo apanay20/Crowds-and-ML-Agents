@@ -35,11 +35,11 @@ public class MoveAgentLearn : MonoBehaviour
         float currentSpeed = Vector3.Distance(nextTargetPos, this.agentData.positions[localCounter-1]) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter - 1]) / 100);
         this.speed = this.controller.normalizedSpeed(currentSpeed);
 
-        this.GetComponent<Rigidbody>().velocity = (nextTargetPos - transform.position) * this.speed;
+        this.GetComponent<Rigidbody>().velocity = (nextTargetPos - transform.position) * this.speed * 15f;
         if (this.speed > 0.1f)
             this.GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(nextTargetPos - transform.position));
 
-        visualizeLines();
+        //visualizeLines();
         calculateAngle();
         if (this.localCounter + 1 < this.agentData.timeSteps.Count)
             this.localCounter++;
@@ -49,7 +49,7 @@ public class MoveAgentLearn : MonoBehaviour
         }
     }
 
-    /*private void OnTriggerStay(Collider collision)
+    private void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.tag == "Agent")
         {
@@ -84,7 +84,7 @@ public class MoveAgentLearn : MonoBehaviour
                 }
             }
         }
-    }*/
+    }
 
     public void setAgentData(LoadDataLearn.AgentData data)
     {

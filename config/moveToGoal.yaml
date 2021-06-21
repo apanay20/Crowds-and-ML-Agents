@@ -1,5 +1,5 @@
 behaviors:
-  MoveToGoal:
+  ZARAgoal:
     trainer_type: ppo
     hyperparameters:
       batch_size: 10
@@ -20,10 +20,10 @@ behaviors:
         strength: 1.0
       gail:
         strength: 0.5
-        demo_path: Demos/ImitationDemo2.demo
+        demo_path: Demos/ZARAdemos
     behavioral_cloning:
       strength: 0.5
-      demo_path: Demos/ImitationDemo2.demo
+      demo_path: Demos/ZARAdemos
     max_steps: 500000
     time_horizon: 64
     summary_freq: 10000
