@@ -11,36 +11,42 @@ public class WalkGoal : Agent
     public GameObject startingGoal;
     private Vector3 startingPos;
     private bool initializedGoal = false;
+    private Rigidbody agentRB;
 
-    public override void OnEpisodeBegin()
+    public override void Initialize()
     {
+        this.agentRB = GetComponent<Rigidbody>();
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(this.transform.localPosition);
-        sensor.AddObservation(this.GetComponent<Rigidbody>().velocity.magnitude);
+        sensor.AddObservation(transform.position);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
         float moveX = actions.ContinuousActions[0];
         float moveZ = actions.ContinuousActions[1];
-        float speed = actions.ContinuousActions[2];
-        Debug.Log(moveX + " " + moveZ +" "+ speed);
-        Vector3 nextPos = new Vector3(moveX, 0, moveZ);
-        this.GetComponent<Rigidbody>().velocity = (nextPos - transform.position) * speed;
-        if(speed > 0.1f)
-            this.GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(nextPos - transform.position));
+        //float speed = actions.ContinuousActions[2];
+
+        /*Vector3 nextPos = new Vector3(moveX, 0, moveZ);
+        Vector3 dir = (nextPos - transform.position).normalized * speed;
+        this.agentRB.velocity = dir;
+        if (!dir.Equals(Vector3.zero))
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-nextPos), 30f);*/
+
+
+        transform.position += new Vector3(moveX, 0, moveZ) * Time.deltaTime * 15f;
 
         if (this.initializedGoal)
         {
             Vector3 goalVector = this.startingPos - transform.position;
             float angle = Vector3.Angle(transform.TransformDirection(Vector3.forward), goalVector);
-            if (angle <= 60f)
-                AddReward(-0.2f);
+            /*if (angle <= 60f)
+                AddReward(-0.05f);
             else
-                AddReward(+0.05f);
+                AddReward(+0.001f);
+            */
         }
     }
 
@@ -48,9 +54,9 @@ public class WalkGoal : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-        continuousActions[0] = transform.position.x;
-        continuousActions[1] = transform.position.z;
-        continuousActions[2] = this.GetComponent<Rigidbody>().velocity.magnitude;
+        continuousActions[0] = Input.GetAxisRaw("Horizontal");//transform.position.x;
+        continuousActions[1] = Input.GetAxisRaw("Vertical");//transform.position.z;
+        //continuousActions[2] = this.agentRB.velocity.magnitude;
     }
 
     private void Update()
@@ -71,10 +77,11 @@ public class WalkGoal : Agent
             else
             {
                 //if goal area reached is same with the starting one
-                if(GameObject.ReferenceEquals(this.gameObject, this.startingGoal))
-                    AddReward(-1f);
+                if(GameObject.ReferenceEquals(other.gameObject, this.startingGoal))
+                    AddReward(-0.5f);
                 else
                     AddReward(+2f);
+                EndEpisode();
             }
         }
     }
@@ -89,12 +96,11 @@ public class WalkGoal : Agent
         }
         else if (other.tag == "Obstacle")
         {
-            Debug.Log(this.name + " OBSTACLE");
-            AddReward(-0.1f);
+            AddReward(-0.05f);
         }
         else if (other.tag == "Road")
         {
-            AddReward(-0.05f);
+            AddReward(-0.01f);
         }
     }
 }

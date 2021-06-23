@@ -589,7 +589,7 @@ MonoBehaviour:
   m_CellScale: {x: 1, y: 0.01, z: 1}
   m_GridSize: {x: 20, y: 1, z: 20}
   m_RotateWithAgent: 1
-  m_AgentGameObject: {fileID: 8436882737375918538}
+  m_AgentGameObject: {fileID: 0}
   m_DetectableTags:
   - Obstacle
   - Agent
@@ -620,7 +620,7 @@ GameObject:
   - component: {fileID: 3153057060677181089}
   - component: {fileID: 5023226727901051964}
   - component: {fileID: 1585510063531339910}
-  - component: {fileID: 358111305909397944}
+  - component: {fileID: 2722182557418261713}
   - component: {fileID: 2638881924012009740}
   - component: {fileID: 7640683002149910531}
   - component: {fileID: 5983455360399413778}
@@ -701,7 +701,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &358111305909397944
+--- !u!135 &2722182557418261713
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -713,7 +713,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.8
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!54 &2638881924012009740
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -743,20 +743,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 4
+    VectorObservationSize: 3
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
       BranchSizes: 00000000
     VectorActionSize: 
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 1
   m_BehaviorName: ZARAgoal
-  TeamId: 0
+  TeamId: 1
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
@@ -772,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 1
   TakeActionsBetweenDecisions: 1
 --- !u!114 &2331391909005545074
 MonoBehaviour:
@@ -786,7 +786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 1
+  Record: 0
   NumStepsToRecord: 0
   DemonstrationName: ImitationZARA
   DemonstrationDirectory: Demos/ZARAdemos
@@ -805,7 +805,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
+  MaxStep: 10000
   rw: 0
   startingGoal: {fileID: 0}
 --- !u!114 &2106400479330676283
