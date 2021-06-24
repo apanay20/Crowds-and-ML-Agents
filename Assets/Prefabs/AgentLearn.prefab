@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3492070130285747405}
   m_Layer: 9
   m_Name: ChildCollider
-  m_TagString: Untagged
+  m_TagString: AgentChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -587,12 +587,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: GridSensor
   m_CellScale: {x: 1, y: 0.01, z: 1}
-  m_GridSize: {x: 20, y: 1, z: 20}
+  m_GridSize: {x: 25, y: 1, z: 25}
   m_RotateWithAgent: 1
-  m_AgentGameObject: {fileID: 0}
+  m_AgentGameObject: {fileID: 8436882737375918538}
   m_DetectableTags:
+  - AgentChild
   - Obstacle
-  - Agent
+  - Wall
   - Goal
   - Road
   m_ColliderMask:
@@ -601,10 +602,11 @@ MonoBehaviour:
   m_MaxColliderBufferSize: 500
   m_InitialColliderBufferSize: 4
   m_DebugColors:
+  - {r: 0, g: 0.34998178, b: 1, a: 0}
   - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0.162251, b: 1, a: 0}
-  - {r: 0.07539308, g: 1, b: 0, a: 0}
-  - {r: 1, g: 0.63624465, b: 0, a: 0}
+  - {r: 1, g: 0.91027653, b: 0, a: 0}
+  - {r: 0.1339904, g: 1, b: 0, a: 0}
+  - {r: 1, g: 0.59640867, b: 0, a: 0}
   m_GizmoYOffset: 0
   m_ShowGizmos: 1
   m_CompressionType: 1
@@ -743,7 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 3
+    VectorObservationSize: 18
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -753,7 +755,7 @@ MonoBehaviour:
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
-  m_InferenceDevice: 0
+  m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: ZARAgoal
   TeamId: 0
@@ -805,10 +807,11 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
+  MaxStep: 1000
   rw: 0
   startingGoal: {fileID: 0}
-  speed: 0
+  goalTargets: []
+  goalSize: 5
 --- !u!114 &2106400479330676283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,7 +819,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8436882737375918538}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4361715d5e100204d9246cb2a819062b, type: 3}
   m_Name: 
@@ -828,6 +831,7 @@ MonoBehaviour:
   angle: 0
   neighList: []
   walkNear: 1
+  stopMoving: 0
 --- !u!1 &8792414337993955891
 GameObject:
   m_ObjectHideFlags: 0

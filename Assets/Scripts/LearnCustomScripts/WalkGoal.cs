@@ -12,17 +12,31 @@ public class WalkGoal : Agent
     private Vector3 startingPos;
     private bool initializedGoal = false;
     private Rigidbody agentRB;
-    public float speed;
+    public List<Transform> goalTargets;
+    public int goalSize = 5;
+
 
     public override void Initialize()
     {
         this.agentRB = GetComponent<Rigidbody>();
+        this.goalTargets = new List<Transform>();
+        GameObject parentGoal = GameObject.Find("GoalAreas");
+        for(int i = 0; i < this.goalSize; i++)
+        {
+            this.goalTargets.Add(parentGoal.transform.GetChild(i).transform);
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(transform.position);
+        sensor.AddObservation(this.goalTargets[0].position);
+        sensor.AddObservation(this.goalTargets[1].position);
+        sensor.AddObservation(this.goalTargets[2].position);
+        sensor.AddObservation(this.goalTargets[3].position);
+        sensor.AddObservation(this.goalTargets[4].position);
     }
+
 
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -31,13 +45,13 @@ public class WalkGoal : Agent
         float speed = actions.ContinuousActions[2];
 
         Vector3 nextPos = new Vector3(moveX, 0, moveZ);
-        //Vector3 dir = (nextPos - transform.position).normalized * 10f;
-        //this.agentRB.velocity = dir;
-        if(speed > 0.4f)
+        Vector3 dir = (nextPos - transform.position) * speed;
+        this.agentRB.velocity = dir;
+        if (speed > 0.4f)
             this.agentRB.MoveRotation(Quaternion.LookRotation(nextPos - transform.position));
 
 
-        transform.position += (nextPos - transform.position) * speed;
+        //transform.position += nextPos * speed * Time.deltaTime;
 
         if (this.initializedGoal)
         {
@@ -82,7 +96,7 @@ public class WalkGoal : Agent
                 if(GameObject.ReferenceEquals(other.gameObject, this.startingGoal))
                     SetReward(-1f);
                 else
-                    SetReward(+2f);
+                    SetReward(+5f);
                 EndEpisode();
             }
         }
@@ -93,17 +107,7 @@ public class WalkGoal : Agent
         }
         if (other.tag == "Obstacle")
         {
-            SetReward(-1f);
-            EndEpisode();
-        }
-        if (other.tag == "Agent")
-        {
-            float distance = Vector3.Distance(transform.position, other.gameObject.transform.position);
-            if (distance <= 0.5f)
-            {
-                SetReward(-1f);
-                EndEpisode();
-            }
+            AddReward(-0.2f);
         }
     }
     private void OnTriggerStay(Collider other)
@@ -111,6 +115,14 @@ public class WalkGoal : Agent
         if (other.tag == "Road")
         {
             AddReward(-0.01f);
+        }
+        if (other.tag == "Agent")
+        {
+            float distance = Vector3.Distance(transform.position, other.gameObject.transform.position);
+            if (distance <= 0.5f)
+            {
+                AddReward(-0.1f);
+            }
         }
     }
 }

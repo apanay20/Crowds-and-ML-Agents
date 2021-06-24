@@ -16,7 +16,7 @@ public class MoveAgentLearn : MonoBehaviour
     public float angle;
     public List<GameObject> neighList;
     public bool walkNear;
-    private bool stopMoving;
+    public bool stopMoving;
 
     // Start is called before the first frame update
     void Start()
@@ -33,27 +33,28 @@ public class MoveAgentLearn : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (this.stopMoving == false)
-        {
             Vector3 nextTargetPos = this.agentData.positions[localCounter];
             float currentSpeed = Vector3.Distance(nextTargetPos, this.agentData.positions[localCounter - 1]) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter - 1]) / 100);
             this.speed = this.controller.normalizedSpeed(currentSpeed);
 
-            this.GetComponent<Rigidbody>().velocity = (nextTargetPos - transform.position) * this.speed * 15f;
+            this.GetComponent<Rigidbody>().velocity = (nextTargetPos - transform.position) * this.speed * 60f;
             if (this.speed > 0.1f)
-                this.GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(nextTargetPos - transform.position));
+                transform.rotation = Quaternion.LookRotation(nextTargetPos - transform.position);
 
             //visualizeLines();
             calculateAngle();
-            if (this.localCounter + 1 < this.agentData.timeSteps.Count)
-                this.localCounter++;
-            else
-                this.stopMoving = true;
-        }
+        if (this.localCounter + 1 < this.agentData.timeSteps.Count)
+            this.localCounter++;
+        else
+            this.stopMoving = true;
     }
 
     private void OnTriggerStay(Collider collision)
     {
+        if (collision.tag == "Goal" && this.stopMoving == true)
+        {
+            this.gameObject.SetActive(false);
+        }
         if (collision.gameObject.tag == "Agent")
         {
             MoveAgentLearn colliderAgent = collision.gameObject.GetComponent<MoveAgentLearn>();
@@ -86,14 +87,6 @@ public class MoveAgentLearn : MonoBehaviour
                     }
                 }
             }
-        }
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.tag == "Goal" && this.stopMoving == true)
-        {
-            this.gameObject.SetActive(false);
         }
     }
 
