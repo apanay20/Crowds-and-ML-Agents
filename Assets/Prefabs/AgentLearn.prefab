@@ -90,7 +90,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.7
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -111,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2838702175167935840
 Transform:
   m_ObjectHideFlags: 0
@@ -347,6 +347,68 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!1 &5432640751679231200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 528316107782223110}
+  - component: {fileID: 7400668782591069103}
+  m_Layer: 0
+  m_Name: RaySensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!4 &528316107782223110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5432640751679231200}
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3153057060677181089}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!114 &7400668782591069103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5432640751679231200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - AgentChild
+  - Obstacle
+  - Goal
+  - Road
+  - Wall
+  m_RaysPerDirection: 20
+  m_MaxRayDegrees: 100
+  m_SphereCastRadius: 0
+  m_RayLength: 30
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 0.047627687, g: 1, b: 0, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 0
 --- !u!1 &6138360889010429298
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5455861285179080342
 Transform:
   m_ObjectHideFlags: 0
@@ -593,20 +655,20 @@ MonoBehaviour:
   m_DetectableTags:
   - AgentChild
   - Obstacle
-  - Wall
   - Goal
   - Road
+  - Wall
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxColliderBufferSize: 500
   m_InitialColliderBufferSize: 4
   m_DebugColors:
-  - {r: 0, g: 0.34998178, b: 1, a: 0}
+  - {r: 0, g: 0.1997869, b: 1, a: 0}
   - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 1, g: 0.91027653, b: 0, a: 0}
-  - {r: 0.1339904, g: 1, b: 0, a: 0}
-  - {r: 1, g: 0.59640867, b: 0, a: 0}
+  - {r: 0.034784317, g: 1, b: 0, a: 0}
+  - {r: 1, g: 0.9886322, b: 0, a: 0}
+  - {r: 1, g: 0.49574816, b: 0, a: 0}
   m_GizmoYOffset: 0
   m_ShowGizmos: 1
   m_CompressionType: 1
@@ -645,7 +707,7 @@ Transform:
   m_GameObject: {fileID: 8436882737375918538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 198.77643, y: 1060.2871, z: 0}
-  m_LocalScale: {x: 0.8, y: 2, z: 0.8}
+  m_LocalScale: {x: 0.4, y: 2, z: 0.4}
   m_Children:
   - {fileID: 3383441175002697298}
   - {fileID: 712936469666311996}
@@ -653,6 +715,7 @@ Transform:
   - {fileID: 2838702175167935840}
   - {fileID: 5455861285179080342}
   - {fileID: 6131556534496777367}
+  - {fileID: 528316107782223110}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -712,7 +775,7 @@ SphereCollider:
   m_GameObject: {fileID: 8436882737375918538}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.8
   m_Center: {x: 0, y: 2, z: 0}
@@ -724,9 +787,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8436882737375918538}
   serializedVersion: 2
-  m_Mass: 0.1
-  m_Drag: 0
-  m_AngularDrag: 7.08
+  m_Mass: 0.5
+  m_Drag: 0.5
+  m_AngularDrag: 5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -745,14 +808,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 18
+    VectorObservationSize: 9
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 3
-      BranchSizes: 01000000
-    VectorActionSize: 
+      m_NumContinuousActions: 0
+      BranchSizes: 0200000003000000
+    VectorActionSize: 0200000003000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 1
+    VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 2
@@ -807,11 +870,11 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
-  rw: 0
-  startingGoal: {fileID: 0}
-  goalTargets: []
-  goalSize: 5
+  MaxStep: 10000
+  startingPos: {x: 0, y: 0, z: 0}
+  currentAngle: 0
+  startDistance: 0
+  currentDistance: 0
 --- !u!114 &2106400479330676283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,6 +895,7 @@ MonoBehaviour:
   neighList: []
   walkNear: 1
   stopMoving: 0
+  dot: 0
 --- !u!1 &8792414337993955891
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,7 +913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7042430378780345501
 Transform:
   m_ObjectHideFlags: 0

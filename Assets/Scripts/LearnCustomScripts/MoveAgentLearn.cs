@@ -17,6 +17,7 @@ public class MoveAgentLearn : MonoBehaviour
     public List<GameObject> neighList;
     public bool walkNear;
     public bool stopMoving;
+    public float dot;
 
     // Start is called before the first frame update
     void Start()
@@ -33,16 +34,16 @@ public class MoveAgentLearn : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-            Vector3 nextTargetPos = this.agentData.positions[localCounter];
-            float currentSpeed = Vector3.Distance(nextTargetPos, this.agentData.positions[localCounter - 1]) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter - 1]) / 100);
-            this.speed = this.controller.normalizedSpeed(currentSpeed);
+        Vector3 nextTargetPos = this.agentData.positions[localCounter];
+        float currentSpeed = Vector3.Distance(nextTargetPos, this.agentData.positions[localCounter - 1]) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter - 1]) / 100);
+        this.speed = this.controller.normalizedSpeed(currentSpeed);
 
-            this.GetComponent<Rigidbody>().velocity = (nextTargetPos - transform.position) * this.speed * 60f;
-            if (this.speed > 0.1f)
-                transform.rotation = Quaternion.LookRotation(nextTargetPos - transform.position);
+        this.GetComponent<Rigidbody>().velocity = (nextTargetPos - transform.position) * this.speed * 60f;
+        if (this.speed > 0.1f)
+            transform.rotation = Quaternion.LookRotation(nextTargetPos - transform.position);
 
-            //visualizeLines();
-            calculateAngle();
+        //visualizeLines();
+        calculateAngle();
         if (this.localCounter + 1 < this.agentData.timeSteps.Count)
             this.localCounter++;
         else

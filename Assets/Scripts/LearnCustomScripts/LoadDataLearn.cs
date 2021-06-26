@@ -32,7 +32,7 @@ public class LoadDataLearn : MonoBehaviour
         readData();
         findMinMaxSpeed();
         this.counter = this.minStartTime;
-        Time.timeScale = 1f;
+        Time.timeScale = 0.05f;
     }
 
     private void readData()

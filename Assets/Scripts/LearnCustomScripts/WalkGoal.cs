@@ -7,122 +7,165 @@ using Unity.MLAgents.Sensors;
 
 public class WalkGoal : Agent
 {
-    public float rw;
-    public GameObject startingGoal;
-    private Vector3 startingPos;
-    private bool initializedGoal = false;
+    private float moveSpeed = 7f;
+    private float turnSpeed = 3f;
+    public Vector3 startingPos;
     private Rigidbody agentRB;
-    public List<Transform> goalTargets;
-    public int goalSize = 5;
-
+    public float currentAngle;
+    public float startDistance;
+    public float currentDistance;
 
     public override void Initialize()
     {
-        this.agentRB = GetComponent<Rigidbody>();
-        this.goalTargets = new List<Transform>();
+        Time.timeScale = 1f;
+        this.agentRB = this.GetComponent<Rigidbody>();
+    }
+
+    public override void OnEpisodeBegin()
+    {
+        transform.localPosition = randomSpawnPoint();
+        transform.LookAt(Vector3.zero);
+        this.startingPos = transform.localPosition;
+        this.startDistance = 0f;
+        this.transform.GetChild(1).GetComponent<TrailRenderer>().Clear();
+    }
+
+    private Vector3 randomSpawnPoint()
+    {
+        List<Collider> goalTargets = new List<Collider>();
         GameObject parentGoal = GameObject.Find("GoalAreas");
-        for(int i = 0; i < this.goalSize; i++)
+        for (int i = 0; i < parentGoal.transform.childCount; i++)
         {
-            this.goalTargets.Add(parentGoal.transform.GetChild(i).transform);
+            goalTargets.Add(parentGoal.transform.GetChild(i).GetComponent<Collider>());
         }
+        int rd = Random.Range(0, goalTargets.Count);
+        Collider tempArea = goalTargets[rd];
+        return new Vector3(
+            Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x),
+            0f,
+            Random.Range(tempArea.bounds.min.z, tempArea.bounds.max.z)
+        );
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.position);
-        sensor.AddObservation(this.goalTargets[0].position);
-        sensor.AddObservation(this.goalTargets[1].position);
-        sensor.AddObservation(this.goalTargets[2].position);
-        sensor.AddObservation(this.goalTargets[3].position);
-        sensor.AddObservation(this.goalTargets[4].position);
+        sensor.AddObservation(transform.localPosition); // 3
+        sensor.AddObservation(transform.localRotation); // 4
+        sensor.AddObservation(currentAngle); // 1
+        sensor.AddObservation(currentDistance); // 1
     }
 
 
+    /// <summary>
+    /// dActions[0] | (0) - Nothing, (1) - Running forward
+    /// dActions[1] | (0) - Turn left, (1) - Turn right, (2) - Nothing
+    /// </summary>
+    /// <param name="actions"></param>
     public override void OnActionReceived(ActionBuffers actions)
     {
-        float moveX = actions.ContinuousActions[0];
-        float moveZ = actions.ContinuousActions[1];
-        float speed = actions.ContinuousActions[2];
+        var dActions = actions.DiscreteActions;
 
-        Vector3 nextPos = new Vector3(moveX, 0, moveZ);
-        Vector3 dir = (nextPos - transform.position) * speed;
-        this.agentRB.velocity = dir;
-        if (speed > 0.4f)
-            this.agentRB.MoveRotation(Quaternion.LookRotation(nextPos - transform.position));
-
-
-        //transform.position += nextPos * speed * Time.deltaTime;
-
-        if (this.initializedGoal)
+        if (dActions[1] == 0)
         {
-            Vector3 goalVector = this.startingPos - transform.position;
-            float angle = Vector3.Angle(transform.TransformDirection(Vector3.forward), goalVector);
-            if (angle <= 60f)
-                AddReward(-0.05f);
-            else
-                AddReward(+0.001f);
+            transform.Rotate(new Vector3(0f, -1f, 0f) * turnSpeed);
+            AddReward(-0.005f);
         }
+        else if (dActions[1] == 1)
+        {
+            transform.Rotate(new Vector3(0f, 1f, 0f) * turnSpeed);
+            AddReward(-0.005f);
+        }
+
+        if (dActions[0] == 0)
+        {
+            AddReward(-0.01f);
+            this.agentRB.AddForce(this.agentRB.velocity.normalized * -0.01f, ForceMode.Impulse);
+        }
+        if (dActions[0] == 1)
+        {
+            this.agentRB.AddForce(transform.forward.normalized * this.moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
+            this.agentRB.velocity = Vector3.ClampMagnitude(this.agentRB.velocity, moveSpeed);
+            //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        }
+
+        //If moving away from starting position then give reward
+        Vector3 startVector = this.startingPos - transform.localPosition;
+        this.currentAngle = Vector3.Angle(transform.TransformDirection(Vector3.forward), startVector);
+        if (this.currentAngle <= 90f)
+            AddReward(-0.05f);
+        else
+            AddReward(+0.05f);
+
+        this.currentDistance = Vector3.Distance(transform.localPosition, this.startingPos);
+        if(this.currentDistance > this.startDistance)
+        {
+            AddReward(+0.05f);
+            this.startDistance = currentDistance;
+        }
+        else
+            AddReward(-0.05f);
+
+        AddReward(-2f / MaxStep);
+
     }
 
-    //just for testing
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-        //continuousActions[0] = Input.GetAxisRaw("Horizontal");
-        //continuousActions[1] = Input.GetAxisRaw("Vertical");
-        continuousActions[0] = transform.position.x;
-        continuousActions[1] = transform.position.z;
-        continuousActions[2] = this.agentRB.velocity.normalized.magnitude;
-    }
+        var actions = actionsOut.DiscreteActions;
 
-    private void Update()
-    {
-        this.rw = this.GetCumulativeReward();
+        if (Input.GetKey(KeyCode.W))
+        {
+            actions[0] = 1;
+        }
+
+        actions[1] = 2;
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            actions[1] = 0;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            actions[1] = 1;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Goal")
-        {
-            if (this.initializedGoal != true)
+        if (other.tag == "Goal") {
+            Debug.Log("Goal");
+            if (Vector3.Distance(transform.localPosition, this.startingPos) > 6f)
             {
-                this.startingGoal = other.gameObject;
-                this.startingPos = transform.position;
-                this.initializedGoal = true;
-            }
-            else
-            {
-                //if goal area reached is same with the starting one
-                if(GameObject.ReferenceEquals(other.gameObject, this.startingGoal))
-                    SetReward(-1f);
+                // Check if goal reached is different than starting
+                if (other.bounds.Contains(this.startingPos))
+                    AddReward(-5f);
                 else
-                    SetReward(+5f);
+                    AddReward(+5f);
                 EndEpisode();
             }
         }
+        if (other.tag == "AgentChild")
+        {
+            AddReward(-5f);
+            EndEpisode();
+        }
         if (other.tag == "Wall")
         {
-            SetReward(-1f);
+            AddReward(-5f);
             EndEpisode();
         }
         if (other.tag == "Obstacle")
         {
-            AddReward(-0.2f);
+            AddReward(-5f);
+            EndEpisode();
         }
+
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Road")
         {
             AddReward(-0.01f);
-        }
-        if (other.tag == "Agent")
-        {
-            float distance = Vector3.Distance(transform.position, other.gameObject.transform.position);
-            if (distance <= 0.5f)
-            {
-                AddReward(-0.1f);
-            }
         }
     }
 }
