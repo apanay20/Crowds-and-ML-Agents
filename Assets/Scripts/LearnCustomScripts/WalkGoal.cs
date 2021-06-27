@@ -9,11 +9,14 @@ public class WalkGoal : Agent
 {
     private float moveSpeed = 7f;
     private float turnSpeed = 3f;
-    public Vector3 startingPos;
     private Rigidbody agentRB;
     public float currentAngle;
-    public float startDistance;
-    public float currentDistance;
+    private Vector3 startingPos;
+    private float startDistance;
+    private float currentStartDistance;
+    private Vector3 goalPos;
+    private float goalDistance;
+    private float currentGoalDistance;
 
     public override void Initialize()
     {
@@ -27,7 +30,8 @@ public class WalkGoal : Agent
         transform.LookAt(Vector3.zero);
         this.startingPos = transform.localPosition;
         this.startDistance = 0f;
-        this.transform.GetChild(1).GetComponent<TrailRenderer>().Clear();
+        this.goalDistance = Vector3.Distance(transform.localPosition, this.goalPos);
+        //this.transform.GetChild(1).GetComponent<TrailRenderer>().Clear();
     }
 
     private Vector3 randomSpawnPoint()
@@ -40,6 +44,13 @@ public class WalkGoal : Agent
         }
         int rd = Random.Range(0, goalTargets.Count);
         Collider tempArea = goalTargets[rd];
+
+        goalTargets.Remove(goalTargets[rd]);
+        rd = Random.Range(0, goalTargets.Count);
+
+        Collider tempArea2 = goalTargets[rd];
+        this.goalPos = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
+
         return new Vector3(
             Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x),
             0f,
@@ -52,7 +63,8 @@ public class WalkGoal : Agent
         sensor.AddObservation(transform.localPosition); // 3
         sensor.AddObservation(transform.localRotation); // 4
         sensor.AddObservation(currentAngle); // 1
-        sensor.AddObservation(currentDistance); // 1
+        sensor.AddObservation(currentStartDistance); // 1
+        sensor.AddObservation(currentGoalDistance); //1
     }
 
 
@@ -78,7 +90,7 @@ public class WalkGoal : Agent
 
         if (dActions[0] == 0)
         {
-            AddReward(-0.01f);
+            AddReward(-0.005f);
             this.agentRB.AddForce(this.agentRB.velocity.normalized * -0.01f, ForceMode.Impulse);
         }
         if (dActions[0] == 1)
@@ -89,18 +101,30 @@ public class WalkGoal : Agent
         }
 
         //If moving away from starting position then give reward
-        Vector3 startVector = this.startingPos - transform.localPosition;
-        this.currentAngle = Vector3.Angle(transform.TransformDirection(Vector3.forward), startVector);
-        if (this.currentAngle <= 90f)
+        Vector3 goalVector = this.goalPos - transform.localPosition;
+        Debug.DrawRay(transform.position, transform.forward, Color.white);
+        Debug.DrawRay(transform.position, this.startingPos * 0.1f, Color.blue);
+        Debug.DrawRay(transform.position, this.goalPos * 0.1f, Color.green);
+        this.currentAngle = Vector3.Angle(transform.forward, goalVector);
+        if (this.currentAngle > 40f)
             AddReward(-0.05f);
         else
             AddReward(+0.05f);
 
-        this.currentDistance = Vector3.Distance(transform.localPosition, this.startingPos);
-        if(this.currentDistance > this.startDistance)
+        this.currentStartDistance = Vector3.Distance(transform.localPosition, this.startingPos);
+        if(this.currentStartDistance > this.startDistance)
         {
             AddReward(+0.05f);
-            this.startDistance = currentDistance;
+            this.startDistance = this.currentStartDistance;
+        }
+        else
+            AddReward(-0.05f);
+
+        this.currentGoalDistance = Vector3.Distance(transform.localPosition, this.goalPos);
+        if (this.currentGoalDistance < this.goalDistance)
+        {
+            AddReward(+0.05f);
+            this.goalDistance = this.currentGoalDistance;
         }
         else
             AddReward(-0.05f);
@@ -140,7 +164,7 @@ public class WalkGoal : Agent
                 if (other.bounds.Contains(this.startingPos))
                     AddReward(-5f);
                 else
-                    AddReward(+5f);
+                    AddReward(+10f);
                 EndEpisode();
             }
         }
@@ -165,7 +189,7 @@ public class WalkGoal : Agent
     {
         if (other.tag == "Road")
         {
-            AddReward(-0.01f);
+            AddReward(-0.001f);
         }
     }
 }

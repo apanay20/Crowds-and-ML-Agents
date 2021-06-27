@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1624794025",
+        "python_version": "3.9.5 (tags/v3.9.5:0a7dcbd, May  3 2021, 17:27:52) [MSC v.1928 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Desktop\\Crowds-and-ML-Agents\\venv\\Scripts\\mlagents-learn --run-id=testReinGrid --force",
+        "mlagents_version": "0.27.0",
+        "mlagents_envs_version": "0.27.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.9.0+cu111",
+        "numpy_version": "1.20.3",
+        "end_time_seconds": "1624794029"
+    },
+    "total": 4.2419684,
+    "count": 1,
+    "self": 0.002796500000001423,
+    "children": {
+        "run_training.setup": {
+            "total": 0.022254999999999914,
+            "count": 1,
+            "self": 0.022254999999999914
+        },
+        "TrainerController.start_learning": {
+            "total": 4.216916899999999,
+            "count": 1,
+            "self": 0.00035089999999904364,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 4.2165573,
+                    "count": 1,
+                    "self": 4.2165573
+                },
+                "trainer_threads": {
+                    "total": 7.000000001866624e-07,
+                    "count": 1,
+                    "self": 7.000000001866624e-07
+                },
+                "TrainerController._save_models": {
+                    "total": 8.000000000230045e-06,
+                    "count": 1,
+                    "self": 8.000000000230045e-06
+                }
+            }
+        }
+    }
+}

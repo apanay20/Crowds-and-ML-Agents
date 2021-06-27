@@ -871,10 +871,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  startingPos: {x: 0, y: 0, z: 0}
   currentAngle: 0
-  startDistance: 0
-  currentDistance: 0
 --- !u!114 &2106400479330676283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,7 +1221,7 @@ PrefabInstance:
     - target: {fileID: 4340749793049214352, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4340749793049214352, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
