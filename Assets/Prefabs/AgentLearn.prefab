@@ -285,7 +285,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!224 &1368404080102103475
 RectTransform:
@@ -362,7 +362,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &528316107782223110
 Transform:
@@ -371,13 +371,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5432640751679231200}
-  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3153057060677181089}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7400668782591069103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,16 +394,15 @@ MonoBehaviour:
   m_DetectableTags:
   - AgentChild
   - Obstacle
-  - Goal
-  - Road
   - Wall
+  - Road
   m_RaysPerDirection: 20
   m_MaxRayDegrees: 100
-  m_SphereCastRadius: 0
-  m_RayLength: 30
+  m_SphereCastRadius: 0.7
+  m_RayLength: 34
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967291
+    m_Bits: 2867
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 0.047627687, g: 1, b: 0, a: 1}
@@ -425,7 +424,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!224 &3383441175002697298
 RectTransform:
@@ -502,7 +501,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!224 &8253306615472069665
 RectTransform:
@@ -619,8 +618,8 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
-  m_IsActive: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &5455861285179080342
 Transform:
   m_ObjectHideFlags: 0
@@ -629,7 +628,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8138857388074375466}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: -0.2, z: 5}
+  m_LocalPosition: {x: 0, y: -0.2, z: 10.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3153057060677181089}
@@ -649,7 +648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: GridSensor
   m_CellScale: {x: 1, y: 0.01, z: 1}
-  m_GridSize: {x: 25, y: 1, z: 25}
+  m_GridSize: {x: 20, y: 1, z: 20}
   m_RotateWithAgent: 1
   m_AgentGameObject: {fileID: 8436882737375918538}
   m_DetectableTags:
@@ -696,7 +695,7 @@ GameObject:
   m_TagString: Agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3153057060677181089
 Transform:
@@ -793,7 +792,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &7640683002149910531
 MonoBehaviour:
@@ -870,8 +869,12 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
+  MaxStep: 5000
   currentAngle: 0
+  currentGoalDistance: 0
+  rw: 0
+  leftRotationCount: 0
+  rightRotationCount: 0
 --- !u!114 &2106400479330676283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,7 +1229,7 @@ PrefabInstance:
     - target: {fileID: 4340749793049214352, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 056b50ab4acae4c4ab03c3e3b765824c, type: 3}

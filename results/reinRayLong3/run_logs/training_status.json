@@ -1,0 +1,65 @@
+{
+    "ZARAgoal": {
+        "checkpoints": [
+            {
+                "steps": 2699962,
+                "file_path": "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-2699962.onnx",
+                "reward": -4.957249999046326,
+                "creation_time": 1624935959.1370008,
+                "auxillary_file_paths": [
+                    "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-2699962.pt"
+                ]
+            },
+            {
+                "steps": 2799978,
+                "file_path": "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-2799978.onnx",
+                "reward": -2.007253830249493,
+                "creation_time": 1624936361.2835453,
+                "auxillary_file_paths": [
+                    "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-2799978.pt"
+                ]
+            },
+            {
+                "steps": 2899964,
+                "file_path": "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-2899964.onnx",
+                "reward": -8.829600393772125,
+                "creation_time": 1624936767.5030925,
+                "auxillary_file_paths": [
+                    "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-2899964.pt"
+                ]
+            },
+            {
+                "steps": 2999972,
+                "file_path": "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-2999972.onnx",
+                "reward": -0.00012717463753440163,
+                "creation_time": 1624937169.7915707,
+                "auxillary_file_paths": [
+                    "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-2999972.pt"
+                ]
+            },
+            {
+                "steps": 3000100,
+                "file_path": "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-3000100.onnx",
+                "reward": -0.00012717463753440163,
+                "creation_time": 1624937169.9261663,
+                "auxillary_file_paths": [
+                    "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-3000100.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 3000100,
+            "file_path": "results\\reinRayLong3\\ZARAgoal.onnx",
+            "reward": -0.00012717463753440163,
+            "creation_time": 1624937169.9261663,
+            "auxillary_file_paths": [
+                "results\\reinRayLong3\\ZARAgoal\\ZARAgoal-3000100.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.9.0+cu111"
+    }
+}
