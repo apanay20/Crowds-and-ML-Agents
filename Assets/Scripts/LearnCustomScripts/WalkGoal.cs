@@ -18,10 +18,18 @@ public class WalkGoal : Agent
     public float rw;
     public int leftRotationCount;
     public int rightRotationCount;
+    public float stepsss;
+
+    private class GoalAndSpawn
+    {
+        public Collider goalCollider;
+        public Collider spawnCollider;
+    }
 
     private void Update()
     {
         this.rw = this.GetCumulativeReward();
+        this.stepsss = StepCount;
     }
 
     public override void Initialize()
@@ -32,8 +40,8 @@ public class WalkGoal : Agent
 
     public override void OnEpisodeBegin()
     {
-        transform.localPosition = randomSpawnPoint();
-        this.startingPos = transform.localPosition;
+        this.startingPos = randomSpawnPoint();
+        transform.localPosition = this.startingPos;
         transform.LookAt(this.goalPos);
         this.goalDistance = Vector3.Distance(transform.localPosition, this.goalPos);
         this.leftRotationCount = 0;
@@ -41,26 +49,26 @@ public class WalkGoal : Agent
         //this.transform.GetChild(1).GetComponent<TrailRenderer>().Clear();
     }
 
-    private int compareBySize(Collider a, Collider b)
+    private int compareBySize(GoalAndSpawn a, GoalAndSpawn b)
     {
-        Vector3 boundsA = a.bounds.size;
-        Vector3 boundsB = b.bounds.size;
+        Vector3 boundsA = a.goalCollider.bounds.size;
+        Vector3 boundsB = b.goalCollider.bounds.size;
 
         float sizeA = boundsA.x * boundsA.z;
         float sizeB = boundsB.x * boundsB.z;
         return sizeA.CompareTo(sizeB);
     }
 
-    private int getRandomIndex(List<Collider> list)
+    private int getRandomIndex(List<GoalAndSpawn> list)
     {
         int listSize = list.Count;
         List<float> colliderSize = new List<float>();
         float maxSize = 0f;
         float minSize = 100000f;
 
-        foreach (Collider c in list)
+        foreach (GoalAndSpawn c in list)
         {
-            float tempBoundSize = c.bounds.size.x * c.bounds.size.z;
+            float tempBoundSize = c.goalCollider.bounds.size.x * c.goalCollider.bounds.size.z;
             if (tempBoundSize > maxSize)
                 maxSize = tempBoundSize;
             if (tempBoundSize < minSize)
@@ -81,35 +89,55 @@ public class WalkGoal : Agent
 
     private Vector3 randomSpawnPoint()
     {
-        List<Collider> goalTargets = new List<Collider>();
+        List<GoalAndSpawn> goals = new List<GoalAndSpawn>();
         GameObject parentGoal = GameObject.Find("GoalAreas");
         for (int i = 0; i < parentGoal.transform.childCount; i++)
         {
-            goalTargets.Add(parentGoal.transform.GetChild(i).GetComponent<Collider>());
+            GoalAndSpawn temp = new GoalAndSpawn();
+            temp.goalCollider = parentGoal.transform.GetChild(i).GetComponent<Collider>();
+            temp.spawnCollider = parentGoal.transform.GetChild(i).GetChild(0).GetComponent<Collider>();
+            goals.Add(temp);
         }
         // Sort list by collider size
-        goalTargets.Sort(compareBySize);
+        goals.Sort(compareBySize);
 
-        int randomIndex = getRandomIndex(goalTargets);
-        Collider tempArea = goalTargets[randomIndex];
-        goalTargets.Remove(goalTargets[randomIndex]);
+        //Select a goal area and a random spawn point in that area
+        int randomSpawnIndex = getRandomIndex(goals);
+        Collider tempArea = goals[randomSpawnIndex].goalCollider;
+        this.goalPos = new Vector3(Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x), 0f, Random.Range(tempArea.bounds.min.z, tempArea.bounds.max.z));
 
-        randomIndex = getRandomIndex(goalTargets);
-        Collider tempArea2 = goalTargets[randomIndex];
-        this.goalPos = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
+        float distanceLimit = 0;
+        float spawnDistanceLimit = Academy.Instance.EnvironmentParameters.GetWithDefault("distance", distanceLimit);
+        Vector3 spawnPoint = Vector3.zero;
 
-        return new Vector3(
-            Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x),
-            0f,
-            Random.Range(tempArea.bounds.min.z, tempArea.bounds.max.z)
-        );
+        if(spawnDistanceLimit == 0)
+        {
+            //No limit, select a random goal area
+            //Remove spawn area so will not select is as goal area too
+            goals.Remove(goals[randomSpawnIndex]);
+            Collider tempArea2 = goals[randomSpawnIndex].goalCollider;
+            spawnPoint = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
+        }
+        else
+        {
+            //Use current lesson's maximum spawn distance
+            float spawnToGoalDistance = 0f;
+            do
+            {
+                Collider tempArea2 = goals[randomSpawnIndex].spawnCollider;
+                spawnPoint = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
+                spawnToGoalDistance = Vector3.Distance(spawnPoint, this.goalPos);
+            } while ( spawnToGoalDistance > spawnDistanceLimit || spawnToGoalDistance < (spawnDistanceLimit - 1) );
+        }
+
+        return spawnPoint;
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        //sensor.AddObservation(StepCount / (float)MaxStep); // 1
         sensor.AddObservation(this.agentRB.position); // 3
         sensor.AddObservation(this.agentRB.rotation); // 4
+        sensor.AddObservation(this.goalPos); // 3
         sensor.AddObservation(currentAngle); // 1
         sensor.AddObservation(currentGoalDistance); // 1
     }
@@ -141,7 +169,6 @@ public class WalkGoal : Agent
 
         if (dActions[0] == 1)
         {
-            AddReward(+0.0001f);
             this.agentRB.AddForce(transform.forward * this.moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
             this.agentRB.velocity = Vector3.ClampMagnitude(this.agentRB.velocity, moveSpeed);
         }
@@ -152,8 +179,10 @@ public class WalkGoal : Agent
 
         Vector3 goalVector = this.goalPos - transform.localPosition;
         this.currentAngle = Vector3.Angle(transform.forward, goalVector);
-        if (this.currentAngle < 30f)
+        if (this.currentAngle < 45f)
             AddReward(+0.0001f);
+        else
+            AddReward(-0.0001f);
 
         this.currentGoalDistance = Vector3.Distance(transform.localPosition, this.goalPos);
         if (this.currentGoalDistance < this.goalDistance)
@@ -161,11 +190,60 @@ public class WalkGoal : Agent
             AddReward(+0.0001f);
             this.goalDistance = this.currentGoalDistance;
         }
+        else
+            AddReward(-0.0001f);           
 
         AddReward(-1f / MaxStep);
 
-        Debug.DrawRay(transform.position, transform.forward, Color.white);
-        Debug.DrawRay(transform.position, (this.goalPos - transform.localPosition) * 0.1f, Color.green);
+        Debug.DrawRay(transform.localPosition, transform.forward, Color.white);
+        Debug.DrawRay(transform.localPosition, (this.goalPos - transform.localPosition) * 0.1f, Color.green);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Goal" && StepCount >= 5f) {
+            // Check if goal reached is different than starting
+            if (other.bounds.Contains(this.startingPos) == true)
+            { 
+                AddReward(-2f);
+            }
+            else if(other.bounds.Contains(this.goalPos) == false)
+            {
+                AddReward(-2f);
+            }
+            else
+            {
+                float goalReachedDistance = Vector3.Distance(transform.localPosition, this.goalPos);
+                if (goalReachedDistance <= 3f)
+                    AddReward(+2f);
+                else
+                    AddReward(+1f);
+            }
+            EndEpisode();
+        }
+        if (other.tag == "AgentChild")
+        {
+            AddReward(-2f);
+            EndEpisode();
+        }
+        if (other.tag == "Wall")
+        {
+            AddReward(-2f);
+            EndEpisode();
+        }
+        if (other.tag == "Obstacle")
+        {
+            AddReward(-2f);
+            EndEpisode();
+        }
+
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Road")
+        {
+            AddReward(-0.0001f);
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -187,47 +265,6 @@ public class WalkGoal : Agent
         if (Input.GetKey(KeyCode.D))
         {
             actions[1] = 1;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Goal") {
-            // Check if goal reached is different than starting
-            if (other.bounds.Contains(this.startingPos))
-                AddReward(-5f);
-            else
-            {
-                float goalReachedDistance = Vector3.Distance(transform.localPosition, this.goalPos);
-                if (goalReachedDistance <= 3f)
-                    AddReward(+3f);
-                else
-                    AddReward(+0.5f);
-            }
-            EndEpisode();
-        }
-        if (other.tag == "AgentChild")
-        {
-            AddReward(-3f);
-            EndEpisode();
-        }
-        if (other.tag == "Wall")
-        {
-            AddReward(-5f);
-            EndEpisode();
-        }
-        if (other.tag == "Obstacle")
-        {
-            AddReward(-5f);
-            EndEpisode();
-        }
-
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Road")
-        {
-            AddReward(-0.0001f);
         }
     }
 }
