@@ -32,7 +32,7 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     checkpoint_interval: 500000
-    max_steps: 500000
+    max_steps: 5000000
     time_horizon: 64
     summary_freq: 10000
     threaded: false
@@ -58,7 +58,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 7889
+          seed: 6487
           value: 2.0
       name: Lesson0
       completion_criteria:
@@ -66,12 +66,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 0.8
+        threshold: 1.5
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 7890
+          seed: 6488
           value: 4.0
       name: Lesson1
       completion_criteria:
@@ -79,12 +79,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 0.7
+        threshold: 1.2
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 7891
+          seed: 6489
           value: 7.0
       name: Lesson2
       completion_criteria:
@@ -92,12 +92,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 0.7
+        threshold: 1.1
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 7892
+          seed: 6490
           value: 9.0
       name: Lesson4
       completion_criteria:
@@ -105,12 +105,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 0.6
+        threshold: 1.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 7893
+          seed: 6491
           value: 0.0
       name: Lesson5
       completion_criteria: null

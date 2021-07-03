@@ -138,8 +138,8 @@ public class WalkGoal : Agent
         sensor.AddObservation(this.agentRB.position); // 3
         sensor.AddObservation(this.agentRB.rotation); // 4
         sensor.AddObservation(this.goalPos); // 3
-        sensor.AddObservation(currentAngle); // 1
-        sensor.AddObservation(currentGoalDistance); // 1
+        sensor.AddObservation(this.currentAngle); // 1
+        sensor.AddObservation(this.goalDistance); // 1
     }
 
     /// <summary>

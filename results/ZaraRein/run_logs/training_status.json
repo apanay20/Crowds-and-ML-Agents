@@ -1,26 +1,62 @@
 {
     "distance": {
-        "lesson_num": 2
+        "lesson_num": 4
     },
     "ZARAgoal": {
         "checkpoints": [
             {
-                "steps": 44317,
-                "file_path": "results\\ZaraRein\\ZARAgoal\\ZARAgoal-44317.onnx",
-                "reward": 0.7834174076314134,
-                "creation_time": 1625269859.2009916,
+                "steps": 3499938,
+                "file_path": "results\\ZaraRein\\ZARAgoal\\ZARAgoal-3499938.onnx",
+                "reward": 1.5392054489932807,
+                "creation_time": 1625331240.8185098,
                 "auxillary_file_paths": [
-                    "results\\ZaraRein\\ZARAgoal\\ZARAgoal-44317.pt"
+                    "results\\ZaraRein\\ZARAgoal\\ZARAgoal-3499938.pt"
+                ]
+            },
+            {
+                "steps": 3999962,
+                "file_path": "results\\ZaraRein\\ZARAgoal\\ZARAgoal-3999962.onnx",
+                "reward": 1.168037512507605,
+                "creation_time": 1625333803.3693633,
+                "auxillary_file_paths": [
+                    "results\\ZaraRein\\ZARAgoal\\ZARAgoal-3999962.pt"
+                ]
+            },
+            {
+                "steps": 4499946,
+                "file_path": "results\\ZaraRein\\ZARAgoal\\ZARAgoal-4499946.onnx",
+                "reward": 1.752039999421686,
+                "creation_time": 1625336362.2448711,
+                "auxillary_file_paths": [
+                    "results\\ZaraRein\\ZARAgoal\\ZARAgoal-4499946.pt"
+                ]
+            },
+            {
+                "steps": 4999936,
+                "file_path": "results\\ZaraRein\\ZARAgoal\\ZARAgoal-4999936.onnx",
+                "reward": 1.429987812817605,
+                "creation_time": 1625338928.4662201,
+                "auxillary_file_paths": [
+                    "results\\ZaraRein\\ZARAgoal\\ZARAgoal-4999936.pt"
+                ]
+            },
+            {
+                "steps": 5000064,
+                "file_path": "results\\ZaraRein\\ZARAgoal\\ZARAgoal-5000064.onnx",
+                "reward": 1.429987812817605,
+                "creation_time": 1625338929.4582744,
+                "auxillary_file_paths": [
+                    "results\\ZaraRein\\ZARAgoal\\ZARAgoal-5000064.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 44317,
+            "steps": 5000064,
             "file_path": "results\\ZaraRein\\ZARAgoal.onnx",
-            "reward": 0.7834174076314134,
-            "creation_time": 1625269859.2009916,
+            "reward": 1.429987812817605,
+            "creation_time": 1625338929.4582744,
             "auxillary_file_paths": [
-                "results\\ZaraRein\\ZARAgoal\\ZARAgoal-44317.pt"
+                "results\\ZaraRein\\ZARAgoal\\ZARAgoal-5000064.pt"
             ]
         }
     },
