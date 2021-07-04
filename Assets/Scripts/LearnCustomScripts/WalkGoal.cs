@@ -12,7 +12,7 @@ public class WalkGoal : Agent
     private Rigidbody agentRB;
     private Vector3 startingPos;
     public float currentAngle;
-    private Vector3 goalPos;
+    public Vector3 goalPos;
     private float goalDistance;
     public float currentGoalDistance;
     public float rw;
@@ -46,7 +46,8 @@ public class WalkGoal : Agent
         this.goalDistance = Vector3.Distance(transform.localPosition, this.goalPos);
         this.leftRotationCount = 0;
         this.rightRotationCount = 0;
-        //this.transform.GetChild(1).GetComponent<TrailRenderer>().Clear();
+        this.transform.GetChild(1).GetComponent<TrailRenderer>().Clear();
+        setAgentColor();
     }
 
     private int compareBySize(GoalAndSpawn a, GoalAndSpawn b)
@@ -191,12 +192,13 @@ public class WalkGoal : Agent
             this.goalDistance = this.currentGoalDistance;
         }
         else
-            AddReward(-0.0001f);           
+            AddReward(-0.0001f);
+
+        Debug.DrawRay(transform.position, transform.forward, Color.white);
+        float m = transform.forward.magnitude / goalVector.magnitude;
+        Debug.DrawRay(transform.position, goalVector * m, Color.green);
 
         AddReward(-1f / MaxStep);
-
-        Debug.DrawRay(transform.localPosition, transform.forward, Color.white);
-        Debug.DrawRay(transform.localPosition, (this.goalPos - transform.localPosition) * 0.1f, Color.green);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -265,6 +267,24 @@ public class WalkGoal : Agent
         if (Input.GetKey(KeyCode.D))
         {
             actions[1] = 1;
+        }
+    }
+
+    private void setAgentColor()
+    {
+        Color randomColor = new Color(
+            UnityEngine.Random.Range(0.1f, 1f),
+            UnityEngine.Random.Range(0.2f, 1f),
+            UnityEngine.Random.Range(0.1f, 1f)
+        );
+        try
+        {
+            this.transform.GetChild(1).gameObject.GetComponentInChildren<TrailRenderer>().endColor = randomColor;
+            this.GetComponent<Renderer>().material.SetColor("_Color", randomColor);
+        }
+        catch
+        {
+
         }
     }
 }

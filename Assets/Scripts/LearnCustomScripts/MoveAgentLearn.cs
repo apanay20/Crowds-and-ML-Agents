@@ -41,8 +41,8 @@ public class MoveAgentLearn : MonoBehaviour
         this.GetComponent<Rigidbody>().velocity = (nextTargetPos - transform.position) * this.speed * 60f;
         if (this.speed > 0.1f)
             transform.rotation = Quaternion.LookRotation(nextTargetPos - transform.position);
-
-        //visualizeLines();
+        
+        visualizeLines();
         calculateAngle();
         if (this.localCounter + 1 < this.agentData.timeSteps.Count)
             this.localCounter++;
@@ -100,7 +100,7 @@ public class MoveAgentLearn : MonoBehaviour
     {
         this.forward = transform.TransformDirection(Vector3.forward) * 1.6f;
         Debug.DrawRay(transform.position, this.forward, Color.white);
-        this.goalVector = this.agentData.goalPos - transform.position;
+        this.goalVector = this.GetComponent<WalkGoal>().goalPos - transform.position;// this.agentData.goalPos - transform.position;
         float m = this.forward.magnitude / this.goalVector.magnitude;
         Debug.DrawRay(transform.position, this.goalVector * m, Color.green);
         foreach (var neigh in this.neighList)
