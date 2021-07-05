@@ -15,27 +15,40 @@ public class WalkGoal : Agent
     public Vector3 goalPos;
     private float goalDistance;
     public float currentGoalDistance;
-    public float rw;
+    public float reward;
     public int leftRotationCount;
     public int rightRotationCount;
-    public float stepsss;
+    private List<GoalAndSpawn> goals;
+
 
     private class GoalAndSpawn
     {
         public Collider goalCollider;
-        public Collider spawnCollider;
+        public List<Collider> spawnCollider;
     }
 
     private void Update()
     {
-        this.rw = this.GetCumulativeReward();
-        this.stepsss = StepCount;
+        this.reward = this.GetCumulativeReward();
     }
 
     public override void Initialize()
     {
         Time.timeScale = 1f;
         this.agentRB = this.GetComponent<Rigidbody>();
+
+        this.goals = new List<GoalAndSpawn>();
+        GameObject parentGoal = GameObject.Find("GoalAreas");
+        for (int i = 0; i < parentGoal.transform.childCount; i++)
+        {
+            GameObject child = parentGoal.transform.GetChild(i).gameObject;
+            GoalAndSpawn temp = new GoalAndSpawn();
+            temp.goalCollider = child.GetComponent<Collider>();
+            temp.spawnCollider = new List<Collider>();
+            for (int j = 0; j < child.transform.childCount; j++)
+                temp.spawnCollider.Add(child.transform.GetChild(j).GetComponent<Collider>());
+            this.goals.Add(temp);
+        }
     }
 
     public override void OnEpisodeBegin()
@@ -90,15 +103,6 @@ public class WalkGoal : Agent
 
     private Vector3 randomSpawnPoint()
     {
-        List<GoalAndSpawn> goals = new List<GoalAndSpawn>();
-        GameObject parentGoal = GameObject.Find("GoalAreas");
-        for (int i = 0; i < parentGoal.transform.childCount; i++)
-        {
-            GoalAndSpawn temp = new GoalAndSpawn();
-            temp.goalCollider = parentGoal.transform.GetChild(i).GetComponent<Collider>();
-            temp.spawnCollider = parentGoal.transform.GetChild(i).GetChild(0).GetComponent<Collider>();
-            goals.Add(temp);
-        }
         // Sort list by collider size
         goals.Sort(compareBySize);
 
@@ -115,9 +119,11 @@ public class WalkGoal : Agent
         {
             //No limit, select a random goal area
             //Remove spawn area so will not select is as goal area too
-            goals.Remove(goals[randomSpawnIndex]);
-            Collider tempArea2 = goals[randomSpawnIndex].goalCollider;
+            GoalAndSpawn tempBeforeRemove = this.goals[randomSpawnIndex];
+            this.goals.Remove(this.goals[randomSpawnIndex]);
+            Collider tempArea2 = this.goals[randomSpawnIndex].goalCollider;
             spawnPoint = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
+            this.goals.Add(tempBeforeRemove);
         }
         else
         {
@@ -125,7 +131,10 @@ public class WalkGoal : Agent
             float spawnToGoalDistance = 0f;
             do
             {
-                Collider tempArea2 = goals[randomSpawnIndex].spawnCollider;
+                
+                List<Collider> tempSpawnAreas = this.goals[randomSpawnIndex].spawnCollider;
+                int randomSpawnArea = Random.Range(0, tempSpawnAreas.Count);
+                Collider tempArea2 = tempSpawnAreas[randomSpawnArea];
                 spawnPoint = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
                 spawnToGoalDistance = Vector3.Distance(spawnPoint, this.goalPos);
             } while ( spawnToGoalDistance > spawnDistanceLimit || spawnToGoalDistance < (spawnDistanceLimit - 1) );
@@ -279,8 +288,9 @@ public class WalkGoal : Agent
         );
         try
         {
-            this.transform.GetChild(1).gameObject.GetComponentInChildren<TrailRenderer>().endColor = randomColor;
             this.GetComponent<Renderer>().material.SetColor("_Color", randomColor);
+            this.transform.GetChild(1).gameObject.GetComponentInChildren<TrailRenderer>().endColor = randomColor;
+            
         }
         catch
         {

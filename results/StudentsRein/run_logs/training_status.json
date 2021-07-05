@@ -1,0 +1,50 @@
+{
+    "distance": {
+        "lesson_num": 4
+    },
+    "STUDENTSgoal": {
+        "checkpoints": [
+            {
+                "steps": 499944,
+                "file_path": "results\\StudentsRein\\STUDENTSgoal\\STUDENTSgoal-499944.onnx",
+                "reward": -0.6136157680103727,
+                "creation_time": 1625518121.5659986,
+                "auxillary_file_paths": [
+                    "results\\StudentsRein\\STUDENTSgoal\\STUDENTSgoal-499944.pt"
+                ]
+            },
+            {
+                "steps": 999954,
+                "file_path": "results\\StudentsRein\\STUDENTSgoal\\STUDENTSgoal-999954.onnx",
+                "reward": 1.8789454785609534,
+                "creation_time": 1625520221.8581197,
+                "auxillary_file_paths": [
+                    "results\\StudentsRein\\STUDENTSgoal\\STUDENTSgoal-999954.pt"
+                ]
+            },
+            {
+                "steps": 1399897,
+                "file_path": "results\\StudentsRein\\STUDENTSgoal\\STUDENTSgoal-1399897.onnx",
+                "reward": 0.8007200109316425,
+                "creation_time": 1625521906.0555043,
+                "auxillary_file_paths": [
+                    "results\\StudentsRein\\STUDENTSgoal\\STUDENTSgoal-1399897.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1399897,
+            "file_path": "results\\StudentsRein\\STUDENTSgoal.onnx",
+            "reward": 0.8007200109316425,
+            "creation_time": 1625521906.0555043,
+            "auxillary_file_paths": [
+                "results\\StudentsRein\\STUDENTSgoal\\STUDENTSgoal-1399897.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.9.0+cu111"
+    }
+}
