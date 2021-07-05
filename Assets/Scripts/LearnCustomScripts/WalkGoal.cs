@@ -53,6 +53,7 @@ public class WalkGoal : Agent
 
     public override void OnEpisodeBegin()
     {
+        
         this.startingPos = randomSpawnPoint();
         transform.localPosition = this.startingPos;
         transform.LookAt(this.goalPos);
@@ -61,6 +62,7 @@ public class WalkGoal : Agent
         this.rightRotationCount = 0;
         this.transform.GetChild(1).GetComponent<TrailRenderer>().Clear();
         setAgentColor();
+
     }
 
     private int compareBySize(GoalAndSpawn a, GoalAndSpawn b)
@@ -289,8 +291,7 @@ public class WalkGoal : Agent
         try
         {
             this.GetComponent<Renderer>().material.SetColor("_Color", randomColor);
-            this.transform.GetChild(1).gameObject.GetComponentInChildren<TrailRenderer>().endColor = randomColor;
-            
+            this.transform.GetChild(1).gameObject.GetComponentInChildren<TrailRenderer>().endColor = randomColor;            
         }
         catch
         {

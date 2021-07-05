@@ -201,10 +201,9 @@ MonoBehaviour:
   currentAngle: 0
   goalPos: {x: 0, y: 0, z: 0}
   currentGoalDistance: 0
-  rw: 0
+  reward: 0
   leftRotationCount: 0
   rightRotationCount: 0
-  stepsss: 0
 --- !u!114 &7637603748980032099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,7 +1063,7 @@ PrefabInstance:
     - target: {fileID: 1274734828565521082, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.229
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1274734828565521082, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
