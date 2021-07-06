@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -3414,10 +3414,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce5356a9689e8743b0c4870fb351adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsTrain: 0
   path: ./Datasets/Zara
   agentPrefab: {fileID: 9086418413576028287, guid: 86a133ff3d3f3f54482f282977b76cf9,
     type: 3}
+  goalPrefab: {fileID: 0}
   timePassed: 0
+  maxX: 0
+  maxZ: 0
+  minX: 0
+  minZ: 0
   maxTime: 0
   timestep: 0
   pause: 0
