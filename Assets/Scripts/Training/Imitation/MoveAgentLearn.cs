@@ -8,16 +8,35 @@ public class MoveAgentLearn : MonoBehaviour
 {
     private LoadDataLearn controller;
     private int localCounter = 1;
-    public LoadDataLearn.AgentData agentData;
-    public Color color;
+    private LoadDataLearn.AgentData agentData;
+    private Color color;
     public float speed;
-    public Vector3 forward;
-    public Vector3 goalVector;
-    public float angle;
-    public List<GameObject> neighList;
+    private Vector3 forward;
+    private Vector3 goalVector;
+    public float goalAngle;
+    private List<GameObject> neighList;
+    [HideInInspector]
     public bool walkNear;
-    public bool stopMoving;
-    public float dot;
+    private bool stopMoving;
+    public int direction;
+    public float headingAngle;
+    private Vector3 heading;
+
+    private int AngleDir(Vector3 targetDir)
+    {
+        Vector3 perp = Vector3.Cross(transform.forward, targetDir);
+        float dir = Vector3.Dot(perp, transform.up);
+
+        //Going right
+        if (dir > 0f)
+            return 1;
+        //Going left
+        else if (dir < 0f)
+            return -1;
+        //Going straight
+        else
+            return 0;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,19 +50,22 @@ public class MoveAgentLearn : MonoBehaviour
         this.transform.GetChild(0).gameObject.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = int.Parse(this.name.Split('_')[1]).ToString();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Vector3 nextTargetPos = this.agentData.positions[localCounter];
+        this.heading = nextTargetPos - transform.position;
+        this.direction = AngleDir(this.heading);
+
+        visualizeLines();
+        calculateAngle();
+
         float currentSpeed = Vector3.Distance(nextTargetPos, this.agentData.positions[localCounter - 1]) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter - 1]) / 100);
         this.speed = this.controller.normalizedSpeed(currentSpeed);
 
         this.GetComponent<Rigidbody>().velocity = (nextTargetPos - transform.position) * this.speed * 60f;
         if (this.speed > 0.1f)
             transform.rotation = Quaternion.LookRotation(nextTargetPos - transform.position);
-        
-        visualizeLines();
-        calculateAngle();
+
         if (this.localCounter + 1 < this.agentData.timeSteps.Count)
             this.localCounter++;
         else
@@ -56,7 +78,7 @@ public class MoveAgentLearn : MonoBehaviour
         {
             this.gameObject.SetActive(false);
         }
-        if (collision.gameObject.tag == "Agent")
+        /*if (collision.gameObject.tag == "Agent")
         {
             MoveAgentLearn colliderAgent = collision.gameObject.GetComponent<MoveAgentLearn>();
 
@@ -88,7 +110,7 @@ public class MoveAgentLearn : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
     }
 
     public void setAgentData(LoadDataLearn.AgentData data)
@@ -98,11 +120,16 @@ public class MoveAgentLearn : MonoBehaviour
 
     private void visualizeLines()
     {
-        this.forward = transform.TransformDirection(Vector3.forward) * 1.6f;
-        Debug.DrawRay(transform.position, this.forward, Color.white);
-        this.goalVector = this.GetComponent<WalkGoal>().goalPos - transform.position;// this.agentData.goalPos - transform.position;
-        float m = this.forward.magnitude / this.goalVector.magnitude;
-        Debug.DrawRay(transform.position, this.goalVector * m, Color.green);
+        this.forward = transform.TransformDirection(Vector3.forward) * 1.5f;
+        Debug.DrawRay(transform.position, this.forward , Color.white);
+
+        float m = this.forward.magnitude / this.heading.magnitude;
+        Debug.DrawRay(transform.position, this.heading * m, Color.blue);
+
+        this.goalVector = this.agentData.goalPos - transform.position;
+        m = this.forward.magnitude / this.goalVector.magnitude;
+        Debug.DrawRay(transform.position, this.goalVector * m, Color.green);   
+
         foreach (var neigh in this.neighList)
         {
             for(var i=0;i<5;i++)
@@ -112,7 +139,8 @@ public class MoveAgentLearn : MonoBehaviour
 
     private void calculateAngle()
     {
-        this.angle = Vector3.Angle(this.forward, this.goalVector);
+        this.goalAngle = Vector3.Angle(this.forward, this.goalVector);
+        this.headingAngle = Vector3.Angle(this.forward, this.heading);
     }
 
     private void setAgentColor()

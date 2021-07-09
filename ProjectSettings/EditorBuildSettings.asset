@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ZARA.unity
+    path: Assets/Scenes/Visualization/ZARA.unity
     guid: 792dc2b1f2ce6ab4f9aafdd72f58083d
   - enabled: 1
-    path: Assets/Scenes/Students.unity
+    path: Assets/Scenes/Visualization/Students.unity
     guid: 6f0d54d64be57804f8787f77e6f0c12f
   m_configObjects: {}
