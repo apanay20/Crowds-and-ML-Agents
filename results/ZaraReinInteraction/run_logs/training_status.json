@@ -1,0 +1,68 @@
+{
+    "distance": {
+        "lesson_num": 4
+    },
+    "ZARAgoalInteract": {
+        "checkpoints": [
+            {
+                "steps": 3499940,
+                "file_path": "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-3499940.onnx",
+                "reward": 2.0342250039816023,
+                "creation_time": 1625802949.1881728,
+                "auxillary_file_paths": [
+                    "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-3499940.pt"
+                ]
+            },
+            {
+                "steps": 3999955,
+                "file_path": "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-3999955.onnx",
+                "reward": 1.7226289336961742,
+                "creation_time": 1625805586.2090316,
+                "auxillary_file_paths": [
+                    "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-3999955.pt"
+                ]
+            },
+            {
+                "steps": 4499992,
+                "file_path": "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-4499992.onnx",
+                "reward": 1.3395713173143078,
+                "creation_time": 1625808212.4279022,
+                "auxillary_file_paths": [
+                    "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-4499992.pt"
+                ]
+            },
+            {
+                "steps": 4999955,
+                "file_path": "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-4999955.onnx",
+                "reward": 1.8443551288040068,
+                "creation_time": 1625810837.7043085,
+                "auxillary_file_paths": [
+                    "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-4999955.pt"
+                ]
+            },
+            {
+                "steps": 5000019,
+                "file_path": "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-5000019.onnx",
+                "reward": 1.8443551288040068,
+                "creation_time": 1625810837.8021417,
+                "auxillary_file_paths": [
+                    "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-5000019.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 5000019,
+            "file_path": "results\\ZaraReinInteraction\\ZARAgoalInteract.onnx",
+            "reward": 1.8443551288040068,
+            "creation_time": 1625810837.8021417,
+            "auxillary_file_paths": [
+                "results\\ZaraReinInteraction\\ZARAgoalInteract\\ZARAgoalInteract-5000019.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.9.0+cu111"
+    }
+}

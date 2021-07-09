@@ -1,0 +1,104 @@
+default_settings: null
+behaviors:
+  ZARAgoalInteract:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 10240
+      learning_rate: 0.0003
+      beta: 0.005
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: false
+      hidden_units: 128
+      num_layers: 2
+      vis_encode_type: simple
+      memory: null
+      goal_conditioning_type: hyper
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+        network_settings:
+          normalize: false
+          hidden_units: 128
+          num_layers: 2
+          vis_encode_type: simple
+          memory: null
+          goal_conditioning_type: hyper
+    init_path: null
+    keep_checkpoints: 5
+    checkpoint_interval: 500000
+    max_steps: 5000000
+    time_horizon: 64
+    summary_freq: 10000
+    threaded: false
+    self_play: null
+    behavioral_cloning: null
+env_settings:
+  env_path: null
+  env_args: null
+  base_port: 5005
+  num_envs: 1
+  seed: -1
+engine_settings:
+  width: 84
+  height: 84
+  quality_level: 5
+  time_scale: 20
+  target_frame_rate: -1
+  capture_frame_rate: 60
+  no_graphics: false
+environment_parameters:
+  distance:
+    curriculum:
+    - name: Lesson0
+      completion_criteria:
+        measure: reward
+        behavior: ZARAgoalInteract
+        signal_smoothing: true
+        min_lesson_length: 100
+        threshold: 1.3
+      value: 3.0
+    - name: Lesson1
+      completion_criteria:
+        measure: reward
+        behavior: ZARAgoalInteract
+        signal_smoothing: true
+        min_lesson_length: 100
+        threshold: 1.2
+      value: 5.0
+    - name: Lesson2
+      completion_criteria:
+        measure: reward
+        behavior: ZARAgoalInteract
+        signal_smoothing: true
+        min_lesson_length: 100
+        threshold: 1.1
+      value: 7.0
+    - name: Lesson4
+      completion_criteria:
+        measure: reward
+        behavior: ZARAgoalInteract
+        signal_smoothing: true
+        min_lesson_length: 100
+        threshold: 1.0
+      value: 10.0
+    - name: Lesson5
+      completion_criteria:
+      value: 0.0
+checkpoint_settings:
+  run_id: ppo
+  initialize_from: null
+  load_model: false
+  resume: false
+  force: true
+  train_model: false
+  inference: false
+  results_dir: results
+torch_settings:
+  device: null
+debug: false

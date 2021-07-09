@@ -50,7 +50,14 @@ public class SaveRoute : MonoBehaviour
         // Clear list
         this.routeList.Clear();
         // End Episode
-        this.GetComponent<WalkGoal>().EndEpisode();
+        try
+        {
+            this.GetComponent<WalkGoal>().EndEpisode();
+        }
+        catch
+        {
+            this.GetComponent<WalkGoalInteract>().EndEpisode();
+        }
     }
 
     private void FixedUpdate()
