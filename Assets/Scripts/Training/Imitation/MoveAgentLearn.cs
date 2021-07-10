@@ -8,7 +8,8 @@ public class MoveAgentLearn : MonoBehaviour
 {
     private LoadDataLearn controller;
     private int localCounter = 1;
-    private LoadDataLearn.AgentData agentData;
+    [HideInInspector]
+    public LoadDataLearn.AgentData agentData;
     private Color color;
     public float speed;
     private Vector3 forward;
