@@ -56,7 +56,10 @@ public class SaveRoute : MonoBehaviour
         }
         catch
         {
-            this.GetComponent<WalkGoalInteract>().EndEpisode();
+            if (gameObject.GetComponent<WalkGoalInteract>() != null)
+                this.GetComponent<WalkGoalInteract>().EndEpisode();
+            if (gameObject.GetComponent<WalkGoalImitation>() != null)
+                this.GetComponent<WalkGoalImitation>().EndEpisode();
         }
     }
 

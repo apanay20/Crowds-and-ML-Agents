@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Unity.MLAgents;
+using TMPro;
 
 public class MoveAgentLearn : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class MoveAgentLearn : MonoBehaviour
     private int localCounter = 1;
     [HideInInspector]
     public LoadDataLearn.AgentData agentData;
+    public TMPro.TMP_Text nameText;
     private Color color;
     public float speed;
     private Vector3 forward;
@@ -19,24 +20,15 @@ public class MoveAgentLearn : MonoBehaviour
     [HideInInspector]
     public bool walkNear;
     private bool stopMoving;
-    public int direction;
     public float headingAngle;
     private Vector3 heading;
+    public float headingDistance;
 
-    private int AngleDir(Vector3 targetDir)
+
+    private void Awake()
     {
-        Vector3 perp = Vector3.Cross(transform.forward, targetDir);
-        float dir = Vector3.Dot(perp, transform.up);
-
-        //Going right
-        if (dir > 0f)
-            return 1;
-        //Going left
-        else if (dir < 0f)
-            return -1;
-        //Going straight
-        else
-            return 0;
+        this.headingAngle = 0f;
+        this.headingDistance = 0f;
     }
 
     // Start is called before the first frame update
@@ -47,18 +39,19 @@ public class MoveAgentLearn : MonoBehaviour
         this.stopMoving = false;
         this.neighList = new List<GameObject>();
         this.name = this.agentData.name;
-        setAgentColor();
-        this.transform.GetChild(0).gameObject.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = int.Parse(this.name.Split('_')[1]).ToString();
+        //setAgentColor();
+        // Enable MLAGENTS script after gameobject data has been initialized
+        this.GetComponent<WalkGoalImitation>().enabled = true;
+        this.nameText.text = int.Parse(this.name.Split('_')[1]).ToString();
     }
 
-    void FixedUpdate()
+    /*void FixedUpdate()
     {
         Vector3 nextTargetPos = this.agentData.positions[localCounter];
         this.heading = nextTargetPos - transform.position;
-        this.direction = AngleDir(this.heading);
 
-        visualizeLines();
-        calculateAngle();
+        calculateAngleAndDistance(nextTargetPos);
+        //visualizeLines();        
 
         float currentSpeed = Vector3.Distance(nextTargetPos, this.agentData.positions[localCounter - 1]) / ((this.agentData.timeSteps[localCounter] - this.agentData.timeSteps[localCounter - 1]) / 100);
         this.speed = this.controller.normalizedSpeed(currentSpeed);
@@ -71,7 +64,7 @@ public class MoveAgentLearn : MonoBehaviour
             this.localCounter++;
         else
             this.stopMoving = true;
-    }
+    }*/
 
     private void OnTriggerStay(Collider collision)
     {
@@ -138,10 +131,11 @@ public class MoveAgentLearn : MonoBehaviour
         }
     }
 
-    private void calculateAngle()
+    private void calculateAngleAndDistance(Vector3 nextPoint)
     {
         this.goalAngle = Vector3.Angle(this.forward, this.goalVector);
         this.headingAngle = Vector3.Angle(this.forward, this.heading);
+        this.headingDistance = Vector3.Distance(transform.position, nextPoint);
     }
 
     private void setAgentColor()
