@@ -17,7 +17,6 @@ public class WalkGoalImitation : Agent
     private SaveRoute saveRouteScript;
     private int localCounter = 1;
 
-
     private void Update()
     {
         this.reward = this.GetCumulativeReward();
@@ -180,7 +179,9 @@ public class WalkGoalImitation : Agent
 
     private int angleDir(Vector3 targetDir)
     {
+        // First calculate to cross product to get the perpendicular vector
         Vector3 perp = Vector3.Cross(transform.forward, targetDir);
+        // Then get the dot product of the perpendicular vector and the up vector
         float dir = Vector3.Dot(perp, transform.up);
 
         //Going right

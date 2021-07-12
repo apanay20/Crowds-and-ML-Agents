@@ -12,7 +12,7 @@ public class WalkAgent : MonoBehaviour
     private List<Vector3> positions;
     private List<float> timeSteps;
     private LoadData trigger;
-    private int lastTimestep = 0;
+    private int lastTimestep = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,6 @@ public class WalkAgent : MonoBehaviour
             //this.GetComponent<WalkGoal>().goalName = "Goal_" + this.AgentName.Split('_')[1];
         }
     }
-
 
     private void setAgentColor()
     {
@@ -88,6 +87,17 @@ public class WalkAgent : MonoBehaviour
         {
             setAppearance(false);
         }
+        /*if (trigger.checkStartMoving() == true && this.trigger.timestep >= this.timeSteps[0] && this.lastTimestep < this.positions.Count)
+        {
+            setAppearance(true);
+            transform.rotation = Quaternion.LookRotation(this.positions[lastTimestep] - transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, this.positions[lastTimestep], this.speed);
+            this.lastTimestep++;
+        }
+        else
+        {
+            setAppearance(false);
+        }*/
     }
 
     private void setAppearance(bool val)

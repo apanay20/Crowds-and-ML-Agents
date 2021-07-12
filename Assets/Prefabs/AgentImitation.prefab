@@ -568,7 +568,7 @@ MonoBehaviour:
   Record: 0
   NumStepsToRecord: 0
   DemonstrationName: ZaraImitation
-  DemonstrationDirectory: 
+  DemonstrationDirectory: ./ImitationDemos/Zara
 --- !u!1 &2687526473107476272
 GameObject:
   m_ObjectHideFlags: 0
