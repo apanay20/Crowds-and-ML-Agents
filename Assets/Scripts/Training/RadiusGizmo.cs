@@ -11,12 +11,12 @@ public class RadiusGizmo : MonoBehaviour
     public int segments = 50;
     public float xradius = 2;
     public float yradius = 2;
-    public MoveAgentLearn agent;
+    //public MoveAgentLearn agent;
     LineRenderer line;
 
     void Start()
     {
-        this.agent = this.transform.parent.gameObject.GetComponent<MoveAgentLearn>();
+        //this.agent = this.transform.parent.gameObject.GetComponent<MoveAgentLearn>();
         line = gameObject.GetComponent<LineRenderer>();
         line.useWorldSpace = false;
         if(this.isSpeed == false)
@@ -28,7 +28,7 @@ public class RadiusGizmo : MonoBehaviour
     {
         if(this.isSpeed == true)
         {
-            this.completeAngle = this.transform.parent.gameObject.GetComponent<MoveAgentLearn>().speed * 360f;
+            //this.completeAngle = this.transform.parent.gameObject.GetComponent<MoveAgentLearn>().speed * 360f;
             CreatePoints();
         }
     }
@@ -51,7 +51,7 @@ public class RadiusGizmo : MonoBehaviour
         }
     }
 
-    private void blink()
+    /*private void blink()
     {
         if (this.agent.walkNear == true)
         {
@@ -66,5 +66,5 @@ public class RadiusGizmo : MonoBehaviour
                 line.endWidth = 0.05f;
             }
         }
-    }
+    }*/
 }

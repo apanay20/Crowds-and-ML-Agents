@@ -4,38 +4,137 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.MLAgents.Demonstrations;
 
 public class WalkGoalImitation : Agent
 {
-    private MoveAgentLearn moveAgentScript;
+    private LoadDataLearn controller;
+    private AssignData dataScript;
+    public TMPro.TMP_Text nameText;
     private Rigidbody agentRB;
     public float currentAngle;
+    private Vector3 startingPos;
     public Vector3 goalPos;
     private float goalDistance;
     public float currentGoalDistance;
     public float reward;
     private SaveRoute saveRouteScript;
     private int localCounter = 1;
+    private float moveSpeed;
+    public float currentSpeed;
+    private List<Collider> goals;
 
     private void Update()
     {
         this.reward = this.GetCumulativeReward();
+        this.currentSpeed = this.agentRB.velocity.magnitude;
     }
 
     public override void Initialize()
     {
-        this.moveAgentScript = this.GetComponent<MoveAgentLearn>();
-        this.goalPos = this.moveAgentScript.agentData.goalPos;
         this.agentRB = this.GetComponent<Rigidbody>();
+        this.controller = GameObject.Find("Plane").GetComponent<LoadDataLearn>();
+        this.dataScript = this.GetComponent<AssignData>();
         this.saveRouteScript = this.GetComponent<SaveRoute>();
+        this.moveSpeed = 100f;
+        
+        if(this.controller.isImitation == true)
+        {
+            this.name = this.dataScript.agentData.name;
+            this.nameText.text = int.Parse(this.name.Split('_')[1]).ToString();
+        }
+        else
+        {
+            //Find goals areas in scene
+            this.goals = new List<Collider>();
+            GameObject parentGoal = GameObject.Find("GoalAreas");
+            foreach (Transform child in parentGoal.transform)
+            {
+                this.goals.Add(child.GetComponent<Collider>());
+            }
+        }
         setAgentColor();
     }
 
     public override void OnEpisodeBegin()
     {
+        // If current run is imitation then get data from file, else create random points 
+        if (this.controller.isImitation == true)
+        {
+            this.startingPos = this.dataScript.agentData.positions[0];
+            this.goalPos = this.dataScript.agentData.goalPos;
+        }
+        else
+        {
+            this.startingPos = randomSpawnPoint();
+            transform.localPosition = this.startingPos;
+        }
         this.goalDistance = Vector3.Distance(transform.localPosition, this.goalPos);
-        transform.LookAt(this.moveAgentScript.agentData.positions[1]);
-        this.transform.GetChild(1).GetComponent<TrailRenderer>().Clear();    }
+        transform.LookAt(this.goalPos);
+        this.transform.GetChild(1).GetComponent<TrailRenderer>().Clear();    
+    }
+
+    private Vector3 randomSpawnPoint()
+    {
+        // Sort list by collider size
+        goals.Sort(compareBySize);
+
+        //Select a goal area and a random spawn point in that area
+        int randomSpawnIndex = getRandomIndex(goals);
+        Collider tempArea = goals[randomSpawnIndex];
+        //Set goal area
+        this.goalPos = new Vector3(Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x), 0f, Random.Range(tempArea.bounds.min.z, tempArea.bounds.max.z));
+
+        Vector3 spawnPoint = Vector3.zero;
+        //Remove selected goal area so will not select is as goal area too
+        Collider tempBeforeRemove = this.goals[randomSpawnIndex];
+        this.goals.Remove(this.goals[randomSpawnIndex]);
+        Collider tempArea2 = this.goals[randomSpawnIndex];
+        spawnPoint = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
+        this.goals.Add(tempBeforeRemove);
+
+        return spawnPoint;
+    }
+
+    //Compare collider size
+    private int compareBySize(Collider a, Collider b)
+    {
+        Vector3 boundsA = a.bounds.size;
+        Vector3 boundsB = b.bounds.size;
+
+        float sizeA = boundsA.x * boundsA.z;
+        float sizeB = boundsB.x * boundsB.z;
+        return sizeA.CompareTo(sizeB);
+    }
+
+    // Return a weighted random collider area
+    private int getRandomIndex(List<Collider> list)
+    {
+        int listSize = list.Count;
+        List<float> colliderSize = new List<float>();
+        float maxSize = 0f;
+        float minSize = 100000f;
+
+        foreach (Collider c in list)
+        {
+            float tempBoundSize = c.bounds.size.x * c.bounds.size.z;
+            if (tempBoundSize > maxSize)
+                maxSize = tempBoundSize;
+            if (tempBoundSize < minSize)
+                minSize = tempBoundSize;
+
+            colliderSize.Add(tempBoundSize);
+        }
+
+        int retIndex = 0;
+        float rd = Random.Range(minSize, maxSize);
+        for (int i = 0; i < colliderSize.Count; i++)
+        {
+            if (rd >= colliderSize[i])
+                retIndex = i;
+        }
+        return retIndex;
+    }
 
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -56,7 +155,8 @@ public class WalkGoalImitation : Agent
         if (this.currentAngle < 45f)
             AddReward(+0.0001f);
         else
-            AddReward(-0.0001f);
+            if (this.currentSpeed > 0.5f)
+                AddReward(-0.0001f);
 
         // Reward if ditance to the goal decreases
         this.currentGoalDistance = Vector3.Distance(transform.localPosition, this.goalPos);
@@ -66,10 +166,12 @@ public class WalkGoalImitation : Agent
             this.goalDistance = this.currentGoalDistance;
         }
         else
-            AddReward(-0.0001f);
+            if (this.currentSpeed > 0.5f)
+                AddReward(-0.0001f);
 
-        // Add small punishment in every step
-        AddReward(-1f / MaxStep);
+        // Add small punishment in every step if not stop to interact
+        if(this.currentSpeed > 0.5f)
+            AddReward(-1f / MaxStep);
     }
 
     private void moveAgent(float angle, float distance, int direction)
@@ -82,8 +184,8 @@ public class WalkGoalImitation : Agent
         angle = Mathf.Clamp(angle, -5f, 5f);
         distance = Mathf.Clamp(distance, 0f, 0.1f);
 
-        Vector3 nextVector = transform.forward * distance;        
-        transform.position += nextVector;
+        Vector3 nextVector = transform.forward * distance;
+        this.agentRB.velocity = nextVector * this.moveSpeed;
         transform.Rotate(0f, angle, 0f);
 
         // ----------------- DRAW RAYS ---------------------
@@ -96,15 +198,16 @@ public class WalkGoalImitation : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         // Get next point from list
-        Vector3 nextTargetPos = this.moveAgentScript.agentData.positions[this.localCounter];
-        Vector3 heading = nextTargetPos - this.moveAgentScript.agentData.positions[this.localCounter - 1];
+        Vector3 nextTargetPos = this.dataScript.agentData.positions[this.localCounter];
+        Vector3 lastPos = this.dataScript.agentData.positions[this.localCounter - 1];
+        Vector3 heading = nextTargetPos - lastPos;
         // Get moving direction
         int direction = angleDir(heading);
 
-        Vector3 goalVector = this.moveAgentScript.agentData.goalPos - transform.position;
+        Vector3 goalVector = this.dataScript.agentData.goalPos - transform.position;
         float goalAngle = Vector3.Angle(transform.forward, goalVector);
         float headingAngle = Vector3.Angle(transform.forward, heading);
-        float headingDistance = Vector3.Distance(this.moveAgentScript.agentData.positions[this.localCounter - 1], nextTargetPos);
+        float headingDistance = Vector3.Distance(lastPos, nextTargetPos);
 
         // ----------------------ASSIGN ACTIONS------------------------------
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
@@ -117,8 +220,17 @@ public class WalkGoalImitation : Agent
         discreteActions[0] = direction;
         // ------------------------------------------------------------------
 
-        if (this.localCounter + 1 < this.moveAgentScript.agentData.timeSteps.Count)
+        if (this.localCounter + 1 < this.dataScript.agentData.timeSteps.Count)
             this.localCounter++;
+    }
+
+    private void disableAgent()
+    {
+        if(this.controller.isImitation == true)
+        {
+            this.GetComponent<DemonstrationRecorder>().Close();
+            this.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -127,45 +239,47 @@ public class WalkGoalImitation : Agent
             // Check if goal area reached contains the actual goal point
             if(other.bounds.Contains(this.goalPos) == false)
             {
-                AddReward(-2f);
+                AddReward(-1f);
                 EndEpisode();
+                this.GetComponent<WalkGoalImitation>().enabled = false;
                 this.gameObject.SetActive(false);
             }
             else
             {
                 // If goal area reached contains the actual point, give extra reward if agent is close enought
                 float goalReachedDistance = Vector3.Distance(transform.localPosition, this.goalPos);
-                if (goalReachedDistance <= 5f)
+                if (goalReachedDistance <= 4f)
                 {
-                    AddReward(+2f);
+                    AddReward(+1f);                    
                     this.saveRouteScript.exportRouteAndEndEpisode(this.GetCumulativeReward());
-                    this.gameObject.SetActive(false);
+                    disableAgent();
+                    
                 }
                 else
                 {
-                    AddReward(+1f);
+                    AddReward(+0.5f);
                     EndEpisode();
-                    this.gameObject.SetActive(false);
+                    disableAgent();
                 }
             }
         }
         if (other.tag == "AgentChild")
         {
-            AddReward(-2f);
+            AddReward(-1f);
             EndEpisode();
-            this.gameObject.SetActive(false);
+            disableAgent();
         }
         if (other.tag == "Wall")
         {
-            AddReward(-2f);
+            AddReward(-1f);
             EndEpisode();
-            this.gameObject.SetActive(false);
+            disableAgent();
         }
         if (other.tag == "Obstacle")
         {
-            AddReward(-2f);
+            AddReward(-1f);
             EndEpisode();
-            this.gameObject.SetActive(false);
+            disableAgent();
         }
     }
 
@@ -177,6 +291,7 @@ public class WalkGoalImitation : Agent
         }
     }
 
+    // Get next point direction
     private int angleDir(Vector3 targetDir)
     {
         // First calculate to cross product to get the perpendicular vector
@@ -195,6 +310,7 @@ public class WalkGoalImitation : Agent
             return 0;
     }
 
+    // Set a random color to agent
     private void setAgentColor()
     {
         try

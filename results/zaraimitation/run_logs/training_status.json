@@ -2,22 +2,22 @@
     "ZARAimitation": {
         "checkpoints": [
             {
-                "steps": 31680,
-                "file_path": "results\\zaraimitation\\ZARAimitation\\ZARAimitation-31680.onnx",
-                "reward": null,
-                "creation_time": 1626105274.9245307,
+                "steps": 35028,
+                "file_path": "results\\ZaraImitation\\ZARAimitation\\ZARAimitation-35028.onnx",
+                "reward": 0.28392954598662484,
+                "creation_time": 1626212618.5270653,
                 "auxillary_file_paths": [
-                    "results\\zaraimitation\\ZARAimitation\\ZARAimitation-31680.pt"
+                    "results\\ZaraImitation\\ZARAimitation\\ZARAimitation-35028.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 31680,
-            "file_path": "results\\zaraimitation\\ZARAimitation.onnx",
-            "reward": null,
-            "creation_time": 1626105274.9245307,
+            "steps": 35028,
+            "file_path": "results\\ZaraImitation\\ZARAimitation.onnx",
+            "reward": 0.28392954598662484,
+            "creation_time": 1626212618.5270653,
             "auxillary_file_paths": [
-                "results\\zaraimitation\\ZARAimitation\\ZARAimitation-31680.pt"
+                "results\\ZaraImitation\\ZARAimitation\\ZARAimitation-35028.pt"
             ]
         }
     },

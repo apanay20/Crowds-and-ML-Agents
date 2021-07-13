@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 1155475268831357478}
   - component: {fileID: 4881859915241268892}
   - component: {fileID: 8151574261943009046}
-  - component: {fileID: 6117949879509151081}
+  - component: {fileID: 4089821821385094915}
   - component: {fileID: 6634828208165231818}
   - component: {fileID: 4223069409659615940}
   - component: {fileID: 1166361021156715356}
@@ -457,7 +457,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &6117949879509151081
+--- !u!114 &4089821821385094915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -466,15 +466,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2353923127904415696}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4361715d5e100204d9246cb2a819062b, type: 3}
+  m_Script: {fileID: 11500000, guid: 39615f999a59a764caf39ba0a541b66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 6344394825070290150}
-  speed: 0
-  goalAngle: 0
-  walkNear: 0
-  headingAngle: 0
-  headingDistance: 0
 --- !u!114 &6634828208165231818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,10 +485,13 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 8000
+  isImitation: 0
+  nameText: {fileID: 6344394825070290150}
   currentAngle: 0
   goalPos: {x: 0, y: 0, z: 0}
   currentGoalDistance: 0
   reward: 0
+  currentSpeed: 0
 --- !u!114 &4223069409659615940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,7 +780,6 @@ MonoBehaviour:
   segments: 50
   xradius: 2
   yradius: 2
-  agent: {fileID: 0}
 --- !u!1 &4115036402475078840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,7 +1168,6 @@ MonoBehaviour:
   segments: 50
   xradius: 2
   yradius: 2
-  agent: {fileID: 0}
 --- !u!1001 &5614611980698377116
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,8 +5,10 @@ using System.IO;
 
 public class LoadDataLearn : MonoBehaviour
 {
+    public bool isImitation;
     public string path;
-    private List<AgentData> data;
+    [HideInInspector]
+    public List<AgentData> data;
     public float counter = 0;
     public GameObject agentPrefab;
     private float minStartTime = 1000000;
@@ -29,10 +31,17 @@ public class LoadDataLearn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        readData();
-        findMinMaxSpeed();
-        this.counter = this.minStartTime;
-        Time.timeScale = 0.4f;
+        if (this.isImitation == true)
+        {
+            readData();
+            findMinMaxSpeed();
+            this.counter = this.minStartTime;
+            Time.timeScale = 0.5f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     private void readData()
@@ -97,14 +106,17 @@ public class LoadDataLearn : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        foreach (var agent in data)
+        if (this.isImitation == true)
         {
-            if(Mathf.Approximately(agent.startTime, this.counter))
+            foreach (var agent in data)
             {
-                GameObject newAgent = Instantiate(agentPrefab, agent.positions[0], Quaternion.identity);
-                newAgent.GetComponent<MoveAgentLearn>().setAgentData(agent);
+                if (Mathf.Approximately(agent.startTime, this.counter))
+                {
+                    GameObject newAgent = Instantiate(agentPrefab, agent.positions[0], Quaternion.identity);
+                    newAgent.GetComponent<AssignData>().setAgentData(agent);
+                }
             }
+            counter += 4;
         }
-        counter += 4;
     }
 }

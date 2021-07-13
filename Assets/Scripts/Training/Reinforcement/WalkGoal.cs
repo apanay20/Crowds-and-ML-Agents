@@ -123,7 +123,7 @@ public class WalkGoal : Agent
         if(spawnDistanceLimit == 0)
         {
             //No limit, select a random goal area
-            //Remove spawn area so will not select is as goal area too
+            //Remove selected goal area so will not select is as goal area too
             GoalAndSpawn tempBeforeRemove = this.goals[randomSpawnIndex];
             this.goals.Remove(this.goals[randomSpawnIndex]);
             Collider tempArea2 = this.goals[randomSpawnIndex].goalCollider;
