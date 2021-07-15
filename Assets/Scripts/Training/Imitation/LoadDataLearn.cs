@@ -40,7 +40,7 @@ public class LoadDataLearn : MonoBehaviour
         }
         else
         {
-            Time.timeScale = 1f;
+            Time.timeScale = 0.05f;
         }
     }
 

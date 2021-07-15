@@ -31,7 +31,7 @@ behaviors:
           goal_conditioning_type: hyper
       gail:
         gamma: 0.99
-        strength: 0.7
+        strength: 0.5
         network_settings:
           normalize: false
           hidden_units: 128
@@ -49,8 +49,8 @@ behaviors:
     checkpoint_interval: 500000
     max_steps: 5000000
     time_horizon: 64
-    summary_freq: 10000
-    threaded: false
+    summary_freq: 5000
+    threaded: true
     self_play: null
     behavioral_cloning: null
 env_settings:
@@ -63,11 +63,72 @@ engine_settings:
   width: 84
   height: 84
   quality_level: 5
-  time_scale: 20.0
+  time_scale: 1.0
   target_frame_rate: -1
   capture_frame_rate: 60
   no_graphics: false
-environment_parameters: null
+environment_parameters:
+  distance:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 684
+          value: 2.0
+      name: Lesson0
+      completion_criteria:
+        behavior: ZARAimitation
+        measure: reward
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 1.8
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 685
+          value: 4.0
+      name: Lesson1
+      completion_criteria:
+        behavior: ZARAimitation
+        measure: reward
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 1.6
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 686
+          value: 7.0
+      name: Lesson2
+      completion_criteria:
+        behavior: ZARAimitation
+        measure: reward
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 1.4
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 687
+          value: 9.0
+      name: Lesson4
+      completion_criteria:
+        behavior: ZARAimitation
+        measure: reward
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 1.2
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 688
+          value: 0.0
+      name: Lesson5
+      completion_criteria: null
 checkpoint_settings:
   run_id: ZaraImitation
   initialize_from: null

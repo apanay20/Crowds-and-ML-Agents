@@ -336,10 +336,10 @@ MonoBehaviour:
   - Obstacle
   - Wall
   - Road
-  m_RaysPerDirection: 20
+  m_RaysPerDirection: 15
   m_MaxRayDegrees: 100
   m_SphereCastRadius: 0.7
-  m_RayLength: 34
+  m_RayLength: 25
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 2867
@@ -484,8 +484,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 8000
-  isImitation: 0
+  MaxStep: 5000
   nameText: {fileID: 6344394825070290150}
   currentAngle: 0
   goalPos: {x: 0, y: 0, z: 0}
@@ -520,13 +519,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BrainParameters:
     VectorObservationSize: 12
-    NumStackedVectorObservations: 1
+    NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 2
-      BranchSizes: 03000000
-    VectorActionSize: 
+      BranchSizes: 
+    VectorActionSize: 02000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
@@ -549,7 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecisionPeriod: 1
-  TakeActionsBetweenDecisions: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!114 &7318221524558385182
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,23 +1,26 @@
 {
+    "distance": {
+        "lesson_num": 0
+    },
     "ZARAimitation": {
         "checkpoints": [
             {
-                "steps": 35028,
-                "file_path": "results\\ZaraImitation\\ZARAimitation\\ZARAimitation-35028.onnx",
-                "reward": 0.28392954598662484,
-                "creation_time": 1626212618.5270653,
+                "steps": 30989,
+                "file_path": "results\\ZaraImitation\\ZARAimitation\\ZARAimitation-30989.onnx",
+                "reward": -0.4310066938400269,
+                "creation_time": 1626384303.2466033,
                 "auxillary_file_paths": [
-                    "results\\ZaraImitation\\ZARAimitation\\ZARAimitation-35028.pt"
+                    "results\\ZaraImitation\\ZARAimitation\\ZARAimitation-30989.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 35028,
+            "steps": 30989,
             "file_path": "results\\ZaraImitation\\ZARAimitation.onnx",
-            "reward": 0.28392954598662484,
-            "creation_time": 1626212618.5270653,
+            "reward": -0.4310066938400269,
+            "creation_time": 1626384303.2466033,
             "auxillary_file_paths": [
-                "results\\ZaraImitation\\ZARAimitation\\ZARAimitation-35028.pt"
+                "results\\ZaraImitation\\ZARAimitation\\ZARAimitation-30989.pt"
             ]
         }
     },
