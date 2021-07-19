@@ -312,7 +312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2223539341791970042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9114982224570632379}
@@ -335,11 +335,10 @@ MonoBehaviour:
   - AgentChild
   - Obstacle
   - Wall
-  - Road
-  m_RaysPerDirection: 15
-  m_MaxRayDegrees: 100
-  m_SphereCastRadius: 0.7
-  m_RayLength: 25
+  m_RaysPerDirection: 12
+  m_MaxRayDegrees: 110
+  m_SphereCastRadius: 0
+  m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 2867
@@ -360,6 +359,7 @@ GameObject:
   - component: {fileID: 1155475268831357478}
   - component: {fileID: 4881859915241268892}
   - component: {fileID: 8151574261943009046}
+  - component: {fileID: 7267301785546412328}
   - component: {fileID: 4089821821385094915}
   - component: {fileID: 6634828208165231818}
   - component: {fileID: 4223069409659615940}
@@ -371,7 +371,7 @@ GameObject:
   m_TagString: Agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &9114982224570632379
 Transform:
@@ -382,7 +382,7 @@ Transform:
   m_GameObject: {fileID: 2353923127904415696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 198.77643, y: 1060.2871, z: 0}
-  m_LocalScale: {x: 0.35, y: 2, z: 0.35}
+  m_LocalScale: {x: 0.35, y: 1, z: 0.35}
   m_Children:
   - {fileID: 8884301790796601416}
   - {fileID: 6655158390980524326}
@@ -449,14 +449,27 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2353923127904415696}
   serializedVersion: 2
-  m_Mass: 0.5
-  m_Drag: 0.5
+  m_Mass: 25
+  m_Drag: 2
   m_AngularDrag: 5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!135 &7267301785546412328
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2353923127904415696}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.55
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4089821821385094915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,6 +504,7 @@ MonoBehaviour:
   currentGoalDistance: 0
   reward: 0
   currentSpeed: 0
+  neighbour: {fileID: 0}
 --- !u!114 &4223069409659615940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,12 +532,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 12
-    NumStackedVectorObservations: 2
+    VectorObservationSize: 7
+    NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
-      BranchSizes: 
-    VectorActionSize: 02000000
+      BranchSizes: 02000000
+    VectorActionSize: 
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -589,13 +603,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2687526473107476272}
-  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: -0.2, z: 10.95}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9114982224570632379}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &44871827274843287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,22 +626,20 @@ MonoBehaviour:
   m_CellScale: {x: 1, y: 0.01, z: 1}
   m_GridSize: {x: 20, y: 1, z: 20}
   m_RotateWithAgent: 1
-  m_AgentGameObject: {fileID: 2353923127904415696}
+  m_AgentGameObject: {fileID: 5063432066618149949}
   m_DetectableTags:
   - AgentChild
   - Obstacle
-  - Road
   - Wall
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3584
   m_MaxColliderBufferSize: 500
   m_InitialColliderBufferSize: 4
   m_DebugColors:
-  - {r: 0, g: 0.3411901, b: 1, a: 0}
+  - {r: 0, g: 0.03342271, b: 1, a: 0}
   - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 1, g: 0.47070253, b: 0, a: 0}
-  - {r: 1, g: 0.92884254, b: 0, a: 0}
+  - {r: 1, g: 0.42769682, b: 0, a: 0}
   m_GizmoYOffset: 0
   m_ShowGizmos: 1
   m_CompressionType: 1

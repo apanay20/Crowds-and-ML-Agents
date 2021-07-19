@@ -31,7 +31,7 @@ behaviors:
           goal_conditioning_type: hyper
       gail:
         gamma: 0.99
-        strength: 0.5
+        strength: 0.03
         network_settings:
           normalize: false
           hidden_units: 128
@@ -73,7 +73,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 684
+          seed: 2674
           value: 2.0
       name: Lesson0
       completion_criteria:
@@ -86,7 +86,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 685
+          seed: 2675
           value: 4.0
       name: Lesson1
       completion_criteria:
@@ -99,7 +99,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 686
+          seed: 2676
           value: 7.0
       name: Lesson2
       completion_criteria:
@@ -112,7 +112,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 687
+          seed: 2677
           value: 9.0
       name: Lesson4
       completion_criteria:
@@ -120,12 +120,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 1.2
+        threshold: 1.3
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 688
+          seed: 2678
           value: 0.0
       name: Lesson5
       completion_criteria: null
