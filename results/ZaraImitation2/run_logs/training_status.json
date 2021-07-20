@@ -5,58 +5,58 @@
     "ZARAimitation": {
         "checkpoints": [
             {
-                "steps": 499996,
-                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-499996.onnx",
-                "reward": 0.2598254212311336,
-                "creation_time": 1626720597.4222574,
+                "steps": 2999937,
+                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-2999937.onnx",
+                "reward": 1.7478349784921323,
+                "creation_time": 1626739196.9995077,
                 "auxillary_file_paths": [
-                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-499996.pt"
+                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-2999937.pt"
                 ]
             },
             {
-                "steps": 682424,
-                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-682424.onnx",
-                "reward": 0.5773011989509448,
-                "creation_time": 1626722009.8536599,
+                "steps": 2999937,
+                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-2999937.onnx",
+                "reward": null,
+                "creation_time": 1626761646.835837,
                 "auxillary_file_paths": [
-                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-682424.pt"
+                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-2999937.pt"
                 ]
             },
             {
-                "steps": 739754,
-                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-739754.onnx",
-                "reward": 0.9597785610784876,
-                "creation_time": 1626722640.3515236,
+                "steps": 3499942,
+                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-3499942.onnx",
+                "reward": 1.406889431592491,
+                "creation_time": 1626763618.2897367,
                 "auxillary_file_paths": [
-                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-739754.pt"
+                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-3499942.pt"
                 ]
             },
             {
-                "steps": 999952,
-                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-999952.onnx",
-                "reward": 1.6616999704390765,
-                "creation_time": 1626723786.9081988,
+                "steps": 3617393,
+                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-3617393.onnx",
+                "reward": 1.8050499316304922,
+                "creation_time": 1626764081.7583861,
                 "auxillary_file_paths": [
-                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-999952.pt"
+                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-3617393.pt"
                 ]
             },
             {
-                "steps": 1291844,
-                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-1291844.onnx",
-                "reward": 1.6698364032432438,
-                "creation_time": 1626724891.1865041,
+                "steps": 0,
+                "file_path": "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-0.onnx",
+                "reward": null,
+                "creation_time": 1626764154.476911,
                 "auxillary_file_paths": [
-                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-1291844.pt"
+                    "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-0.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 1291844,
+            "steps": 0,
             "file_path": "results\\ZaraImitation2\\ZARAimitation.onnx",
-            "reward": 1.6698364032432438,
-            "creation_time": 1626724891.1865041,
+            "reward": null,
+            "creation_time": 1626764154.476911,
             "auxillary_file_paths": [
-                "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-1291844.pt"
+                "results\\ZaraImitation2\\ZARAimitation\\ZARAimitation-0.pt"
             ]
         }
     },
