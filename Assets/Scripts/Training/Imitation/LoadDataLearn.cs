@@ -209,11 +209,11 @@ public class LoadDataLearn : MonoBehaviour
 
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (this.isImitation == false)
             respawnAgents();
-    }
+    }*/
 
     // Update is called once per frame
     void FixedUpdate()
@@ -231,6 +231,8 @@ public class LoadDataLearn : MonoBehaviour
             }
             counter += 4;
         }
+        else
+            respawnAgents();
     }
 
     private List<Vector3> generateGoalAndSpawnPoints(bool isNeighbourPoints)

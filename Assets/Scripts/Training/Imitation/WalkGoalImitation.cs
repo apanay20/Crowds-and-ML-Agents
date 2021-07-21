@@ -26,9 +26,7 @@ public class WalkGoalImitation : Agent
     private float moveSpeed;
     public float currentSpeed;
     public GameObject neighbour;
-    [HideInInspector]
     public bool hasNeighbour;
-    [HideInInspector]
     public bool hasInteracted;
     private float neighAngle;
     [HideInInspector]
@@ -141,8 +139,8 @@ public class WalkGoalImitation : Agent
         if (this.hasNeighbour == true)
         {
             float neighDistance = Vector3.Distance(transform.position, this.neighbour.transform.position);
-            if(neighDistance <= 1.2f)
-                AddReward(+0.0001f);
+            if(neighDistance <= 0.7f)
+                AddReward(+0.0002f);
             else
                 AddReward(-0.0002f);
         }

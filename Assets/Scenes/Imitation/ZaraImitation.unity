@@ -1759,8 +1759,8 @@ MonoBehaviour:
   path: ./Datasets/Zara
   agentPrefabDemo: {fileID: 4611814645769567598, guid: 08cab9b87b77a8d43bef251e578b1026,
     type: 3}
-  numOfAgents: 8
-  neighbourPercentage: 80
+  numOfAgents: 10
+  neighbourPercentage: 95
   agentPrefab: {fileID: 2353923127904415696, guid: 3b71960b20fdcc24c8dbfb474049f102,
     type: 3}
   activeAgents: {fileID: 1117204300}

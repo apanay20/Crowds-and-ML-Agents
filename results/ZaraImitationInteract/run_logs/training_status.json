@@ -2,49 +2,67 @@
     "distance": {
         "lesson_num": 4
     },
-    "ZARAimitation": {
-        "checkpoints": [
-            {
-                "steps": 434953,
-                "file_path": "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-434953.onnx",
-                "reward": 0.8770756741633287,
-                "creation_time": 1626812602.0936103,
-                "auxillary_file_paths": [
-                    "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-434953.pt"
-                ]
-            },
-            {
-                "steps": 438248,
-                "file_path": "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-438248.onnx",
-                "reward": 0.8162349171581722,
-                "creation_time": 1626813071.6635146,
-                "auxillary_file_paths": [
-                    "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-438248.pt"
-                ]
-            },
-            {
-                "steps": 445497,
-                "file_path": "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-445497.onnx",
-                "reward": 0.7066289346273008,
-                "creation_time": 1626813233.2797031,
-                "auxillary_file_paths": [
-                    "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-445497.pt"
-                ]
-            }
-        ],
-        "final_checkpoint": {
-            "steps": 445497,
-            "file_path": "results\\ZaraImitationInteract\\ZARAimitation.onnx",
-            "reward": 0.7066289346273008,
-            "creation_time": 1626813233.2797031,
-            "auxillary_file_paths": [
-                "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-445497.pt"
-            ]
-        }
-    },
     "metadata": {
         "stats_format_version": "0.3.0",
         "mlagents_version": "0.27.0",
         "torch_version": "1.9.0+cu111"
+    },
+    "ZARAimitation": {
+        "checkpoints": [
+            {
+                "steps": 6499986,
+                "file_path": "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-6499986.onnx",
+                "reward": 1.658814288675785,
+                "creation_time": 1626867563.840414,
+                "auxillary_file_paths": [
+                    "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-6499986.pt"
+                ]
+            },
+            {
+                "steps": 6999988,
+                "file_path": "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-6999988.onnx",
+                "reward": 1.3632096483789642,
+                "creation_time": 1626871374.826677,
+                "auxillary_file_paths": [
+                    "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-6999988.pt"
+                ]
+            },
+            {
+                "steps": 7499997,
+                "file_path": "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-7499997.onnx",
+                "reward": 1.676748303550013,
+                "creation_time": 1626875188.4926395,
+                "auxillary_file_paths": [
+                    "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-7499997.pt"
+                ]
+            },
+            {
+                "steps": 7999964,
+                "file_path": "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-7999964.onnx",
+                "reward": 1.4667276391323576,
+                "creation_time": 1626879003.6163204,
+                "auxillary_file_paths": [
+                    "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-7999964.pt"
+                ]
+            },
+            {
+                "steps": 8000028,
+                "file_path": "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-8000028.onnx",
+                "reward": 1.4667276391323576,
+                "creation_time": 1626879003.7174964,
+                "auxillary_file_paths": [
+                    "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-8000028.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 8000028,
+            "file_path": "results\\ZaraImitationInteract\\ZARAimitation.onnx",
+            "reward": 1.4667276391323576,
+            "creation_time": 1626879003.7174964,
+            "auxillary_file_paths": [
+                "results\\ZaraImitationInteract\\ZARAimitation\\ZARAimitation-8000028.pt"
+            ]
+        }
     }
 }

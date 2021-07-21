@@ -427,6 +427,9 @@ MonoBehaviour:
   reward: 0
   currentSpeed: 0
   neighbour: {fileID: 0}
+  hasNeighbour: 0
+  hasInteracted: 0
+  episodeActivated: -1
   currentEpisode: 0
   currentStep: 0
 --- !u!114 &6499256251263494266
