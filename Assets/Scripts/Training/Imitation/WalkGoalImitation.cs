@@ -20,6 +20,7 @@ public class WalkGoalImitation : Agent
     public Vector3 goalPos;
     private float goalDistance;
     public float currentGoalDistance;
+    public float neighDistance;
     public float reward;
     private SaveRoute saveRouteScript;
     private int localCounter = 1;
@@ -48,8 +49,13 @@ public class WalkGoalImitation : Agent
             this.moveSpeed = 100f;
         }
         else
-            this.moveSpeed = 50f;
+            this.moveSpeed = 40f;
         setAgentColor();
+    }
+
+    private void Awake()
+    {
+        transform.position = new Vector3(0f, 50f, 0f);
     }
 
     public override void OnEpisodeBegin()
@@ -63,6 +69,12 @@ public class WalkGoalImitation : Agent
         {
             this.startingPos = this.dataScript.agentData.positions[0];
             this.goalPos = this.dataScript.agentData.goalPos;
+        }
+        else
+        {
+            string[] points = PlayerPrefs.GetString(this.gameObject.name).Split(',');
+            this.goalPos = new Vector3(float.Parse(points[0]), float.Parse(points[1]), float.Parse(points[2]));
+            this.startingPos = new Vector3(float.Parse(points[3]), float.Parse(points[4]), float.Parse(points[5]));
         }
 
         transform.localPosition = this.startingPos;
@@ -82,7 +94,7 @@ public class WalkGoalImitation : Agent
         this.currentGoalDistance = Vector3.Distance(transform.localPosition, this.goalPos);
 
         // If goal reached, give reward and stop
-        if (this.currentGoalDistance <= 1f)
+        if (this.currentGoalDistance <= 1.2f)
         {
             AddReward(+2f);
             this.saveRouteScript.exportRouteAndEndEpisode(this.GetCumulativeReward());
@@ -105,7 +117,10 @@ public class WalkGoalImitation : Agent
                 }
             }
             if (this.neighbour != null)
+            {
+                this.neighDistance = Vector3.Distance(transform.position, this.neighbour.transform.position);
                 Debug.DrawLine(transform.position, this.neighbour.transform.position, Color.red);
+            }
         }
     }
 
@@ -113,7 +128,7 @@ public class WalkGoalImitation : Agent
     {
         sensor.AddObservation(transform.InverseTransformDirection(this.agentRB.velocity)); // 3
         sensor.AddObservation(transform.InverseTransformPoint(this.goalPos)); // 3
-        sensor.AddObservation(this.hasNeighbour); //1
+        sensor.AddObservation(this.hasNeighbour); // 1
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -138,11 +153,10 @@ public class WalkGoalImitation : Agent
         //Reward if move with its neigbour
         if (this.hasNeighbour == true)
         {
-            float neighDistance = Vector3.Distance(transform.position, this.neighbour.transform.position);
-            if(neighDistance <= 0.7f)
-                AddReward(+0.0002f);
+            if(this.neighDistance <= 0.8f)
+                AddReward(+0.0009f);
             else
-                AddReward(-0.0002f);
+                AddReward(-0.0005f);
         }
 
         // Add small punishment in every step
@@ -151,14 +165,14 @@ public class WalkGoalImitation : Agent
 
     private void moveAgent(float angle, float distance, int direction)
     {
-        distance = Mathf.Clamp(distance, -0.01f, 0.1f);
+        distance = Mathf.Clamp(distance, -0.03f, 0.1f);
         angle = Mathf.Clamp(angle, 0f, 1f);
 
         if (direction == 0)
             angle = -angle;
 
         if(this.controller.isImitation == false)
-            angle *= 10f;
+            angle *= 8f;
 
         transform.Rotate(0f, angle, 0f);
         this.agentRB.velocity = transform.forward * distance * this.moveSpeed;
@@ -169,7 +183,7 @@ public class WalkGoalImitation : Agent
         // ----------------- DRAW RAYS ---------------------
         Debug.DrawRay(transform.position, transform.forward, Color.white);
         Vector3 goalVector = this.goalPos - transform.position;
-        float m = transform.forward.magnitude / goalVector.magnitude;
+        float m = 1f;// transform.forward.magnitude / goalVector.magnitude;
         Debug.DrawRay(transform.position, goalVector * m, Color.green);    
     }
 
@@ -244,7 +258,7 @@ public class WalkGoalImitation : Agent
                     this.neighAngle = Vector3.Angle(transform.forward, other.transform.forward);
                     WalkGoalImitation otherScript = other.gameObject.GetComponent<WalkGoalImitation>();
                     float neighGoalDistance = Vector3.Distance(this.goalPos, otherScript.goalPos);
-                    if (this.neighAngle <= 30f && neighGoalDistance <= 3f)
+                    if (this.neighAngle <= 30f && neighGoalDistance <= 2f)
                     {
                         this.neighbour = other.gameObject;
                         this.hasNeighbour = true;

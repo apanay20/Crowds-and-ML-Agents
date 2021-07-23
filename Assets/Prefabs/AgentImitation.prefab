@@ -503,6 +503,7 @@ MonoBehaviour:
   startingPos: {x: 0, y: 0, z: 0}
   goalPos: {x: 0, y: 0, z: 0}
   currentGoalDistance: 0
+  neighDistance: 0
   reward: 0
   currentSpeed: 0
   neighbour: {fileID: 0}
@@ -547,7 +548,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: fb63b9c9cd9f6634b8079dd7e5a533f8, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: ZARAimitation

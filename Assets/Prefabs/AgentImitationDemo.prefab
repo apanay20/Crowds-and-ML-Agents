@@ -424,6 +424,7 @@ MonoBehaviour:
   startingPos: {x: 0, y: 0, z: 0}
   goalPos: {x: 0, y: 0, z: 0}
   currentGoalDistance: 0
+  neighDistance: 0
   reward: 0
   currentSpeed: 0
   neighbour: {fileID: 0}
@@ -502,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 1
+  Record: 0
   NumStepsToRecord: 0
   DemonstrationName: ZaraImitation
   DemonstrationDirectory: ImitationDemos/Zara

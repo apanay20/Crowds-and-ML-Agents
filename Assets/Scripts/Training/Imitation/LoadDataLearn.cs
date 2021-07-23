@@ -21,6 +21,7 @@ public class LoadDataLearn : MonoBehaviour
     private List<GoalAndSpawn> goals;
     public Transform activeAgents;
     public Transform inactiveAgents;
+    public Transform watiToSpawnTogether;
 
     public class AgentData
     {
@@ -44,6 +45,7 @@ public class LoadDataLearn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.DeleteAll();
         //Find goals areas in scene
         this.goals = new List<GoalAndSpawn>();
         GameObject parentGoal = GameObject.Find("GoalAreas");
@@ -69,7 +71,7 @@ public class LoadDataLearn : MonoBehaviour
         {
             spawnInitialAgents();
             Time.timeScale = 0.2f;
-        }
+}
     }
 
     private void readData()
@@ -138,33 +140,28 @@ public class LoadDataLearn : MonoBehaviour
             // [0] goal Pos, [1] spawnPos
             List<Vector3> points = generateGoalAndSpawnPoints(false);
             GameObject newAgent = Instantiate(agentPrefab, points[1], Quaternion.identity);
-            newAgent.GetComponent<WalkGoalImitation>().startingPos = points[1];
-            newAgent.GetComponent<WalkGoalImitation>().goalPos = points[0];
-            newAgent.transform.SetParent(activeAgents);
+            newAgent.name = "Agent_" + i;
+            PlayerPrefs.SetString(newAgent.name, points[0].x + ",0," + points[0].z + "," + points[1].x + ",0," + points[1].z);
+            newAgent.transform.SetParent(this.inactiveAgents);
         }
     }
-    
-    [HideInInspector]
-    List<GameObject> twoAgents = new List<GameObject>();
+
     private void respawnAgents()
-    {
-        int childsNum = this.inactiveAgents.childCount;
-        
+    {     
         foreach (Transform child in this.inactiveAgents)
         {
-            if (twoAgents.Count < 2)
+            int childCount = this.watiToSpawnTogether.childCount;
+            if (childCount < 2)
             {
                 float rd = Random.Range(0f, 100f);
                 if (rd <= this.neighbourPercentage)
-                    if(twoAgents.Contains(child.gameObject) == false)
-                        twoAgents.Add(child.gameObject);
+                    child.transform.SetParent(this.watiToSpawnTogether);
                 else
                 {
                     // [0] goal Pos, [1] spawnPos
                     List<Vector3> points = generateGoalAndSpawnPoints(false);
                     child.transform.SetParent(this.activeAgents);
-                    child.GetComponent<WalkGoalImitation>().startingPos = points[1];
-                    child.GetComponent<WalkGoalImitation>().goalPos = points[0];
+                    PlayerPrefs.SetString(child.name, points[0].x+",0,"+points[0].z+","+points[1].x + ",0," + points[1].z);
                     child.gameObject.SetActive(true);
                 }
             }
@@ -173,47 +170,36 @@ public class LoadDataLearn : MonoBehaviour
             {
                 // [0] goal Pos 1, [1] spawnPos 1, [2] goal Pos 2, [3] spawnPos 2
                 List<Vector3> points = generateGoalAndSpawnPoints(true);
+                GameObject child0 = this.watiToSpawnTogether.transform.GetChild(0).gameObject;
+                GameObject child1 = this.watiToSpawnTogether.transform.GetChild(1).gameObject;
                 // Spawn first Agent
-                twoAgents[0].transform.SetParent(this.activeAgents);
-                twoAgents[0].GetComponent<WalkGoalImitation>().startingPos = points[1];
-                twoAgents[0].GetComponent<WalkGoalImitation>().goalPos = points[0];
-                twoAgents[0].SetActive(true);
+                PlayerPrefs.SetString(child0.name, points[0].x + ",0," + points[0].z + "," + points[1].x + ",0," + points[1].z);
+                PlayerPrefs.SetString(child1.name, points[2].x + ",0," + points[2].z + "," + points[3].x + ",0," + points[3].z);
                 // Spawn second Agent
-                twoAgents[1].transform.SetParent(this.activeAgents);
-                twoAgents[1].GetComponent<WalkGoalImitation>().startingPos = points[3];
-                twoAgents[1].GetComponent<WalkGoalImitation>().goalPos = points[2];
-                twoAgents[1].SetActive(true);
-
-                //Clear List
-                twoAgents.Clear();
+                child1.transform.SetParent(this.activeAgents);
+                child0.transform.SetParent(this.activeAgents);
+                child0.SetActive(true);
+                child1.SetActive(true);
             }
         }
 
-        if (twoAgents.Count == 2)
+        if (this.watiToSpawnTogether.childCount == 2)
         {
+            // [0] goal Pos 1, [1] spawnPos 1, [2] goal Pos 2, [3] spawnPos 2
             List<Vector3> points = generateGoalAndSpawnPoints(true);
+            GameObject child0 = this.watiToSpawnTogether.transform.GetChild(0).gameObject;
+            GameObject child1 = this.watiToSpawnTogether.transform.GetChild(1).gameObject;
             // Spawn first Agent
-            twoAgents[0].transform.SetParent(this.activeAgents);
-            twoAgents[0].GetComponent<WalkGoalImitation>().startingPos = points[1];
-            twoAgents[0].GetComponent<WalkGoalImitation>().goalPos = points[0];
-            twoAgents[0].SetActive(true);
+            PlayerPrefs.SetString(child0.name, points[0].x + ",0," + points[0].z + "," + points[1].x + ",0," + points[1].z);
+            PlayerPrefs.SetString(child1.name, points[2].x + ",0," + points[2].z + "," + points[3].x + ",0," + points[3].z);
             // Spawn second Agent
-            twoAgents[1].transform.SetParent(this.activeAgents);
-            twoAgents[1].GetComponent<WalkGoalImitation>().startingPos = points[3];
-            twoAgents[1].GetComponent<WalkGoalImitation>().goalPos = points[2];
-            twoAgents[1].SetActive(true);
-
-            //Clear List
-            twoAgents.Clear();
+            child1.transform.SetParent(this.activeAgents);
+            child0.transform.SetParent(this.activeAgents);
+            child0.SetActive(true);
+            child1.SetActive(true);
         }
 
     }
-
-    /*private void Update()
-    {
-        if (this.isImitation == false)
-            respawnAgents();
-    }*/
 
     // Update is called once per frame
     void FixedUpdate()
@@ -253,10 +239,13 @@ public class LoadDataLearn : MonoBehaviour
         //Select another goal point near the first
         if (isNeighbourPoints == true)
         {
-            do
+            while(true)
             {
                 goalPoint2 = new Vector3(Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x), 0f, Random.Range(tempArea.bounds.min.z, tempArea.bounds.max.z));
-            } while (Vector3.Distance(goalPoint, goalPoint2) > 0.5f);
+                float dis = Vector3.Distance(goalPoint, goalPoint2);
+                if (dis >= 1.1f && dis < 1.6f)
+                    break;
+            }
         }
 
 
@@ -296,10 +285,13 @@ public class LoadDataLearn : MonoBehaviour
         //Select another spawn point near the first
         if (isNeighbourPoints == true)
         {
-            do
+            while(true)
             {
                 spawnPoint2 = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
-            } while (Vector3.Distance(spawnPoint, spawnPoint2) > 0.5f);
+                float dis = Vector3.Distance(spawnPoint, spawnPoint2);
+                if (dis >= 0.5f && dis <= 1f)
+                    break;
+            };
         }
         
         retPoints.Add(goalPoint);
@@ -310,7 +302,6 @@ public class LoadDataLearn : MonoBehaviour
             retPoints.Add(goalPoint2);
             retPoints.Add(spawnPoint2);
         }
-
         return retPoints;
     }
 
