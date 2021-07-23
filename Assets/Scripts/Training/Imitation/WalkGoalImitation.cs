@@ -119,7 +119,7 @@ public class WalkGoalImitation : Agent
             if (this.neighbour != null)
             {
                 this.neighDistance = Vector3.Distance(transform.position, this.neighbour.transform.position);
-                Debug.DrawLine(transform.position, this.neighbour.transform.position, Color.red);
+                Debug.DrawLine(transform.position, this.neighbour.transform.position, Color.cyan);
             }
         }
     }
@@ -156,7 +156,7 @@ public class WalkGoalImitation : Agent
             if(this.neighDistance <= 0.8f)
                 AddReward(+0.0009f);
             else
-                AddReward(-0.0005f);
+                AddReward(-0.0008f);
         }
 
         // Add small punishment in every step
@@ -183,7 +183,7 @@ public class WalkGoalImitation : Agent
         // ----------------- DRAW RAYS ---------------------
         Debug.DrawRay(transform.position, transform.forward, Color.white);
         Vector3 goalVector = this.goalPos - transform.position;
-        float m = 1f;// transform.forward.magnitude / goalVector.magnitude;
+        float m = transform.forward.magnitude / goalVector.magnitude;
         Debug.DrawRay(transform.position, goalVector * m, Color.green);    
     }
 
