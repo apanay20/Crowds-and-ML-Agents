@@ -35,7 +35,7 @@ Once you open the project, you can navigate to Assets/Scenes. There you will fin
   *  To run this section, first load the desired scene. Then, you can select the GameObject named "Plane" and locate to the attached script named "LoadDataLearn". In this script you can adjust two parameters, the "NumOfAgents", which define the number of agents that will be spawned, and the "Neighbour Percentage" (0-100) which defines the possibility of agents to spawn together. 
 
 ## Samples
-Solarized dark             |  Solarized Ocean
+Students Dataset             |  ZARA Dataset
 :-------------------------:|:-------------------------:
 <img src="SampleImages/Sample1.PNG">  |  <img src="SampleImages/Sample2.PNG">
 <img src="SampleImages/Sample3.PNG">
