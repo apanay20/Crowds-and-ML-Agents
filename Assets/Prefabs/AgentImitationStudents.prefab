@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveRoute: 0
-  saveRouteRewardThreshold: 1.2
+  saveRouteRewardThreshold: 1.1
 --- !u!114 &8145440903524261645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1366,7 +1366,7 @@ PrefabInstance:
     - target: {fileID: 4340749793049214352, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4340749793049214352, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}

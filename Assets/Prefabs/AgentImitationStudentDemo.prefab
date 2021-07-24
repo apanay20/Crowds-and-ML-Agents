@@ -570,7 +570,7 @@ MonoBehaviour:
   Record: 0
   NumStepsToRecord: 0
   DemonstrationName: StudentsImitation
-  DemonstrationDirectory: ImitationDemos/Students
+  DemonstrationDirectory: ./ImitationDemos/Students
 --- !u!1 &2370184691359461499
 GameObject:
   m_ObjectHideFlags: 0

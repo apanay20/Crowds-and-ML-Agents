@@ -503,10 +503,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 1
+  Record: 0
   NumStepsToRecord: 0
-  DemonstrationName: StudentsImitation
-  DemonstrationDirectory: ImitationDemos/Students
+  DemonstrationName: ZaraImitation
+  DemonstrationDirectory: ./ImitationDemos/Zara
 --- !u!1 &5036897358682512782
 GameObject:
   m_ObjectHideFlags: 0

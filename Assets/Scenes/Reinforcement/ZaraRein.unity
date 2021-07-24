@@ -3950,10 +3950,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04085e0a62e30243840859f456622da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isImitation: 0
   path: ./Datasets/Zara
-  counter: 0
+  agentPrefabDemo: {fileID: 0}
+  numOfAgents: 0
+  neighbourPercentage: 0
   agentPrefab: {fileID: 8436882737375918538, guid: 315d144eb28976049bb6f1a8415b2466,
     type: 3}
+  activeAgents: {fileID: 0}
+  inactiveAgents: {fileID: 0}
+  watiToSpawnTogether: {fileID: 0}
 --- !u!1001 &1693749863
 PrefabInstance:
   m_ObjectHideFlags: 0

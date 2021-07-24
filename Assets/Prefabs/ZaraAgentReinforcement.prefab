@@ -268,7 +268,6 @@ MonoBehaviour:
   segments: 50
   xradius: 2
   yradius: 2
-  agent: {fileID: 0}
 --- !u!1 &4712719452805278979
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,11 +683,10 @@ GameObject:
   - component: {fileID: 2638881924012009740}
   - component: {fileID: 7640683002149910531}
   - component: {fileID: 5983455360399413778}
-  - component: {fileID: 2331391909005545074}
   - component: {fileID: 5818646612199890081}
   - component: {fileID: 8008631564972813534}
   m_Layer: 8
-  m_Name: ZaraAgentLearn
+  m_Name: ZaraAgentReinforcement
   m_TagString: Agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -822,22 +820,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
---- !u!114 &2331391909005545074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8436882737375918538}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Record: 1
-  NumStepsToRecord: 0
-  DemonstrationName: ImitationZARA
-  DemonstrationDirectory: Demos/ZARAdemos
 --- !u!114 &5818646612199890081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1021,7 +1003,6 @@ MonoBehaviour:
   segments: 50
   xradius: 2
   yradius: 2
-  agent: {fileID: 0}
 --- !u!1001 &1753060667207110022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1202,7 +1183,7 @@ PrefabInstance:
     - target: {fileID: 4340749793049214352, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4340749793049214352, guid: 056b50ab4acae4c4ab03c3e3b765824c,
         type: 3}
