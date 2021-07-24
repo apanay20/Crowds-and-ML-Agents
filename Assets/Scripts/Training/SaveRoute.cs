@@ -36,7 +36,7 @@ public class SaveRoute : MonoBehaviour
     {
         if (this.saveRoute == true && reward >= this.saveRouteRewardThreshold)
         {
-            string filePath = this.directoryPath + reward.ToString("F3") + "_" + this.gameObject.name + "_" + this.count + ".csv";
+            string filePath = this.directoryPath + this.gameObject.name + "-" + this.count + ".csv";
             this.count++;
 
             StreamWriter writer = new StreamWriter(filePath);

@@ -1,0 +1,68 @@
+{
+    "distance": {
+        "lesson_num": 4
+    },
+    "StudentsImitation": {
+        "checkpoints": [
+            {
+                "steps": 14999966,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-14999966.onnx",
+                "reward": 0.9145578705427939,
+                "creation_time": 1627125012.3341527,
+                "auxillary_file_paths": [
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-14999966.pt"
+                ]
+            },
+            {
+                "steps": 15499975,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-15499975.onnx",
+                "reward": 1.0358499522720064,
+                "creation_time": 1627126571.083345,
+                "auxillary_file_paths": [
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-15499975.pt"
+                ]
+            },
+            {
+                "steps": 15999941,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-15999941.onnx",
+                "reward": 0.8754049110007874,
+                "creation_time": 1627128128.4536421,
+                "auxillary_file_paths": [
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-15999941.pt"
+                ]
+            },
+            {
+                "steps": 16499962,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16499962.onnx",
+                "reward": 0.5295045111667026,
+                "creation_time": 1627129687.534227,
+                "auxillary_file_paths": [
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16499962.pt"
+                ]
+            },
+            {
+                "steps": 16750492,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16750492.onnx",
+                "reward": 1.0104515811288228,
+                "creation_time": 1627130468.9121673,
+                "auxillary_file_paths": [
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16750492.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 16750492,
+            "file_path": "results\\StudentsImitationInteract\\StudentsImitation.onnx",
+            "reward": 1.0104515811288228,
+            "creation_time": 1627130468.9121673,
+            "auxillary_file_paths": [
+                "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16750492.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.9.0+cu111"
+    }
+}

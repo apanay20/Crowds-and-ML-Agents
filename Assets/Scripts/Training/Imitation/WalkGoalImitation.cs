@@ -97,7 +97,7 @@ public class WalkGoalImitation : Agent
         if (this.currentGoalDistance <= 1.2f)
         {
             AddReward(+2f);
-            this.saveRouteScript.exportRouteAndEndEpisode(this.GetCumulativeReward());
+            this.saveRouteScript.exportRouteAndEndEpisode(this.GetCumulativeReward());            
             disableAgent();
         }
         else
@@ -119,7 +119,7 @@ public class WalkGoalImitation : Agent
             if (this.neighbour != null)
             {
                 this.neighDistance = Vector3.Distance(transform.position, this.neighbour.transform.position);
-                Debug.DrawLine(transform.position, this.neighbour.transform.position, Color.cyan);
+                Debug.DrawLine(transform.position, this.neighbour.transform.position, Color.red);
             }
         }
     }
@@ -153,7 +153,7 @@ public class WalkGoalImitation : Agent
         //Reward if move with its neigbour
         if (this.hasNeighbour == true)
         {
-            if(this.neighDistance <= 0.8f)
+            if (this.neighDistance <= 0.8f)
                 AddReward(+0.0009f);
             else
                 AddReward(-0.0008f);

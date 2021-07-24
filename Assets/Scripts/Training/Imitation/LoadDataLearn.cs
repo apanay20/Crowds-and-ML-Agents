@@ -70,7 +70,7 @@ public class LoadDataLearn : MonoBehaviour
         else
         {
             spawnInitialAgents();
-            Time.timeScale = 0.2f;
+            Time.timeScale = 0.4f;
 }
     }
 

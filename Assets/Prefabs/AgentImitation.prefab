@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveRoute: 0
-  saveRouteRewardThreshold: 1.95
+  saveRouteRewardThreshold: 1.2
 --- !u!114 &1166361021156715356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,7 +548,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 9fffd56ebf3166247b64e4d31e0d287c, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: ZARAimitation
