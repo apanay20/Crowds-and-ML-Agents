@@ -36,6 +36,6 @@ Once you open the project, you can navigate to Assets/Scenes. There you will fin
 #### Reinforcement
   *  This section contains the two available scenes "Zara" and "Students" and the movement of the agents using Reinforcement Learning only.
   *  To run this section, just load the desired scene and play it.
-#### Imitation **
+#### Imitation
   *  This section contains the two available scenes "Zara" and "Students" and the movement of the agents using Imitation Learning (GAIL Algorithm).
   *  To run this section, first load the desired scene. Then, you can select the GameObject named "Plane" and locate to the attached script named "LoadDataLearn". In this script you can adjust two parameters, the "NumOfAgents", which define the number of agents that will be spawned, and the "Neighbour Percentage" (0-100) which defines the possibility of agents to spawn together. 
