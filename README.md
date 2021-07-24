@@ -38,6 +38,6 @@ Once you open the project, you can navigate to Assets/Scenes. There you will fin
 Students Dataset             |  ZARA Dataset
 :-------------------------:|:-------------------------:
 <img src="SampleImages/Sample1.PNG">  |  <img src="SampleImages/Sample2.PNG">
-Students Dataset
+Students ML Agents |  ZARA ML Agents
 <img src="SampleImages/StudentsGif.gif">  |  <img src="SampleImages/ZaraGif.gif">
 <img src="SampleImages/Sample3.PNG">
