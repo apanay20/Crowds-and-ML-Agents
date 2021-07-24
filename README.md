@@ -4,6 +4,14 @@
 In this project we try simulate the human behaviour when moving in crowds using Unity and ML-Agents ToolKit. We have used different machine learning approaches, like reinforcement learning, imitation learning and combination of them.
 This project is a part of a summer internship at [CYENS - Centre of Excellence](https://www.cyens.org.cy/en-gb/).
 
+## Samples
+Students Dataset             |  ZARA Dataset
+:-------------------------:|:-------------------------:
+<img src="SampleImages/Sample1.PNG">  |  <img src="SampleImages/Sample2.PNG">
+Students ML Agents |  ZARA ML Agents
+<img src="SampleImages/StudentsGif.gif">  |  <img src="SampleImages/ZaraGif.gif">
+<img src="SampleImages/Sample3.PNG">
+
 ## Prerequisites
 
 * ML-Agents Toolkit [Available Here](https://github.com/Unity-Technologies/ml-agents)
@@ -33,11 +41,3 @@ Once you open the project, you can navigate to Assets/Scenes. There you will fin
 * Imitation
   *  This section contains the two available scenes "Zara" and "Students" and the movement of the agents using Imitation Learning (GAIL Algorithm).
   *  To run this section, first load the desired scene. Then, you can select the GameObject named "Plane" and locate to the attached script named "LoadDataLearn". In this script you can adjust two parameters, the "NumOfAgents", which define the number of agents that will be spawned, and the "Neighbour Percentage" (0-100) which defines the possibility of agents to spawn together. 
-
-## Samples
-Students Dataset             |  ZARA Dataset
-:-------------------------:|:-------------------------:
-<img src="SampleImages/Sample1.PNG">  |  <img src="SampleImages/Sample2.PNG">
-Students ML Agents |  ZARA ML Agents
-<img src="SampleImages/StudentsGif.gif">  |  <img src="SampleImages/ZaraGif.gif">
-<img src="SampleImages/Sample3.PNG">
