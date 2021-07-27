@@ -11,6 +11,8 @@ public class SaveRoute : MonoBehaviour
     private List<Route> routeList;
     private int count;
     private string directoryPath;
+    private LoadDataLearn dataScript;
+    private bool locking = false;
 
     private class Route
     {
@@ -22,6 +24,7 @@ public class SaveRoute : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.dataScript = GameObject.Find("Plane").GetComponent<LoadDataLearn>();
         // Initialize list to save agent's route if enabled
         this.routeList = new List<Route>();
         this.count = 0;
@@ -36,13 +39,13 @@ public class SaveRoute : MonoBehaviour
     {
         if (this.saveRoute == true && reward >= this.saveRouteRewardThreshold)
         {
+            this.locking = true;
             string filePath = this.directoryPath + this.gameObject.name + "-" + this.count + ".csv";
             this.count++;
-
             StreamWriter writer = new StreamWriter(filePath);
-            for (int i = 0; i < this.routeList.Count; i+=4)
+            for (int i = 1; i < this.routeList.Count; i++)
             {
-                    writer.WriteLine(this.routeList[i].timestep.ToString("F4") + ";" + this.routeList[i].pointX + ";" + this.routeList[i].pointZ);
+                    writer.WriteLine((this.routeList[i].timestep).ToString("F4") + ";" + this.routeList[i].pointX + ";" + this.routeList[i].pointZ);
             }
             writer.Flush();
             writer.Close();
@@ -65,10 +68,10 @@ public class SaveRoute : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (this.saveRoute == true)
+        if (this.saveRoute == true && this.locking == false)
         {
             Route temp = new Route();
-            temp.timestep = float.Parse(Time.time.ToString("F2"));
+            temp.timestep = this.dataScript.counter / 100f;
             temp.pointX = transform.position.x;
             temp.pointZ = transform.position.z;
             this.routeList.Add(temp);

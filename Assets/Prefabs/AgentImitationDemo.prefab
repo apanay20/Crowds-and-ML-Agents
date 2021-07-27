@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveRoute: 0
-  saveRouteRewardThreshold: 1.95
+  saveRouteRewardThreshold: 0.5
 --- !u!114 &8107916716604930530
 MonoBehaviour:
   m_ObjectHideFlags: 0
