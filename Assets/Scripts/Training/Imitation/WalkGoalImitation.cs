@@ -55,7 +55,7 @@ public class WalkGoalImitation : Agent
 
     private void Awake()
     {
-        transform.position = new Vector3(0f, 50f, 0f);
+        //transform.position = new Vector3(0f, 0f, 0f);
     }
 
     public override void OnEpisodeBegin()
@@ -172,7 +172,7 @@ public class WalkGoalImitation : Agent
             angle = -angle;
 
         if(this.controller.isImitation == false)
-            angle *= 8f;
+            angle *= 15f;
 
         transform.Rotate(0f, angle, 0f);
         this.agentRB.velocity = transform.forward * distance * this.moveSpeed;

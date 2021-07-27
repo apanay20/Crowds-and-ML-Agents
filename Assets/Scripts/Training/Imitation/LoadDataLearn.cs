@@ -10,7 +10,7 @@ public class LoadDataLearn : MonoBehaviour
     public string path;
     [HideInInspector]
     public List<AgentData> data;
-    public float counter = 0;
+    public float counter = -160f;
     public GameObject agentPrefabDemo;
     public int numOfAgents;
     public float neighbourPercentage;
