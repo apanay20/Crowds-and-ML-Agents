@@ -629,7 +629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a501962d056745d1a30e99146ee39fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: GridSensor
+  m_SensorName: Grid
   m_CellScale: {x: 1, y: 0.01, z: 1}
   m_GridSize: {x: 20, y: 1, z: 20}
   m_RotateWithAgent: 1
