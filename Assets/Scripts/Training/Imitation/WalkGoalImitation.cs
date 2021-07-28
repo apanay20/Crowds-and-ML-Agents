@@ -165,14 +165,14 @@ public class WalkGoalImitation : Agent
 
     private void moveAgent(float angle, float distance, int direction)
     {
-        distance = Mathf.Clamp(distance, -0.04f, 0.1f);
+        distance = Mathf.Clamp(distance, -0.02f, 0.1f);
         angle = Mathf.Clamp(angle, 0f, 1f);
 
         if (direction == 0)
             angle = -angle;
 
         //if(this.controller.isImitation == false)
-        //    angle *= 8f;
+            angle *= 8f;
 
         transform.Rotate(0f, angle, 0f);
         this.agentRB.velocity = transform.forward * distance * this.moveSpeed;
