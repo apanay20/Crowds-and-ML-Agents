@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 using Unity.MLAgents;
+using UnityEngine.SceneManagement;
 
 public class LoadDataLearn : MonoBehaviour
 {
@@ -22,6 +24,8 @@ public class LoadDataLearn : MonoBehaviour
     public Transform activeAgents;
     public Transform inactiveAgents;
     public Transform watiToSpawnTogether;
+    [HideInInspector]
+    public string directorySaveRoute;
 
     public class AgentData
     {
@@ -59,6 +63,8 @@ public class LoadDataLearn : MonoBehaviour
                 temp.spawnCollider.Add(child.transform.GetChild(j).GetComponent<Collider>());
             this.goals.Add(temp);
         }
+
+        this.directorySaveRoute = "./ExportedDatasets/" + SceneManager.GetActiveScene().name + "_Time_" + DateTime.Now.ToString("hh-mm-ss") + "/";
 
         if (this.isImitation == true)
         {
@@ -153,7 +159,7 @@ public class LoadDataLearn : MonoBehaviour
             int childCount = this.watiToSpawnTogether.childCount;
             if (childCount < 2)
             {
-                float rd = Random.Range(0f, 100f);
+                float rd = UnityEngine.Random.Range(0f, 100f);
                 if (rd <= this.neighbourPercentage)
                     child.transform.SetParent(this.watiToSpawnTogether);
                 else
@@ -234,14 +240,14 @@ public class LoadDataLearn : MonoBehaviour
         //Select a goal area and a random spawn point in that area
         int randomSpawnIndex = getRandomIndex(true);
         Collider tempArea = goals[randomSpawnIndex].goalCollider;
-        Vector3 goalPoint = new Vector3(Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x), 0f, Random.Range(tempArea.bounds.min.z, tempArea.bounds.max.z));
+        Vector3 goalPoint = new Vector3(UnityEngine.Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x), 0f, UnityEngine.Random.Range(tempArea.bounds.min.z, tempArea.bounds.max.z));
         Vector3 goalPoint2 = Vector3.zero;
         //Select another goal point near the first
         if (isNeighbourPoints == true)
         {
             while(true)
             {
-                goalPoint2 = new Vector3(Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x), 0f, Random.Range(tempArea.bounds.min.z, tempArea.bounds.max.z));
+                goalPoint2 = new Vector3(UnityEngine.Random.Range(tempArea.bounds.min.x, tempArea.bounds.max.x), 0f, UnityEngine.Random.Range(tempArea.bounds.min.z, tempArea.bounds.max.z));
                 float dis = Vector3.Distance(goalPoint, goalPoint2);
                 if (dis >= 1.1f && dis < 1.6f)
                     break;
@@ -263,7 +269,7 @@ public class LoadDataLearn : MonoBehaviour
             this.goals.Remove(this.goals[randomSpawnIndex]);
             randomSpawnIndex = getRandomIndex(false);
             tempArea2 = this.goals[randomSpawnIndex].goalCollider;
-            spawnPoint = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
+            spawnPoint = new Vector3(UnityEngine.Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, UnityEngine.Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
             this.goals.Add(tempBeforeRemove);
         }
         else
@@ -273,9 +279,9 @@ public class LoadDataLearn : MonoBehaviour
             while (true)
             {
                 List<Collider> tempSpawnAreas = this.goals[randomSpawnIndex].spawnCollider;
-                int randomSpawnArea = Random.Range(0, tempSpawnAreas.Count);
+                int randomSpawnArea = UnityEngine.Random.Range(0, tempSpawnAreas.Count);
                 tempArea2 = tempSpawnAreas[randomSpawnArea];
-                spawnPoint = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
+                spawnPoint = new Vector3(UnityEngine.Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, UnityEngine.Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
                 spawnToGoalDistance = Vector3.Distance(spawnPoint, goalPoint);
                 if (spawnToGoalDistance <= spawnDistanceLimit && spawnToGoalDistance >= (spawnDistanceLimit - 0.5f))
                     break;
@@ -287,7 +293,7 @@ public class LoadDataLearn : MonoBehaviour
         {
             while(true)
             {
-                spawnPoint2 = new Vector3(Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
+                spawnPoint2 = new Vector3(UnityEngine.Random.Range(tempArea2.bounds.min.x, tempArea2.bounds.max.x), 0f, UnityEngine.Random.Range(tempArea2.bounds.min.z, tempArea2.bounds.max.z));
                 float dis = Vector3.Distance(spawnPoint, spawnPoint2);
                 if (dis >= 0.5f && dis <= 1f)
                     break;
@@ -320,7 +326,7 @@ public class LoadDataLearn : MonoBehaviour
     {
         //Goal points selected randomly
         if (isGoalPlace == true)
-            return Random.Range(0, this.goals.Count - 1);
+            return UnityEngine.Random.Range(0, this.goals.Count - 1);
         // If is a spawn point, select random weighted relative to area size
         int listSize = this.goals.Count;
         List<float> colliderSize = new List<float>();
@@ -339,7 +345,7 @@ public class LoadDataLearn : MonoBehaviour
         }
 
         int retIndex = 0;
-        float rd = Random.Range(minSize, maxSize);
+        float rd = UnityEngine.Random.Range(minSize, maxSize);
         for (int i = 0; i < colliderSize.Count; i++)
         {
             if (rd <= colliderSize[i])

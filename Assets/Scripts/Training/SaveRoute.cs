@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using UnityEngine.SceneManagement;
+
 
 public class SaveRoute : MonoBehaviour
 {
@@ -10,7 +10,8 @@ public class SaveRoute : MonoBehaviour
     public float saveRouteRewardThreshold;
     private List<Route> routeList;
     private int count;
-    private string directoryPath;
+    [HideInInspector]
+    public string directoryPath;
     private LoadDataLearn dataScript;
     private bool locking = false;
 
@@ -30,7 +31,7 @@ public class SaveRoute : MonoBehaviour
         this.count = 0;
         if (this.saveRoute == true)
         {
-            this.directoryPath = "./ExportedDatasets/" + SceneManager.GetActiveScene().name + "/";
+            this.directoryPath = GameObject.Find("Plane").GetComponent<LoadDataLearn>().directorySaveRoute;
             Directory.CreateDirectory(this.directoryPath);
         }
     }
@@ -43,6 +44,8 @@ public class SaveRoute : MonoBehaviour
             string filePath = this.directoryPath + this.gameObject.name + "-" + this.count + ".csv";
             this.count++;
             StreamWriter writer = new StreamWriter(filePath);
+            if (this.routeList.Count <= 4)
+                return;
             for (int i = 1; i < this.routeList.Count; i++)
             {
                     writer.WriteLine((this.routeList[i].timestep).ToString("F4") + ";" + this.routeList[i].pointX + ";" + this.routeList[i].pointZ);

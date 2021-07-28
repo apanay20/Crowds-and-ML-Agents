@@ -1900,12 +1900,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04085e0a62e30243840859f456622da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isImitation: 0
+  isImitation: 1
   path: ./Datasets/Students
   counter: 0
-  agentPrefabDemo: {fileID: 2203913572361231697, guid: 4a0a22c639941e447ae272119e150ac0,
+  agentPrefabDemo: {fileID: 7438625577731650158, guid: 6fbc0c7a6f6e9be4c991093a88d048ab,
     type: 3}
-  numOfAgents: 20
+  numOfAgents: 40
   neighbourPercentage: 90
   agentPrefab: {fileID: 4723999962356636545, guid: 9c44c49ab4cfd194fb8388628f7b2ddc,
     type: 3}

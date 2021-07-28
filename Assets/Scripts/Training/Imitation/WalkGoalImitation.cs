@@ -46,7 +46,7 @@ public class WalkGoalImitation : Agent
         {
             this.name = this.dataScript.agentData.name;
             this.nameText.text = int.Parse(this.name.Split('_')[1]).ToString();
-            this.moveSpeed = 100f;
+            this.moveSpeed = 40f;//100f;
         }
         else
             this.moveSpeed = 40f;
@@ -94,7 +94,7 @@ public class WalkGoalImitation : Agent
         this.currentGoalDistance = Vector3.Distance(transform.localPosition, this.goalPos);
 
         // If goal reached, give reward and stop
-        if (this.currentGoalDistance <= 1.2f)
+        if (this.currentGoalDistance <= 1.5f)
         {
             AddReward(+2f);
             this.saveRouteScript.exportRouteAndEndEpisode(this.GetCumulativeReward());            
@@ -165,20 +165,20 @@ public class WalkGoalImitation : Agent
 
     private void moveAgent(float angle, float distance, int direction)
     {
-        distance = Mathf.Clamp(distance, -0.03f, 0.1f);
+        distance = Mathf.Clamp(distance, -0.04f, 0.1f);
         angle = Mathf.Clamp(angle, 0f, 1f);
 
         if (direction == 0)
             angle = -angle;
 
-        if(this.controller.isImitation == false)
-            angle *= 15f;
+        //if(this.controller.isImitation == false)
+        //    angle *= 8f;
 
         transform.Rotate(0f, angle, 0f);
         this.agentRB.velocity = transform.forward * distance * this.moveSpeed;
 
-        if (this.controller.isImitation == true && this.currentSpeed <= 0.1f)
-            transform.LookAt(this.goalPos);
+        //if (this.controller.isImitation == true && this.currentSpeed <= 0.1f)
+        //    transform.LookAt(this.goalPos);
 
         // ----------------- DRAW RAYS ---------------------
         Debug.DrawRay(transform.position, transform.forward, Color.white);
