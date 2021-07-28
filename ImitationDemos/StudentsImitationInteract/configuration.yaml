@@ -1,0 +1,143 @@
+default_settings: null
+behaviors:
+  StudentsImitation:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 10240
+      learning_rate: 0.0003
+      beta: 0.005
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: false
+      hidden_units: 128
+      num_layers: 2
+      vis_encode_type: simple
+      memory: null
+      goal_conditioning_type: hyper
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+        network_settings:
+          normalize: false
+          hidden_units: 128
+          num_layers: 2
+          vis_encode_type: simple
+          memory: null
+          goal_conditioning_type: hyper
+      gail:
+        gamma: 0.99
+        strength: 0.01
+        network_settings:
+          normalize: false
+          hidden_units: 128
+          num_layers: 2
+          vis_encode_type: simple
+          memory: null
+          goal_conditioning_type: hyper
+        learning_rate: 0.0003
+        encoding_size: null
+        use_actions: false
+        use_vail: false
+        demo_path: ImitationDemos/Students/
+    init_path: null
+    keep_checkpoints: 5
+    checkpoint_interval: 500000
+    max_steps: 30000000
+    time_horizon: 64
+    summary_freq: 5000
+    threaded: false
+    self_play: null
+    behavioral_cloning: null
+env_settings:
+  env_path: null
+  env_args: null
+  base_port: 5005
+  num_envs: 1
+  seed: -1
+engine_settings:
+  width: 84
+  height: 84
+  quality_level: 5
+  time_scale: 1.0
+  target_frame_rate: -1
+  capture_frame_rate: 60
+  no_graphics: false
+environment_parameters:
+  distance:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 2704
+          value: 2.0
+      name: Lesson0
+      completion_criteria:
+        behavior: StudentsImitation
+        measure: reward
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 1.6
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 2705
+          value: 4.0
+      name: Lesson1
+      completion_criteria:
+        behavior: StudentsImitation
+        measure: reward
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 1.45
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 2706
+          value: 6.0
+      name: Lesson2
+      completion_criteria:
+        behavior: StudentsImitation
+        measure: reward
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 1.45
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 2707
+          value: 8.0
+      name: Lesson4
+      completion_criteria:
+        behavior: StudentsImitation
+        measure: reward
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 1.35
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 2708
+          value: 0.0
+      name: Lesson5
+      completion_criteria: null
+checkpoint_settings:
+  run_id: StudentsImitationInteract
+  initialize_from: null
+  load_model: false
+  resume: true
+  force: true
+  train_model: false
+  inference: false
+  results_dir: results
+torch_settings:
+  device: null
+debug: false

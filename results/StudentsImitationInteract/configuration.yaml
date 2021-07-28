@@ -47,7 +47,7 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     checkpoint_interval: 500000
-    max_steps: 20000000
+    max_steps: 30000000
     time_horizon: 64
     summary_freq: 5000
     threaded: false
@@ -73,7 +73,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 3448
+          seed: 2928
           value: 2.0
       name: Lesson0
       completion_criteria:
@@ -86,7 +86,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 3449
+          seed: 2929
           value: 4.0
       name: Lesson1
       completion_criteria:
@@ -99,7 +99,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 3450
+          seed: 2930
           value: 6.0
       name: Lesson2
       completion_criteria:
@@ -112,7 +112,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 3451
+          seed: 2931
           value: 8.0
       name: Lesson4
       completion_criteria:
@@ -125,7 +125,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 3452
+          seed: 2932
           value: 0.0
       name: Lesson5
       completion_criteria: null

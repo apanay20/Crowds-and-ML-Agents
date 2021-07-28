@@ -5,58 +5,58 @@
     "StudentsImitation": {
         "checkpoints": [
             {
-                "steps": 14999966,
-                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-14999966.onnx",
-                "reward": 0.9145578705427939,
-                "creation_time": 1627125012.3341527,
+                "steps": 18999965,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-18999965.onnx",
+                "reward": -0.35251733050571654,
+                "creation_time": 1627485846.251484,
                 "auxillary_file_paths": [
-                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-14999966.pt"
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-18999965.pt"
                 ]
             },
             {
-                "steps": 15499975,
-                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-15499975.onnx",
-                "reward": 1.0358499522720064,
-                "creation_time": 1627126571.083345,
+                "steps": 19499971,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-19499971.onnx",
+                "reward": -0.8453148353246995,
+                "creation_time": 1627487423.164252,
                 "auxillary_file_paths": [
-                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-15499975.pt"
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-19499971.pt"
                 ]
             },
             {
-                "steps": 15999941,
-                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-15999941.onnx",
-                "reward": 0.8754049110007874,
-                "creation_time": 1627128128.4536421,
+                "steps": 19999940,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-19999940.onnx",
+                "reward": -0.38561999797821045,
+                "creation_time": 1627488906.8406954,
                 "auxillary_file_paths": [
-                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-15999941.pt"
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-19999940.pt"
                 ]
             },
             {
-                "steps": 16499962,
-                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16499962.onnx",
-                "reward": 0.5295045111667026,
-                "creation_time": 1627129687.534227,
+                "steps": 20499961,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-20499961.onnx",
+                "reward": -0.010140980582639396,
+                "creation_time": 1627490383.4442391,
                 "auxillary_file_paths": [
-                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16499962.pt"
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-20499961.pt"
                 ]
             },
             {
-                "steps": 16750492,
-                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16750492.onnx",
-                "reward": 1.0104515811288228,
-                "creation_time": 1627130468.9121673,
+                "steps": 20761906,
+                "file_path": "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-20761906.onnx",
+                "reward": 0.5642571491854531,
+                "creation_time": 1627491160.6835222,
                 "auxillary_file_paths": [
-                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16750492.pt"
+                    "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-20761906.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 16750492,
+            "steps": 20761906,
             "file_path": "results\\StudentsImitationInteract\\StudentsImitation.onnx",
-            "reward": 1.0104515811288228,
-            "creation_time": 1627130468.9121673,
+            "reward": 0.5642571491854531,
+            "creation_time": 1627491160.6835222,
             "auxillary_file_paths": [
-                "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-16750492.pt"
+                "results\\StudentsImitationInteract\\StudentsImitation\\StudentsImitation-20761906.pt"
             ]
         }
     },

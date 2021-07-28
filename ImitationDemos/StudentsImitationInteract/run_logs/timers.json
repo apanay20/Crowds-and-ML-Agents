@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1627477956",
+        "python_version": "3.9.5 (tags/v3.9.5:0a7dcbd, May  3 2021, 17:27:52) [MSC v.1928 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Desktop\\Crowds-and-ML-Agents\\venv\\Scripts\\mlagents-learn config/StudentsConfi_Imitation.yaml --run-id=StudentsImitationInteract --resume",
+        "mlagents_version": "0.27.0",
+        "mlagents_envs_version": "0.27.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.9.0+cu111",
+        "numpy_version": "1.20.3",
+        "end_time_seconds": "1627477961"
+    },
+    "total": 4.8994135,
+    "count": 1,
+    "self": 0.00951750000000029,
+    "children": {
+        "run_training.setup": {
+            "total": 0.0763917999999999,
+            "count": 1,
+            "self": 0.0763917999999999
+        },
+        "TrainerController.start_learning": {
+            "total": 4.8135042,
+            "count": 1,
+            "self": 0.00037020000000076436,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 4.813123099999999,
+                    "count": 1,
+                    "self": 4.813123099999999
+                },
+                "trainer_threads": {
+                    "total": 1.7999999997186933e-06,
+                    "count": 1,
+                    "self": 1.7999999997186933e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 9.099999999762076e-06,
+                    "count": 1,
+                    "self": 9.099999999762076e-06
+                }
+            }
+        }
+    }
+}

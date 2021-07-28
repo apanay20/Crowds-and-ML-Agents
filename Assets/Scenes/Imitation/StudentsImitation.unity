@@ -1906,12 +1906,13 @@ MonoBehaviour:
   agentPrefabDemo: {fileID: 7438625577731650158, guid: 6fbc0c7a6f6e9be4c991093a88d048ab,
     type: 3}
   numOfAgents: 40
-  neighbourPercentage: 90
+  neighbourPercentage: 80
   agentPrefab: {fileID: 4723999962356636545, guid: 9c44c49ab4cfd194fb8388628f7b2ddc,
     type: 3}
   activeAgents: {fileID: 410716366}
   inactiveAgents: {fileID: 1096783552}
   watiToSpawnTogether: {fileID: 191352169}
+  directorySaveRoute: 
 --- !u!1001 &1039091283
 PrefabInstance:
   m_ObjectHideFlags: 0
