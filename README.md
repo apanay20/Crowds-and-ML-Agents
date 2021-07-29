@@ -7,7 +7,7 @@ This project is a part of a summer internship at [CYENS - Centre of Excellence](
 ## Samples
 Students Dataset             |  ZARA Dataset
 :-------------------------:|:-------------------------:
-<img src="SampleImages/Sample1.PNG">  |  <img src="SampleImages/Sample2.PNG">
+<img src="SampleImages/StudentsRealGif.gif">  |  <img src="SampleImages/ZaraRealGif.gif">
 Students ML Agents |  ZARA ML Agents
 <img src="SampleImages/StudentsGif.gif">  |  <img src="SampleImages/ZaraGif.gif">
 <img src="SampleImages/Sample3.PNG">
