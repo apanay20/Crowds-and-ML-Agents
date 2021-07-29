@@ -8,7 +8,7 @@ public class Pause : MonoBehaviour
     public Button pauseBtn;
     private LoadData dataObj;
     public Slider runningSlider;
-    private bool paused = false;
+    public bool paused = false;
 
     void Start()
     {

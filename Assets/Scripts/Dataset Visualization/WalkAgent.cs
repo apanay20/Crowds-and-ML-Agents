@@ -12,17 +12,27 @@ public class WalkAgent : MonoBehaviour
     private List<Vector3> positions;
     private List<float> timeSteps;
     private LoadData trigger;
-    private int lastTimestep = 1;
+    private Dictionary<float, Vector3> hashData;
 
     // Start is called before the first frame update
     void Start()
     {
         trigger = GameObject.Find("LoadButton").GetComponent<LoadData>();
+        listToHash();
         this.transform.GetChild(0).gameObject.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = this.AgentName.Split('_')[1];
         setAgentColor();
         if(trigger.IsTrain == true)
         {
             //this.GetComponent<WalkGoal>().goalName = "Goal_" + this.AgentName.Split('_')[1];
+        }
+    }
+
+    private void listToHash()
+    {
+        this.hashData = new Dictionary<float, Vector3>();
+        for(int i=0; i < this.timeSteps.Count; i++)
+        {
+            this.hashData.Add(this.timeSteps[i], this.positions[i]);
         }
     }
 
@@ -71,15 +81,11 @@ public class WalkAgent : MonoBehaviour
             else
             {
                 setAppearance(true);
-                int tempPosIndex = this.timeSteps.BinarySearch((int)this.trigger.timestep);
-                if (tempPosIndex >= 0)
+                this.hashData.TryGetValue(this.trigger.timestep, out Vector3 nextPos);
+                if(nextPos != Vector3.zero)
                 {
-                    transform.rotation = Quaternion.LookRotation(this.positions[tempPosIndex] - transform.position);
-                    if (this.trigger.timestep <= this.lastTimestep)
-                        transform.position = this.positions[tempPosIndex];
-                    else
-                        transform.position = Vector3.MoveTowards(transform.position, this.positions[tempPosIndex], this.speed);
-                    this.lastTimestep = this.trigger.timestep;
+                    transform.LookAt(nextPos);
+                    transform.position = nextPos;
                 }
             }
         }
