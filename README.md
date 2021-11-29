@@ -4,6 +4,9 @@
 In this project we try simulate the human behaviour when moving in crowds using Unity and ML-Agents ToolKit. We have used different machine learning approaches, like reinforcement learning, imitation learning and combination of them.
 This project is a part of a summer internship at [CYENS - Centre of Excellence](https://www.cyens.org.cy/en-gb/).
 
+Author:
+* Andreas Panayiotou
+
 ## Samples
 Students Dataset             |  ZARA Dataset
 :-------------------------:|:-------------------------:
